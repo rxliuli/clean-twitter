@@ -1,62 +1,78 @@
 export type TranslateType = {
-    "twitter.symbol.TimelineConversation": {
+    "symbol.TimelineConversation": {
         value: "Timeline: Conversation"
-        params: [key: "twitter.symbol.TimelineConversation"]
+        params: [key: "symbol.TimelineConversation"]
     }
-    "twitter.symbol.DiscoverMore": {
+    "symbol.DiscoverMore": {
         value: "Discover more"
-        params: [key: "twitter.symbol.DiscoverMore"]
+        params: [key: "symbol.DiscoverMore"]
     }
-    "twitter.symbol.SourcedFromAcrossTwitter": {
+    "symbol.SourcedFromAcrossTwitter": {
         value: "Sourced from across Twitter"
-        params: [key: "twitter.symbol.SourcedFromAcrossTwitter"]
+        params: [key: "symbol.SourcedFromAcrossTwitter"]
     }
-    "twitter.symbol.VerifiedAccount": {
+    "symbol.VerifiedAccount": {
         value: "Verified account"
-        params: [key: "twitter.symbol.VerifiedAccount"]
+        params: [key: "symbol.VerifiedAccount"]
     }
-    "twitter.symbol.CommunitiesNewItems": {
+    "symbol.CommunitiesNewItems": {
         value: "Communities (New items)"
-        params: [key: "twitter.symbol.CommunitiesNewItems"]
+        params: [key: "symbol.CommunitiesNewItems"]
     }
-    "twitter.symbol.Communities": {
+    "symbol.Communities": {
         value: "Communities"
-        params: [key: "twitter.symbol.Communities"]
+        params: [key: "symbol.Communities"]
     }
-    "twitter.symbol.TwitterBlue": {
+    "symbol.TwitterBlue": {
         value: "Twitter Blue"
-        params: [key: "twitter.symbol.TwitterBlue"]
+        params: [key: "symbol.TwitterBlue"]
     }
-    "twitter.symbol.Verified": {
+    "symbol.Verified": {
         value: "Verified"
-        params: [key: "twitter.symbol.Verified"]
+        params: [key: "symbol.Verified"]
     }
-    "twitter.symbol.TimelineTrendingNow": {
+    "symbol.TimelineTrendingNow": {
         value: "Timeline: Trending now"
-        params: [key: "twitter.symbol.TimelineTrendingNow"]
+        params: [key: "symbol.TimelineTrendingNow"]
     }
-    "twitter.symbol.WhoToFollow": {
+    "symbol.WhoToFollow": {
         value: "Who to follow"
-        params: [key: "twitter.symbol.WhoToFollow"]
+        params: [key: "symbol.WhoToFollow"]
     }
-    "twitter.symbol.SearchAndExplore": {
+    "symbol.SearchAndExplore": {
         value: "Search and explore"
-        params: [key: "twitter.symbol.SearchAndExplore"]
+        params: [key: "symbol.SearchAndExplore"]
     }
-    "twitter.symbol.VerifiedOrganizations": {
+    "symbol.VerifiedOrganizations": {
         value: "Verified Organizations"
-        params: [key: "twitter.symbol.VerifiedOrganizations"]
+        params: [key: "symbol.VerifiedOrganizations"]
     }
-    "twitter.symbol.Trending": {
+    "symbol.Trending": {
         value: "Trending"
-        params: [key: "twitter.symbol.Trending"]
+        params: [key: "symbol.Trending"]
+    }
+    "form.title": {
+        value: "Configuration"
+        params: [key: "form.title"]
+    }
+    "form.language": {
+        value: "Language"
+        params: [key: "form.language"]
+    }
+    "form.hideHomeTabs": {
+        value: "Hide home tabs"
+        params: [key: "form.hideHomeTabs"]
+    }
+    "form.hideBlueBadge": {
+        value: "Hide blue badge"
+        params: [key: "form.hideBlueBadge"]
     }
     "example": {
         value: "example"
         params: [key: "example"]
     }
-    "twitter.symbol.MoreTween": {
+    "symbol.MoreTween": {
         value: string
-        params: [key: "twitter.symbol.MoreTween"]
+        params: [key: "symbol.MoreTween"]
     }
 };

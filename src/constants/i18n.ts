@@ -4,7 +4,7 @@ import enUS from '../i18n/en-US.json'
 import zhCN from '../i18n/zh-CN.json'
 import zhTW from '../i18n/zh-TW.json'
 import jaJP from '../i18n/ja-JP.json'
-import { Lang } from './langs'
+import { Lang, langList } from './langs'
 
 export function getLanguage(): Lang {
   return (localStorage.getItem('language') ?? navigator.language) as Lang
@@ -15,12 +15,9 @@ export function setLanguage(lang: Lang) {
   location.reload()
 }
 
-export const langs: { lang: Lang; label: string }[] = [
-  { lang: 'en-US', label: 'English' },
-  { lang: 'zh-CN', label: '简体中文' },
-  { lang: 'zh-TW', label: '繁体中文' },
-  { lang: 'ja-JP', label: '日本語' },
-]
+export const langs = langList.filter((it) =>
+  (['en-US', 'zh-CN', 'zh-TW', 'ja-JP'] as Lang[]).includes(it.value),
+)
 
 await i18next.init({
   lng: getLanguage(),

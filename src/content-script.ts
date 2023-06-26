@@ -43,9 +43,9 @@ function getSelectedElements(): HTMLElement[] {
       return false
     }
     return (
-      (s.includes(t('twitter.symbol.DiscoverMore')) &&
-        s.includes(t('twitter.symbol.SourcedFromAcrossTwitter'))) ||
-      s.includes(t('twitter.symbol.MoreTween'))
+      (s.includes(t('symbol.DiscoverMore')) &&
+        s.includes(t('symbol.SourcedFromAcrossTwitter'))) ||
+      s.includes(t('symbol.MoreTween'))
     )
   })
   if (findMoreIndex === -1) {
@@ -82,8 +82,8 @@ function hideSelectedFollowingTab() {
 function hideBlueBadge() {
   addCSS(
     generateHideCSS(
-      `[aria-label="${t('twitter.symbol.Trending')}"] *:has(> [aria-label="${t(
-        'twitter.symbol.VerifiedAccount',
+      `[aria-label="${t('symbol.Trending')}"] *:has(> [aria-label="${t(
+        'symbol.VerifiedAccount',
       )}"])`,
     ),
   )
@@ -95,25 +95,21 @@ function hideBlueBadge() {
 function hideOther() {
   addCSS(
     generateHideCSS(
-      `[aria-label="${t(
-        'twitter.symbol.CommunitiesNewItems',
-      )}"], [aria-label="${t('twitter.symbol.Communities')}"], [aria-label="${t(
-        'twitter.symbol.TwitterBlue',
-      )}"], [aria-label="${t('twitter.symbol.Verified')}"], [aria-label="${t(
-        'twitter.symbol.TimelineTrendingNow',
-      )}"], [aria-label="${t('twitter.symbol.WhoToFollow')}"], [aria-label="${t(
-        'twitter.symbol.SearchAndExplore',
-      )}"], [aria-label="${t('twitter.symbol.VerifiedOrganizations')}"]`,
+      `[aria-label="${t('symbol.CommunitiesNewItems')}"], [aria-label="${t(
+        'symbol.Communities',
+      )}"], [aria-label="${t('symbol.TwitterBlue')}"], [aria-label="${t(
+        'symbol.Verified',
+      )}"], [aria-label="${t('symbol.TimelineTrendingNow')}"], [aria-label="${t(
+        'symbol.WhoToFollow',
+      )}"], [aria-label="${t('symbol.SearchAndExplore')}"], [aria-label="${t(
+        'symbol.VerifiedOrganizations',
+      )}"]`,
       // submean
       '* > [href="/i/verified-orgs-signup"]',
       // sidebar
-      `[aria-label="${t(
-        'twitter.symbol.Trending',
-      )}"] > * > *:nth-child(3), [aria-label="${t(
-        'twitter.symbol.Trending',
-      )}"] > * > *:nth-child(4), [aria-label="${t(
-        'twitter.symbol.Trending',
-      )}"] > * > *:nth-child(5)`,
+      // `[aria-label="${t('symbol.Trending')}"] > * > *:nth-child(3)`,
+      `[aria-label="${t('symbol.Trending')}"] > * > *:nth-child(4)`,
+      `[aria-label="${t('symbol.Trending')}"] > * > *:nth-child(5)`,
       // "Verified" tab
       '[role="presentation"]:has(> [href="/notifications/verified"][role="tab"])',
     ),
@@ -121,12 +117,12 @@ function hideOther() {
 }
 
 const storage = (await Browser.storage.sync.get([
-  'selectedFollowingTab',
-  'hideDiscoverMore',
+  'hideHomeTabs',
+  'hideBlueBadge',
   'language',
 ])) as {
-  selectedFollowingTab?: boolean
-  hideDiscoverMore?: boolean
+  hideHomeTabs?: boolean
+  hideBlueBadge?: boolean
   language?: Lang
 }
 
@@ -135,8 +131,8 @@ const observer = new MutationObserver(function (mutations) {
     if (mutation.type === 'childList') {
       mutation.addedNodes.forEach(async function (node) {
         if (node.nodeType === Node.ELEMENT_NODE) {
-          storage.selectedFollowingTab && selectedFollowingTab()
-          storage.hideDiscoverMore && hideDiscoverMore()
+          storage.hideHomeTabs && selectedFollowingTab()
+          hideDiscoverMore()
         }
       })
     }
@@ -144,7 +140,7 @@ const observer = new MutationObserver(function (mutations) {
 })
 
 storage.language && i18next.changeLanguage(storage.language)
-storage.selectedFollowingTab && hideSelectedFollowingTab()
-hideBlueBadge()
+storage.hideHomeTabs && hideSelectedFollowingTab()
+storage.hideBlueBadge && hideBlueBadge()
 hideOther()
 observer.observe(document.body, { childList: true, subtree: true })
