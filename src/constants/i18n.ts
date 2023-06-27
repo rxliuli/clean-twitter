@@ -5,10 +5,7 @@ import zhCN from '../i18n/zh-CN.json'
 import zhTW from '../i18n/zh-TW.json'
 import jaJP from '../i18n/ja-JP.json'
 import { Lang, langList } from './langs'
-
-export function getLanguage(): Lang {
-  return (localStorage.getItem('language') ?? navigator.language) as Lang
-}
+import { getSyncStorage } from '../utils/storage'
 
 export function setLanguage(lang: Lang) {
   localStorage.setItem('language', lang)
@@ -19,18 +16,19 @@ export const langs = langList.filter((it) =>
   (['en-US', 'zh-CN', 'zh-TW', 'ja-JP'] as Lang[]).includes(it.value),
 )
 
-await i18next.init({
-  lng: getLanguage(),
-  fallbackLng: 'en-US',
-  debug: true,
-  resources: {
-    'en-US': { translation: enUS },
-    'zh-CN': { translation: zhCN },
-    'zh-TW': { translation: zhTW },
-    'ja-JP': { translation: jaJP },
-  } as Record<Lang, { translation: any }>,
-  keySeparator: false,
-})
+export const initI18n = async () =>
+  await i18next.init({
+    lng: (await (await getSyncStorage()).get('language')).language,
+    fallbackLng: 'en-US',
+    debug: true,
+    resources: {
+      'en-US': { translation: enUS },
+      'zh-CN': { translation: zhCN },
+      'zh-TW': { translation: zhTW },
+      'ja-JP': { translation: jaJP },
+    } as Record<Lang, { translation: any }>,
+    keySeparator: false,
+  })
 
 type T = TranslateType
 

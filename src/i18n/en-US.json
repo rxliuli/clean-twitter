@@ -2,7 +2,7 @@
   "symbol.TimelineConversation": "Timeline: Conversation",
   "symbol.DiscoverMore": "Discover more",
   "symbol.SourcedFromAcrossTwitter": "Sourced from across Twitter",
-  "symbol.VerifiedAccount": "Verified account",
+  "symbol.VerifiedAccount": "Get Verified",
   "symbol.CommunitiesNewItems": "Communities (New items)",
   "symbol.Communities": "Communities",
   "symbol.TwitterBlue": "Twitter Blue",
@@ -13,10 +13,15 @@
   "symbol.VerifiedOrganizations": "Verified Organizations",
   "symbol.Trending": "Trending",
 
-  "form.title": "Configuration",
-  "form.language": "Language",
-  "form.hideHomeTabs": "Hide home tabs",
-  "form.hideBlueBadge": "Hide blue badge",
+  "config.title": "Configuration",
+  "config.language": "Language",
+
+  "plugin.hideHomeTabs.name": "Hide home tabs",
+  "plugin.hideBlueBadge.name": "Hide blue badge",
+  "plugin.hideDiscoverMore.name": "Hide discover more",
+  "plugin.hideRightSidebar.name": "Hide right sidebar",
+  "plugin.hideSearchAndExplore.name": "Hide search and explore",
+  "plugin.hideOther.name": "Hide other",
 
   "example": "example"
 }

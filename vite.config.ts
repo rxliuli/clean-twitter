@@ -12,4 +12,10 @@ export default defineConfig({
       dirs: ['src/i18n'],
     }) as any,
   ],
+  base: './',
+  build: {
+    target: 'esnext',
+    minify: false,
+    cssMinify: false,
+  },
 })

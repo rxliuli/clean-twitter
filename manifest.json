@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Clean Twitter",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "action": { "default_popup": "index.html" },
   "permissions": ["storage"],
   "icons": {
@@ -12,7 +12,7 @@
   },
   "content_scripts": [
     {
-      "js": ["src/content-script.ts"],
+      "js": ["src/content-script/main.ts"],
       "matches": ["https://twitter.com/*"]
     }
   ]

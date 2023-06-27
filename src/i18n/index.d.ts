@@ -12,7 +12,7 @@ export type TranslateType = {
         params: [key: "symbol.SourcedFromAcrossTwitter"]
     }
     "symbol.VerifiedAccount": {
-        value: "Verified account"
+        value: "Get Verified"
         params: [key: "symbol.VerifiedAccount"]
     }
     "symbol.CommunitiesNewItems": {
@@ -51,21 +51,37 @@ export type TranslateType = {
         value: "Trending"
         params: [key: "symbol.Trending"]
     }
-    "form.title": {
+    "config.title": {
         value: "Configuration"
-        params: [key: "form.title"]
+        params: [key: "config.title"]
     }
-    "form.language": {
+    "config.language": {
         value: "Language"
-        params: [key: "form.language"]
+        params: [key: "config.language"]
     }
-    "form.hideHomeTabs": {
+    "plugin.hideHomeTabs.name": {
         value: "Hide home tabs"
-        params: [key: "form.hideHomeTabs"]
+        params: [key: "plugin.hideHomeTabs.name"]
     }
-    "form.hideBlueBadge": {
+    "plugin.hideBlueBadge.name": {
         value: "Hide blue badge"
-        params: [key: "form.hideBlueBadge"]
+        params: [key: "plugin.hideBlueBadge.name"]
+    }
+    "plugin.hideDiscoverMore.name": {
+        value: "Hide discover more"
+        params: [key: "plugin.hideDiscoverMore.name"]
+    }
+    "plugin.hideRightSidebar.name": {
+        value: "Hide right sidebar"
+        params: [key: "plugin.hideRightSidebar.name"]
+    }
+    "plugin.hideSearchAndExplore.name": {
+        value: "Hide search and explore"
+        params: [key: "plugin.hideSearchAndExplore.name"]
+    }
+    "plugin.hideOther.name": {
+        value: "Hide other"
+        params: [key: "plugin.hideOther.name"]
     }
     "example": {
         value: "example"
