@@ -75,6 +75,10 @@ export type TranslateType = {
         value: "Image"
         params: [key: "symbol.Image"]
     }
+    "symbol.ProfileTimelines": {
+        value: "Profile timelines"
+        params: [key: "symbol.ProfileTimelines"]
+    }
     "config.title": {
         value: "Configuration"
         params: [key: "config.title"]

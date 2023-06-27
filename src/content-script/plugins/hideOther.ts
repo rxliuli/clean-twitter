@@ -21,7 +21,9 @@ export function hideOther(): BasePlugin {
           // submean
           '* > [href="/i/verified-orgs-signup"]',
           // sidebar
-          // `[aria-label="${t('symbol.Trending')}"] > * > *:nth-child(3)`,
+          `[aria-label="${t('symbol.Trending')}"] > * > *:nth-child(3):not([aria-label="${t('symbol.Trending')}"] *:has(> [aria-label="${t(
+            'symbol.VerifiedAccount',
+          )}"]))`,
           `[aria-label="${t('symbol.Trending')}"] > * > *:nth-child(4)`,
           `[aria-label="${t('symbol.Trending')}"] > * > *:nth-child(5)`,
           // "Verified" tab

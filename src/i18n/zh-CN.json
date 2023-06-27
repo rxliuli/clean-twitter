@@ -18,6 +18,7 @@
   "symbol.Toolbar.Retweet": "转推",
   "symbol.Toolbar.likes": "喜欢",
   "symbol.Image": "图像",
+  "symbol.ProfileTimelines": "个人资料时间线",
 
   "config.title": "配置",
   "config.language": "Twitter 使用的语言",

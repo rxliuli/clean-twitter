@@ -24,14 +24,26 @@ export function hideRightSidebar(): BasePlugin {
             max-width: initial;
         }
         /* Toolbar */
-        [data-testid="tweet"] [role="group"]:has([aria-label*="${t('symbol.Toolbar.reply')}"]):has([aria-label*="${t('symbol.Toolbar.Retweet')}"]):has([aria-label*="${t('symbol.Toolbar.likes')}"]) {
+        [data-testid="tweet"] [role="group"]:has([aria-label*="${t(
+          'symbol.Toolbar.reply',
+        )}"]):has([aria-label*="${t(
+        'symbol.Toolbar.Retweet',
+      )}"]):has([aria-label*="${t('symbol.Toolbar.likes')}"]) {
             max-width: initial;
         }
         /* Image */
-        [data-testid="tweet"] div:has(> div> div > div > a[role="link"] > div [aria-label="${t('symbol.Image')}"]),
-        [data-testid="tweet"] a[role="link"] > div:has([aria-label="${t('symbol.Image')}"]) {
+        [data-testid="tweet"] div:has(> div> div > div > a[role="link"] > div [aria-label="${t(
+          'symbol.Image',
+        )}"]),
+        [data-testid="tweet"] a[role="link"] > div:has([aria-label="${t(
+          'symbol.Image',
+        )}"]) {
             width: 100% !important;
             height: 100% !important;
+        }
+        /* Profile */
+        div:has(> nav[aria-label="${t('symbol.ProfileTimelines')}"]) {
+          max-width: initial;
         }
       `)
     },
