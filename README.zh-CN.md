@@ -1,5 +1,7 @@
 # Clean Twitter
 
+<a href="https://www.producthunt.com/posts/clean-twitter?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-clean&#0045;twitter" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=401819&theme=light" alt="Clean&#0032;Twitter - Some&#0032;features&#0032;of&#0032;cleaning&#0032;Twitter | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+
 清理 Twitter 的一些功能，包括：获得认证, Twitter Blue, 验证的组织, 社区, 发现更多, 搜索和发现, 推荐关注, 时间线：当前趋势 等.
 
 支持多语言
