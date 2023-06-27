@@ -15,7 +15,7 @@ export function hideOther(): BasePlugin {
           `[aria-label="${t('symbol.TwitterBlue')}"]`,
           `[aria-label="${t('symbol.Verified')}"]`,
           `[aria-label="${t('symbol.TimelineTrendingNow')}"]`,
-          `[aria-label="${t('symbol.WhoToFollow')}"]`,
+          `[aria-label="${t('symbol.Trending')}"] *:has(> [aria-label="${t('symbol.WhoToFollow')}"])`,
           // `[aria-label="${t('symbol.SearchAndExplore')}"]`,
           `[aria-label="${t('symbol.VerifiedOrganizations')}"]`,
           // submean

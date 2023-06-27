@@ -7,6 +7,13 @@ import { BasePlugin } from './plugin'
  */
 function hideSelectedFollowingTab() {
   addCSS(generateHideCSS('[role="tablist"]:has([href="/home"][role="tab"])'))
+  addCSS(`
+    @media (max-width: 500px) {
+      header[role="banner"] > * {
+        height: 54px !important;
+      }
+    }
+  `)
 }
 
 function selectedFollowingTab() {

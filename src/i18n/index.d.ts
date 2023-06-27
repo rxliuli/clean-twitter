@@ -43,6 +43,14 @@ export type TranslateType = {
         value: "Search and explore"
         params: [key: "symbol.SearchAndExplore"]
     }
+    "symbol.TimelineExplore": {
+        value: "Timeline: Explore"
+        params: [key: "symbol.TimelineExplore"]
+    }
+    "symbol.HomeTimeline": {
+        value: "Home timeline"
+        params: [key: "symbol.HomeTimeline"]
+    }
     "symbol.VerifiedOrganizations": {
         value: "Verified Organizations"
         params: [key: "symbol.VerifiedOrganizations"]

@@ -4,6 +4,7 @@ import { hideHomeTabs } from './hideHomeTabs'
 import { hideOther } from './hideOther'
 import { hideRightSidebar } from './hideRightSidebar'
 import { hideSearchAndExplore } from './hideSearchAndExplore'
+import { hideTimelineExplore } from './hideTimelineExplore'
 
 export const plugins = () => [
   hideBlueBadge(),
@@ -11,5 +12,6 @@ export const plugins = () => [
   hideHomeTabs(),
   hideRightSidebar(),
   hideSearchAndExplore(),
+  hideTimelineExplore(),
   hideOther(),
 ]

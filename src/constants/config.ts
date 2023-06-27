@@ -10,6 +10,7 @@ export interface Config {
   hideHomeTabs?: boolean // default: true
   hideRightSidebar?: boolean // default: false
   hideSearchAndExplore?: boolean // default: true
+  hideTimelineExplore?: boolean // default: true
   hideOther?: boolean // default: true
 }
 
