@@ -5,7 +5,7 @@ import zhCN from '../i18n/zh-CN.json'
 import zhTW from '../i18n/zh-TW.json'
 import jaJP from '../i18n/ja-JP.json'
 import { Lang, langList } from './langs'
-import { getSyncStorage } from '../utils/storage'
+import Browser from 'webextension-polyfill'
 
 export function setLanguage(lang: Lang) {
   localStorage.setItem('language', lang)
@@ -18,7 +18,7 @@ export const langs = langList.filter((it) =>
 
 export const initI18n = async () =>
   await i18next.init({
-    lng: (await (await getSyncStorage()).get('language')).language,
+    lng: (await Browser.storage.sync.get('language')).language,
     fallbackLng: 'en-US',
     debug: true,
     resources: {

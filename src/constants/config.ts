@@ -1,7 +1,7 @@
 import { plugins } from '../content-script/plugins'
-import { getSyncStorage } from '../utils/storage'
 import { Lang } from './langs'
 import type { Storage } from 'webextension-polyfill'
+import Browser from 'webextension-polyfill'
 
 export interface Config {
   language?: Lang // default: Display language
@@ -23,19 +23,20 @@ export const defaultConfig = plugins().reduce(
 export async function getConfig() {
   return {
     ...defaultConfig,
-    ...(await (
-      await getSyncStorage()
-    ).get([...plugins().map((it) => it.name), 'language'])),
+    ...(await Browser.storage.sync.get([
+      ...plugins().map((it) => it.name),
+      'language',
+    ])),
   } as Config
 }
 
 export async function setConfig(config: Partial<Config>) {
-  await (await getSyncStorage()).set(config)
+  await Browser.storage.sync.set(config)
 }
 
 export async function onChange(
   cb: (changes: Storage.StorageAreaOnChangedChangesType) => void,
 ) {
-  ;(await getSyncStorage()).onChanged.addListener(cb)
-  return async () => (await getSyncStorage()).onChanged.removeListener(cb)
+  Browser.storage.sync.onChanged.addListener(cb)
+  return async () => Browser.storage.sync.onChanged.removeListener(cb)
 }

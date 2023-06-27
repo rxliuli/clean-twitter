@@ -15,5 +15,10 @@
       "js": ["src/content-script/main.ts"],
       "matches": ["https://twitter.com/*"]
     }
-  ]
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "clean-twttier@rxliuli.com"
+    }
+  }
 }
