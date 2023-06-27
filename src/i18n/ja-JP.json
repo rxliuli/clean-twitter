@@ -14,5 +14,10 @@
   "symbol.HomeTimeline": "ホームタイムライン",
   "symbol.VerifiedOrganizations": "Verified Organizations",
   "symbol.Trending": "トレンド",
+  "symbol.Toolbar.reply": "返信",
+  "symbol.Toolbar.Retweet": "のリツイート",
+  "symbol.Toolbar.likes": "いいね",
+  "symbol.Image": "画像",
+
   "example": "example"
 }

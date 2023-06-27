@@ -14,6 +14,10 @@
   "symbol.HomeTimeline": "主页时间线",
   "symbol.VerifiedOrganizations": "Verified Organizations",
   "symbol.Trending": "当前趋势",
+  "symbol.Toolbar.reply": "回复",
+  "symbol.Toolbar.Retweet": "转推",
+  "symbol.Toolbar.likes": "喜欢",
+  "symbol.Image": "图像",
 
   "config.title": "配置",
   "config.language": "Twitter 使用的语言",

@@ -59,6 +59,22 @@ export type TranslateType = {
         value: "Trending"
         params: [key: "symbol.Trending"]
     }
+    "symbol.Toolbar.reply": {
+        value: "reply"
+        params: [key: "symbol.Toolbar.reply"]
+    }
+    "symbol.Toolbar.Retweet": {
+        value: "Retweet"
+        params: [key: "symbol.Toolbar.Retweet"]
+    }
+    "symbol.Toolbar.likes": {
+        value: "likes"
+        params: [key: "symbol.Toolbar.likes"]
+    }
+    "symbol.Image": {
+        value: "Image"
+        params: [key: "symbol.Image"]
+    }
     "config.title": {
         value: "Configuration"
         params: [key: "config.title"]

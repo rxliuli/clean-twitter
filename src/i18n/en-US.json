@@ -14,6 +14,10 @@
   "symbol.HomeTimeline": "Home timeline",
   "symbol.VerifiedOrganizations": "Verified Organizations",
   "symbol.Trending": "Trending",
+  "symbol.Toolbar.reply": "reply",
+  "symbol.Toolbar.Retweet": "Retweet",
+  "symbol.Toolbar.likes": "likes",
+  "symbol.Image": "Image",
 
   "config.title": "Configuration",
   "config.language": "Language",

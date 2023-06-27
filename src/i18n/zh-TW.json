@@ -15,6 +15,10 @@
   "symbol.HomeTimeline": "首頁時間軸",
   "symbol.VerifiedOrganizations": "Verified Organizations",
   "symbol.Trending": "流行趨勢",
+  "symbol.Toolbar.reply": "回覆",
+  "symbol.Toolbar.Retweet": "轉推",
+  "symbol.Toolbar.likes": "喜歡",
+  "symbol.Image": "圖片",
   
   "example": "example"
 }
