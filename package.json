@@ -11,7 +11,7 @@
     "pack-xpi": "web-ext build -s ./dist/ -o -a release/ -n firefox.zip",
     "pack-zip": "rimraf extension.zip && jszip-cli add dist/ -o ./release/chrome.zip",
     "pack-crx": "crx3 -z release/chrome.zip -p chrome.pem -o release/chrome.crx ./dist",
-    "pack-all": "rimraf release && mkdir release && pnpm build && pnpm pack-zip",
+    "pack-all": "rimraf release && pnpm build && pnpm pack-xpi && pnpm pack-src && pnpm pack-zip",
     "start-firefox": "web-ext run -s ./dist",
     "start-chromium": "web-ext run -s ./dist --target=chromium"
   },
