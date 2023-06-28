@@ -6,7 +6,7 @@ export function hideSearchAndExplore(): BasePlugin {
   return {
     name: 'hideSearchAndExplore',
     description: t('plugin.hideSearchAndExplore.name'),
-    default: true,
+    default: false,
     init() {
       addCSS(generateHideCSS(`[aria-label="${t('symbol.SearchAndExplore')}"]`))
     },
