@@ -25,6 +25,8 @@
   "config.language": "Twitter 使用的语言",
 
   "plugin.hideHomeTabs.name": "隐藏首页的标签页",
+  "plugin.hideRightSidebar.name": "隐藏主页右侧边栏",
+  "plugin.hideSearchAndExplore.name": "隐藏搜索和发现",
   "plugin.hideBlueBadge.name": "隐藏获得认证的广告",
   "plugin.hideDiscoverMore.name": "隐藏发现更多",
   "plugin.hideTimelineExplore.name": "隐藏搜索页面的推荐",
