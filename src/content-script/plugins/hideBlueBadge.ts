@@ -16,6 +16,7 @@ export function hideBlueBadge(): BasePlugin {
           `[aria-label="${t('symbol.Trending')}"] *:has(> [aria-label="${t(
             'symbol.VerifiedAccount',
           )}"])`,
+          `[role="dialog"] *:has(> [href="/i/twitter_blue_sign_up"])`,
         ),
       )
     },
