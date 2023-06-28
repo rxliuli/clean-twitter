@@ -6,24 +6,25 @@ import { i18nextDtsGen } from '@liuli-util/rollup-plugin-i18next-dts-gen'
 import { cp, readFile, writeFile, rm, access } from 'fs/promises'
 import path from 'path'
 
+const pathExists = (path: string) =>
+  access(path)
+    .then(() => true)
+    .catch(() => false)
+
 function buildFirefox(): Plugin {
-  let mode: string
+  let command: string
   return {
     name: 'build-firefox',
     enforce: 'post',
     config(_, env) {
-      mode = env.mode
+      command = env.command
     },
     async closeBundle() {
-      if (mode !== 'build') {
+      if (command !== 'build') {
         return
       }
       const distFirefox = path.resolve('dist-firefox')
-      if (
-        await access(distFirefox)
-          .then(() => true)
-          .catch(() => false)
-      ) {
+      if (await pathExists(distFirefox)) {
         await rm(distFirefox, {
           recursive: true,
           force: true,
