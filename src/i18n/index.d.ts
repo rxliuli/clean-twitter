@@ -60,7 +60,7 @@ export type TranslateType = {
         params: [key: "symbol.Trending"]
     }
     "symbol.Toolbar.reply": {
-        value: "reply"
+        value: "Reply"
         params: [key: "symbol.Toolbar.reply"]
     }
     "symbol.Toolbar.Retweet": {
@@ -68,8 +68,12 @@ export type TranslateType = {
         params: [key: "symbol.Toolbar.Retweet"]
     }
     "symbol.Toolbar.likes": {
-        value: "likes"
+        value: "Like"
         params: [key: "symbol.Toolbar.likes"]
+    }
+    "symbol.Toolbar.ViewTweetAnalytics": {
+        value: "View Tweet analytics"
+        params: [key: "symbol.Toolbar.ViewTweetAnalytics"]
     }
     "symbol.Image": {
         value: "Image"
@@ -106,6 +110,14 @@ export type TranslateType = {
     "plugin.hideSearchAndExplore.name": {
         value: "Hide search and explore"
         params: [key: "plugin.hideSearchAndExplore.name"]
+    }
+    "plugin.hideTimelineExplore.name": {
+        value: "Hide timeline: Explore"
+        params: [key: "plugin.hideTimelineExplore.name"]
+    }
+    "plugin.hideViewTweetAnalytics.name": {
+        value: "Hide view Tweet analytics"
+        params: [key: "plugin.hideViewTweetAnalytics.name"]
     }
     "plugin.hideOther.name": {
         value: "Hide other"

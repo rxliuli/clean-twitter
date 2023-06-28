@@ -14,9 +14,10 @@
   "symbol.HomeTimeline": "Home timeline",
   "symbol.VerifiedOrganizations": "Verified Organizations",
   "symbol.Trending": "Trending",
-  "symbol.Toolbar.reply": "reply",
+  "symbol.Toolbar.reply": "Reply",
   "symbol.Toolbar.Retweet": "Retweet",
-  "symbol.Toolbar.likes": "likes",
+  "symbol.Toolbar.likes": "Like",
+  "symbol.Toolbar.ViewTweetAnalytics": "View Tweet analytics",
   "symbol.Image": "Image",
   "symbol.ProfileTimelines": "Profile timelines",
 
@@ -28,6 +29,8 @@
   "plugin.hideDiscoverMore.name": "Hide discover more",
   "plugin.hideRightSidebar.name": "Hide right sidebar",
   "plugin.hideSearchAndExplore.name": "Hide search and explore",
+  "plugin.hideTimelineExplore.name": "Hide timeline: Explore",
+  "plugin.hideViewTweetAnalytics.name": "Hide view Tweet analytics",
   "plugin.hideOther.name": "Hide other",
 
   "example": "example"

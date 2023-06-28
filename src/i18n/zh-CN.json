@@ -17,6 +17,7 @@
   "symbol.Toolbar.reply": "回复",
   "symbol.Toolbar.Retweet": "转推",
   "symbol.Toolbar.likes": "喜欢",
+  "symbol.Toolbar.ViewTweetAnalytics": "查看推文分析",
   "symbol.Image": "图像",
   "symbol.ProfileTimelines": "个人资料时间线",
 
@@ -26,6 +27,8 @@
   "plugin.hideHomeTabs.name": "隐藏首页的标签页",
   "plugin.hideBlueBadge.name": "隐藏获得认证的广告",
   "plugin.hideDiscoverMore.name": "隐藏发现更多",
+  "plugin.hideTimelineExplore.name": "隐藏搜索页面的推荐",
+  "plugin.hideViewTweetAnalytics.name": "隐藏查看推文分析链接",
   "plugin.hideOther.name": "隐藏其他的广告",
 
   "symbol.MoreTween": "更多推文",
