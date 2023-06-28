@@ -1,5 +1,5 @@
 import { t } from '../../constants/i18n'
-import { addCSS, generateHideCSS } from '../../utils/css'
+import { addCSS, cleanCSS, generateHideCSS } from '../../utils/css'
 import { BasePlugin } from './plugin'
 
 export function hideTimelineExplore(): BasePlugin {
@@ -7,7 +7,18 @@ export function hideTimelineExplore(): BasePlugin {
     name: 'hideTimelineExplore',
     description: t('plugin.hideTimelineExplore.name'),
     default: true,
-    init() {
+    observer() {
+      if (location.pathname !== '/explore') {
+        cleanCSS('hideTimelineExplore')
+        return
+      }
+      if (
+        document.querySelector(
+          'style[data-clean-twitter="hideTimelineExplore"]',
+        )
+      ) {
+        return
+      }
       addCSS(
         generateHideCSS(
           `[aria-label="${t('symbol.HomeTimeline')}"] [aria-label="${t(
@@ -15,6 +26,7 @@ export function hideTimelineExplore(): BasePlugin {
           )}"]`,
           `[role="tablist"]:has(> [role="presentation"])`,
         ),
+        'hideTimelineExplore',
       )
     },
   }

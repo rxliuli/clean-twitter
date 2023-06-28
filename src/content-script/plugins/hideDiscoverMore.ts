@@ -1,4 +1,5 @@
 import { t } from '../../constants/i18n'
+import { addCSS, generateHideCSS } from '../../utils/css'
 import { BasePlugin } from './plugin'
 
 function getSelectedElements(): HTMLElement[] {
@@ -44,8 +45,16 @@ export function hideDiscoverMore(): BasePlugin {
     name: 'hideDiscoverMore',
     description: t('plugin.hideDiscoverMore.name'),
     default: true,
-    observer() {
-      _hideDiscoverMore()
+    // observer() {
+    //   _hideDiscoverMore()
+    // },
+    init() {
+      addCSS(
+        generateHideCSS(
+          `section div[data-testid=cellInnerDiv]:has(h2[role="heading"] + div)`,
+          `section div[data-testid=cellInnerDiv]:has(h2[role="heading"] + div) ~ div`,
+        ),
+      )
     },
   }
 }
