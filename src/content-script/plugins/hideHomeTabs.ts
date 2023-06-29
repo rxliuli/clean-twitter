@@ -1,26 +1,28 @@
 import { t } from '../../constants/i18n'
-import { addCSS, generateHideCSS } from '../../utils/css'
+import { addCSS, cleanCSS, generateHideCSS } from '../../utils/css'
 import { BasePlugin } from './plugin'
 
 /**
  * 隐藏主页的 Following Tab
  */
 function hideSelectedFollowingTab() {
-  addCSS(generateHideCSS('[role="tablist"]:has([href="/home"][role="tab"])'))
-  addCSS(`
+  addCSS(
+    generateHideCSS('[role="tablist"]:has([href="/home"][role="tab"])'),
+    'hideHomeTabs',
+  )
+  addCSS(
+    `
     @media (max-width: 500px) {
       header[role="banner"] > * {
         height: 54px !important;
       }
     }
-  `)
+  `,
+    'hideHomeTabs',
+  )
 }
 
 function selectedFollowingTab() {
-  if (window.location.pathname !== '/home') {
-    // console.log('selectedFollowingTab ignore url')
-    return
-  }
   const tabs = [
     ...document.querySelectorAll('[href="/home"][role="tab"]'),
   ] as HTMLElement[]
@@ -34,10 +36,14 @@ export function hideHomeTabs(): BasePlugin {
     name: 'hideHomeTabs',
     description: t('plugin.hideHomeTabs.name'),
     default: true,
-    init() {
-      hideSelectedFollowingTab()
-    },
     observer() {
+      if (window.location.pathname !== '/home') {
+        cleanCSS('hideHomeTabs')
+        return
+      }
+      if (!document.querySelector('style[data-clean-twitter="hideHomeTabs"]')) {
+        hideSelectedFollowingTab()
+      }
       selectedFollowingTab()
     },
   }
