@@ -52,9 +52,6 @@ export function App() {
       </div>
       {plugins().map((it) => (
         <div className="flex items-center space-x-2" key={it.name}>
-          <label htmlFor={it.name} className="font-bold">
-            {it.description}:{' '}
-          </label>
           <input
             type="checkbox"
             id={it.name}
@@ -62,6 +59,9 @@ export function App() {
             onChange={(ev) => setConfig({ [it.name]: ev.target.checked })}
             className="border border-gray-300 rounded-md p-2"
           ></input>
+          <label htmlFor={it.name} className="font-bold">
+            {it.description}:{' '}
+          </label>
         </div>
       ))}
     </form>
