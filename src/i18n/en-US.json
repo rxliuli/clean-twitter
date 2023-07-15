@@ -32,6 +32,7 @@
   "plugin.hideTimelineExplore.name": "Hide timeline: Explore",
   "plugin.hideViewTweetAnalytics.name": "Hide view Tweet analytics",
   "plugin.hideOther.name": "Hide other",
+  "plugin.hideLive.name": "Hide live",
 
   "example": "example"
 }

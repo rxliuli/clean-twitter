@@ -8,14 +8,11 @@ import i18next from 'i18next'
 
 function useConfig(): [Config, (value: Partial<Config>) => Promise<void>] {
   const [v, set] = useState<Config>(defaultConfig)
-  useMount(() => {
-    const get = async () => {
-      const result = await getConfig()
-      await initI18n()
-      await i18next.changeLanguage(result.language)
-      set(result)
-    }
-    get()
+  useMount(async () => {
+    const result = await getConfig()
+    await initI18n()
+    await i18next.changeLanguage(result.language)
+    set(result)
   })
   return [
     v,
@@ -28,9 +25,6 @@ function useConfig(): [Config, (value: Partial<Config>) => Promise<void>] {
 
 export function App() {
   const [config, setConfig] = useConfig()
-  useMount(() => {
-    console.log('onMounted')
-  })
   return (
     <form className="min-w-[400px] space-y-4 p-4">
       <header>

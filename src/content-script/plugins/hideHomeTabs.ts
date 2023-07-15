@@ -31,20 +31,23 @@ function selectedFollowingTab() {
   }
 }
 
+function hideTabs() {
+  if (window.location.pathname !== '/home') {
+    cleanCSS('hideHomeTabs')
+    return
+  }
+  if (!document.querySelector('style[data-clean-twitter="hideHomeTabs"]')) {
+    hideSelectedFollowingTab()
+  }
+  selectedFollowingTab()
+}
+
 export function hideHomeTabs(): BasePlugin {
   return {
     name: 'hideHomeTabs',
     description: t('plugin.hideHomeTabs.name'),
     default: true,
-    observer() {
-      if (window.location.pathname !== '/home') {
-        cleanCSS('hideHomeTabs')
-        return
-      }
-      if (!document.querySelector('style[data-clean-twitter="hideHomeTabs"]')) {
-        hideSelectedFollowingTab()
-      }
-      selectedFollowingTab()
-    },
+    init: hideTabs,
+    observer: hideTabs,
   }
 }
