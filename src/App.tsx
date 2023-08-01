@@ -60,7 +60,7 @@ export function App() {
             className="border border-gray-300 rounded-md p-2"
           ></input>
           <label htmlFor={it.name} className="font-bold">
-            {it.description}:{' '}
+            {it.description}
           </label>
         </div>
       ))}
