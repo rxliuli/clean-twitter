@@ -20,6 +20,8 @@ export function hideOther(): BasePlugin {
           `[aria-label="${t('symbol.VerifiedOrganizations')}"]`,
           // submean
           '* > [href="/i/verified-orgs-signup"]',
+          '* > [href="/i/blue_sign_up"]',
+          '* > [href="/settings/monetization"]',
           // sidebar
           `[aria-label="${t('symbol.Trending')}"] > * > *:nth-child(3):not([aria-label="${t('symbol.Trending')}"] *:has(> [aria-label="${t(
             'symbol.VerifiedAccount',
