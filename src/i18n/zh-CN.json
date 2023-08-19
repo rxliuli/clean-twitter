@@ -2,6 +2,7 @@
   "symbol.TimelineConversation": "时间线：对话",
   "symbol.DiscoverMore": "发现更多",
   "symbol.SourcedFromAcrossTwitter": "源自于整个 Twitter",
+  "symbol.MoreTween": "显示更多回复",
   "symbol.VerifiedAccount": "获得认证",
   "symbol.CommunitiesNewItems": "Communities (New items)",
   "symbol.Communities": "社群",
@@ -34,6 +35,5 @@
   "plugin.hideOther.name": "隐藏其他的广告",
   "plugin.hideLive.name": "隐藏直播",
 
-  "symbol.MoreTween": "更多推文",
   "example": "example"
 }

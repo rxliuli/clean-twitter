@@ -11,6 +11,10 @@ export type TranslateType = {
         value: "Sourced from across Twitter"
         params: [key: "symbol.SourcedFromAcrossTwitter"]
     }
+    "symbol.MoreTween": {
+        value: "Show more replies"
+        params: [key: "symbol.MoreTween"]
+    }
     "symbol.VerifiedAccount": {
         value: "Get Verified"
         params: [key: "symbol.VerifiedAccount"]
@@ -130,9 +134,5 @@ export type TranslateType = {
     "example": {
         value: "example"
         params: [key: "example"]
-    }
-    "symbol.MoreTween": {
-        value: string
-        params: [key: "symbol.MoreTween"]
     }
 };

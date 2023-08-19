@@ -13,12 +13,8 @@ export function hideViewTweetAnalytics(): BasePlugin {
           `[data-testid="tweet"] [role="group"]:has([aria-label*="${t(
             'symbol.Toolbar.reply',
           )}"]):has([aria-label*="${t(
-            'symbol.Toolbar.Retweet',
-          )}"]):has([aria-label*="${t(
             'symbol.Toolbar.likes',
-          )}"]) div:has(> [aria-label*="${t(
-            'symbol.Toolbar.ViewTweetAnalytics',
-          )}"])`,
+          )}"]) div:has(> [href^="/"][href*="/status/"][href$="/analytics"])`,
         ),
       )
     },

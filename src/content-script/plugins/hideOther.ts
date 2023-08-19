@@ -21,6 +21,7 @@ export function hideOther(): BasePlugin {
           // submean
           '* > [href="/i/verified-orgs-signup"]',
           '* > [href="/i/blue_sign_up"]',
+          '* > [href="/i/verified-choose"]',
           '* > [href="/settings/monetization"]',
           // sidebar
           `[aria-label="${t('symbol.Trending')}"] > * > *:nth-child(3):not([aria-label="${t('symbol.Trending')}"] *:has(> [aria-label="${t(
