@@ -34,6 +34,7 @@
   "plugin.hideViewTweetAnalytics.name": "隐藏查看推文分析链接",
   "plugin.hideOther.name": "隐藏其他的广告",
   "plugin.hideLive.name": "隐藏直播",
+  "plugin.restoreLogo.name": "恢复 Twitter 的 Logo",
 
   "example": "example"
 }

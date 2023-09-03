@@ -7,6 +7,7 @@ import { hideRightSidebar } from './hideRightSidebar'
 import { hideSearchAndExplore } from './hideSearchAndExplore'
 import { hideTimelineExplore } from './hideTimelineExplore'
 import { hideViewTweetAnalytics } from './hideViewTweetAnalytics'
+import { restoreLogo } from './restoreLogo'
 
 export const plugins = () => [
   hideBlueBadge(),
@@ -18,4 +19,5 @@ export const plugins = () => [
   hideViewTweetAnalytics(),
   hideOther(),
   hideLive(),
+  restoreLogo(),
 ]

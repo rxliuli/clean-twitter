@@ -131,6 +131,10 @@ export type TranslateType = {
         value: "Hide live"
         params: [key: "plugin.hideLive.name"]
     }
+    "plugin.restoreLogo.name": {
+        value: "Restore the logo"
+        params: [key: "plugin.restoreLogo.name"]
+    }
     "example": {
         value: "example"
         params: [key: "example"]

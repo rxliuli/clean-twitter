@@ -34,6 +34,7 @@
   "plugin.hideViewTweetAnalytics.name": "Hide view Tweet analytics",
   "plugin.hideOther.name": "Hide other",
   "plugin.hideLive.name": "Hide live",
+  "plugin.restoreLogo.name": "Restore the logo",
 
   "example": "example"
 }
