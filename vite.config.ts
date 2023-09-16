@@ -1,9 +1,11 @@
-import { defineConfig } from 'vite'
+/// <reference types="vitest" />
+import { defineConfig, UserConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { crx } from '@crxjs/vite-plugin'
 import manifest from './manifest.json'
 import { i18nextDtsGen } from '@liuli-util/rollup-plugin-i18next-dts-gen'
 import { firefox } from '@liuli-util/vite-plugin-firefox-dist'
+import { UserConfig as TestConfig } from 'vitest/config'
 
 export default defineConfig({
   plugins: [
@@ -24,4 +26,8 @@ export default defineConfig({
     minify: false,
     cssMinify: false,
   },
-})
+  test: {
+    environment: 'happy-dom',
+    setupFiles: ['./src/setupTests.ts'],
+  } as TestConfig['test'],
+} as UserConfig)
