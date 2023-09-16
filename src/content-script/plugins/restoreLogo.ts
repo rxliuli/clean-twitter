@@ -17,6 +17,11 @@ export function restoreLogo(): BasePlugin {
       if ($logo) {
         $logo.outerHTML = svg
       }
+      const $ico = document.querySelector(`head>link[rel="shortcut icon"]`)
+      if ($ico) {
+        ;($ico as HTMLAnchorElement).href =
+          '//abs.twimg.com/favicons/twitter.ico'
+      }
     },
     observer() {
       this.init?.()
