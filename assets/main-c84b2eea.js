@@ -1,4 +1,4 @@
-import { c as commonjsGlobal, g as getDefaultExportFromCjs, r as reactExports, j as jsxRuntimeExports } from './index-3b86e0fc.js';
+import { c as commonjsGlobal, g as getDefaultExportFromCjs, r as reactExports, j as jsxRuntimeExports, a as client, R as React } from './client-d0413b9c.js';
 
 const consoleLogger = {
   type: 'logger',
@@ -4233,7 +4233,7 @@ function useConfig() {
     }
   ];
 }
-function OptionView() {
+function App() {
   const [config, setConfig2] = useConfig();
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("form", { className: "min-w-[400px] space-y-4 p-4", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("header", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "flex-grow text-lg font-bold", children: t("config.title") }) }),
@@ -4273,4 +4273,8 @@ function OptionView() {
   ] });
 }
 
-export { OptionView, OptionView as default };
+const index = '';
+
+client.createRoot(document.getElementById("root")).render(
+  /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) })
+);
