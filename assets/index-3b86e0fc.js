@@ -1,5 +1,3 @@
-import { g as getDefaultExportFromCjs, _ as __vitePreload } from './_commonjsHelpers-912bb820.js';
-
 true&&(function polyfill() {
     const relList = document.createElement('link').relList;
     if (relList && relList.supports && relList.supports('modulepreload')) {
@@ -43,6 +41,12 @@ true&&(function polyfill() {
         fetch(link.href, fetchOpts);
     }
 }());
+
+var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+function getDefaultExportFromCjs (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
 
 var jsxRuntime = {exports: {}};
 
@@ -2188,14 +2192,72 @@ function createHashHistory() {
   return proxyHistory(createHashHistory$1());
 }
 
+const scriptRel = 'modulepreload';const assetsURL = function(dep, importerUrl) { return new URL(dep, importerUrl).href };const seen = {};const __vitePreload = function preload(baseModule, deps, importerUrl) {
+    // @ts-expect-error true will be replaced with boolean later
+    if (!true || !deps || deps.length === 0) {
+        return baseModule();
+    }
+    const links = document.getElementsByTagName('link');
+    return Promise.all(deps.map((dep) => {
+        // @ts-expect-error assetsURL is declared before preload.toString()
+        dep = assetsURL(dep, importerUrl);
+        if (dep in seen)
+            return;
+        seen[dep] = true;
+        const isCss = dep.endsWith('.css');
+        const cssSelector = isCss ? '[rel="stylesheet"]' : '';
+        const isBaseRelative = !!importerUrl;
+        // check if the file is already preloaded by SSR markup
+        if (isBaseRelative) {
+            // When isBaseRelative is true then we have `importerUrl` and `dep` is
+            // already converted to an absolute URL by the `assetsURL` function
+            for (let i = links.length - 1; i >= 0; i--) {
+                const link = links[i];
+                // The `links[i].href` is an absolute URL thanks to browser doing the work
+                // for us. See https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflecting-content-attributes-in-idl-attributes:idl-domstring-5
+                if (link.href === dep && (!isCss || link.rel === 'stylesheet')) {
+                    return;
+                }
+            }
+        }
+        else if (document.querySelector(`link[href="${dep}"]${cssSelector}`)) {
+            return;
+        }
+        const link = document.createElement('link');
+        link.rel = isCss ? 'stylesheet' : scriptRel;
+        if (!isCss) {
+            link.as = 'script';
+            link.crossOrigin = '';
+        }
+        link.href = dep;
+        document.head.appendChild(link);
+        if (isCss) {
+            return new Promise((res, rej) => {
+                link.addEventListener('load', res);
+                link.addEventListener('error', () => rej(new Error(`Unable to preload CSS for ${dep}`)));
+            });
+        }
+    }))
+        .then(() => baseModule())
+        .catch((err) => {
+        const e = new Event('vite:preloadError', { cancelable: true });
+        // @ts-expect-error custom payload
+        e.payload = err;
+        window.dispatchEvent(e);
+        if (!e.defaultPrevented) {
+            throw err;
+        }
+    });
+};
+
 const routes = [
   {
     path: "/",
-    component: () => __vitePreload(() => import('./OptionView-0a605c72.js'),true?["./OptionView-0a605c72.js","./config-e9f2c23c.js","./browser-polyfill-5a5eabde.js","./_commonjsHelpers-912bb820.js"]:void 0,import.meta.url)
+    component: () => __vitePreload(() => import('./OptionView-86de10b5.js'),true?[]:void 0,import.meta.url)
   },
   {
     path: "/callback",
-    component: () => __vitePreload(() => import('./CallbackView-f7ad3902.js'),true?["./CallbackView-f7ad3902.js","./_commonjsHelpers-912bb820.js"]:void 0,import.meta.url)
+    component: () => __vitePreload(() => import('./CallbackView-9903d03e.js'),true?[]:void 0,import.meta.url)
   }
 ];
 
@@ -2209,4 +2271,4 @@ client.createRoot(document.getElementById("root")).render(
   /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) })
 );
 
-export { jsxRuntimeExports as j, reactExports as r };
+export { commonjsGlobal as c, getDefaultExportFromCjs as g, jsxRuntimeExports as j, reactExports as r };

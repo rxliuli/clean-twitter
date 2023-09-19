@@ -1,5 +1,4 @@
-import { j as jsxRuntimeExports } from './index.html-09709b8f.js';
-import './_commonjsHelpers-912bb820.js';
+import { j as jsxRuntimeExports } from './index-3b86e0fc.js';
 
 const CallbackView = () => {
   return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "callback" });
