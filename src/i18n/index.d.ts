@@ -135,6 +135,10 @@ export type TranslateType = {
         value: "Restore the logo"
         params: [key: "plugin.restoreLogo.name"]
     }
+    "plugin.hideBlockTweet.name": {
+        value: "Hide block tweet"
+        params: [key: "plugin.hideBlockTweet.name"]
+    }
     "example": {
         value: "example"
         params: [key: "example"]

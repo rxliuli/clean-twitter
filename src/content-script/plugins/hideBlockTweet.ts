@@ -1,11 +1,12 @@
 import { AsyncArray } from '@liuli-util/async'
 import { BasePlugin } from './plugin'
 import { initIndexeddb } from '../utils/initIndexeddb'
+import { t } from '../../constants/i18n'
 
 export function hideBlockTweet(): BasePlugin {
   return {
     name: 'hideBlockTweet',
-    description: 'hideBlockTweet',
+    description: t('plugin.hideBlockTweet.name'),
     default: true,
     async observer() {
       const elements = [
