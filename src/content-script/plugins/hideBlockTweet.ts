@@ -9,6 +9,9 @@ export function hideBlockTweet(): BasePlugin {
     description: t('plugin.hideBlockTweet.name'),
     default: true,
     async observer() {
+      if (!/^\/.*\/status\/.*/.test(location.pathname)) {
+        return
+      }
       const elements = [
         ...document.querySelectorAll('[data-testid="cellInnerDiv"]'),
       ] as HTMLElement[]

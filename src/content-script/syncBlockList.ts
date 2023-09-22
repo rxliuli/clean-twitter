@@ -3,10 +3,12 @@ import { initIndexeddb } from './utils/initIndexeddb'
 import Browser from 'webextension-polyfill'
 import dayjs from 'dayjs'
 
-const blockList =
-  'https://github.com/daymade/Twitter-Block-Porn/raw/master/lists/all.json'
+const blocks = [
+  'https://github.com/daymade/Twitter-Block-Porn/raw/master/lists/all.json',
+  'https://github.com/rxliuli/clean-twttier/raw/master/public/blockList.json',
+]
 
-function oncePerDay<T extends (...args: any[]) => any>(
+function oncePerHour<T extends (...args: any[]) => any>(
   fn: T,
   cacheKey: string,
 ): T {
@@ -24,31 +26,33 @@ function oncePerDay<T extends (...args: any[]) => any>(
   } as T
 }
 
-export const syncBlockList = oncePerDay(async () => {
+async function f() {
   const db = await initIndexeddb()
-  const list = (await Browser.runtime.sendMessage({
-    action: 'get',
-    url: blockList,
-  })) as {
-    id_str: string
-    screen_name: string
-  }[]
-  list.push({
-    id_str: '625171725',
-    screen_name: 'rihenara__doll',
-  })
-  const updateList = await AsyncArray.filter(
-    list,
-    async (it) => !(await db.getKey('block', it.id_str)),
-  )
-  console.log('updateList', updateList)
-  if (updateList.length === 0) {
-    return
-  }
-  await AsyncArray.forEach(updateList, async (it) => {
-    await db.put('block', {
-      id: it.id_str,
-      username: it.screen_name,
+  await AsyncArray.forEach(blocks, async (url) => {
+    const list = (await Browser.runtime.sendMessage({
+      action: 'get',
+      url,
+    })) as {
+      id_str: string
+      screen_name: string
+    }[]
+    const updateList = await AsyncArray.filter(
+      list,
+      async (it) => !(await db.getKey('block', it.id_str)),
+    )
+    console.log('updateList', updateList)
+    if (updateList.length === 0) {
+      return
+    }
+    await AsyncArray.forEach(updateList, async (it) => {
+      await db.put('block', {
+        id: it.id_str,
+        username: it.screen_name,
+      })
     })
   })
-}, 'syncBlockList')
+}
+
+export const syncBlockList = import.meta.env.DEV
+  ? f
+  : oncePerHour(f, 'syncBlockList')
