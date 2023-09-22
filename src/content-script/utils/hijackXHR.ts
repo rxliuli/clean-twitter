@@ -1,79 +1,32 @@
 import { AsyncArray } from '@liuli-util/async'
 import { TweetInfo, initIndexeddb } from './initIndexeddb'
 import { get, pick } from 'lodash-es'
-
-// excute once
-const words = (function () {
-  const keywordsString = ''
-  const words = keywordsString.split('|')
-  return words
-})()
+import { blockUser } from './blockUser'
 
 const blockUserIds = new Set<string>()
 
-// GPT 给出的关键词，我啥也不知道
-export function isPornography(str: string) {
-  return words.some((s) => str.includes(s))
-}
-
 export function parseTwitterResponseResult(result: any): TweetInfo {
-  const full_text = result.legacy.full_text
+  const fullText = result.legacy.full_text
   const lang = result.legacy.lang
-  const following = result.core.user_results.result.legacy.following
+  const following = !!result.core.user_results.result.legacy.following
   const description = result.core.user_results.result.legacy.description
   const name = result.core.user_results.result.legacy.name
-  const screen_name = result.core.user_results.result.legacy.screen_name
+  const username = result.core.user_results.result.legacy.screen_name
   const avatar = result.core.user_results.result.legacy.profile_image_url_https
   const restId = result.rest_id
   const userId = result.core.user_results.result.rest_id
 
-  let isPorn = false
-  let field = ''
-  if (isPornography(full_text)) {
-    isPorn = true
-    field = 'full_text'
-  } else if (isPornography(description)) {
-    isPorn = true
-    field = 'description'
-  } else if (isPornography(name)) {
-    isPorn = true
-    field = 'name'
-  } else if (isPornography(screen_name)) {
-    isPorn = true
-    field = 'screen_name'
-  }
-
-  // whitelist
-  const whiteList = localStorage.getItem('twitter_responser_whitelist')
-    ? JSON.parse(localStorage.getItem('twitter_responser_whitelist')!)
-    : []
-  const matchedWhiteList = whiteList.some(
-    (item: any) => item.screen_name === screen_name,
-  )
-  if (matchedWhiteList) {
-    isPorn = false
-  }
-
-  // `user` who you are `following`
-  if (following) {
-    isPorn = false
-  }
-
-  const tweet: TweetInfo = {
+  return {
     id: restId,
-    full_text,
+    fullText: fullText,
     description,
     name,
-    screen_name,
+    username,
     userId,
-    isPorn,
-    field,
-    restId,
     avatar,
     lang,
+    following,
   }
-
-  return tweet
 }
 
 export function parseTwitterResponserInfo(response: any): TweetInfo[] {
@@ -105,40 +58,13 @@ async function updateDatabase(tweets: TweetInfo[]) {
   })
 }
 
-function get_cookie(cname: string) {
-  const name = cname + '='
-  const ca = document.cookie.split(';')
-  for (let i = 0; i < ca.length; ++i) {
-    const c = ca[i].trim()
-    if (c.indexOf(name) === 0) {
-      return c.substring(name.length, c.length)
-    }
-  }
-  return ''
-}
-
-async function blockUser(id: string) {
-  // https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/mute-block-report-users/api-reference/post-blocks-create
-  const p = new URLSearchParams([['user_id', id]])
-  await fetch('https://twitter.com/i/api/1.1/blocks/create.json', {
-    headers: {
-      authorization:
-        'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA',
-      'content-type': 'application/x-www-form-urlencoded',
-      'X-Csrf-Token': get_cookie('ct0'),
-      'x-twitter-active-user': 'yes',
-      'x-twitter-auth-type': 'OAuth2Session',
-    },
-    body: p.toString(),
-    method: 'POST',
-  })
-}
-
 async function handleTweetDetail(responseBody: any) {
   const tweets = parseTwitterResponserInfo(responseBody)
   const db = await initIndexeddb()
   const blockList = await AsyncArray.filter(
-    tweets.map((it) => pick(it, 'userId', 'screen_name')),
+    tweets
+      .filter((it) => !it.following)
+      .map((it) => pick(it, 'userId', 'username')),
     async (it) => {
       const blockUser = await db
         .transaction('block', 'readonly')
@@ -222,7 +148,7 @@ export function filterTweets(
           return true
         }
         const tweet = parseTwitterResponseResult(result)
-        // console.log('isBlock', tweet.screen_name, isBlock(tweet))
+        // console.log('isBlock', tweet.username, isBlock(tweet))
         return !isBlock(tweet)
       })
     })

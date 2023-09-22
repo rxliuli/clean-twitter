@@ -1,14 +1,9 @@
 import { AsyncArray } from '@liuli-util/async'
-import { initIndexeddb } from './utils/initIndexeddb'
-import Browser from 'webextension-polyfill'
 import dayjs from 'dayjs'
+import Browser from 'webextension-polyfill'
+import { initIndexeddb } from './utils/initIndexeddb'
 
-const blocks = [
-  'https://github.com/daymade/Twitter-Block-Porn/raw/master/lists/all.json',
-  'https://github.com/rxliuli/clean-twttier/raw/master/public/blockList.json',
-]
-
-function oncePerHour<T extends (...args: any[]) => any>(
+export function oncePerHour<T extends (...args: any[]) => any>(
   fn: T,
   cacheKey: string,
 ): T {
@@ -26,15 +21,19 @@ function oncePerHour<T extends (...args: any[]) => any>(
   } as T
 }
 
-async function f() {
+export async function f() {
+  const blocks = [
+    'https://github.com/daymade/Twitter-Block-Porn/raw/master/lists/all.json',
+    'https://github.com/rxliuli/clean-twttier/raw/master/public/blockList.json',
+  ]
   const db = await initIndexeddb()
   await AsyncArray.forEach(blocks, async (url) => {
     const list = (await Browser.runtime.sendMessage({
-      action: 'get',
+      method: 'get',
       url,
     })) as {
       id_str: string
-      screen_name: string
+      username: string
     }[]
     const updateList = await AsyncArray.filter(
       list,
@@ -47,7 +46,7 @@ async function f() {
     await AsyncArray.forEach(updateList, async (it) => {
       await db.put('block', {
         id: it.id_str,
-        username: it.screen_name,
+        username: it.username,
       })
     })
   })

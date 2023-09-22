@@ -2,32 +2,28 @@ import { DBSchema, IDBPDatabase, openDB } from 'idb'
 
 export interface TweetInfo {
   id: string // 唯一 id，目前与 restId 相同
-  full_text: string // 全部的文本
+  fullText: string // 全部的文本
   description: string // 个人简介
   name: string // 名称
-  screen_name: string // 用户名
   userId: string // 用户 id
-  isPorn: boolean // 是否为色情
-  field: string // 色情字段
-  restId: string // tweet id
+  username: string // 用户名
   avatar: string // 头像
   lang: string
+  following: boolean // 是否关注
 }
 
 export interface AllDBSchema extends DBSchema {
   config: {
     key: string
-    value: {
-      key: string
-      value: any
-    }
-    indexes: {
-      key: string
-    }
+    value: any
   }
   tweet: {
     key: string
     value: TweetInfo
+    indexes: {
+      userId: string
+      username: string
+    }
   }
   block: {
     key: string
@@ -42,7 +38,7 @@ export interface AllDBSchema extends DBSchema {
 }
 
 export const initIndexeddb = async (): Promise<IDBPDatabase<AllDBSchema>> =>
-  await openDB<AllDBSchema>('clean-twitter-database', 1, {
+  await openDB<AllDBSchema>('clean-twitter-0.5.4', 1, {
     upgrade(db) {
       const names = db.objectStoreNames
       if (!names.contains('config')) {
@@ -51,9 +47,11 @@ export const initIndexeddb = async (): Promise<IDBPDatabase<AllDBSchema>> =>
         })
       }
       if (!names.contains('tweet')) {
-        db.createObjectStore('tweet', {
+        const store = db.createObjectStore('tweet', {
           keyPath: 'id',
         })
+        store.createIndex('userId', 'userId')
+        store.createIndex('username', 'username')
       }
       if (!names.contains('block')) {
         const store = db.createObjectStore('block', {

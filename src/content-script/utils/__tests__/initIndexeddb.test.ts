@@ -41,16 +41,14 @@ describe('service', () => {
     const tweetStore = db.transaction('tweet', 'readwrite').objectStore('tweet')
     const tweet: TweetInfo = {
       id: 'test',
-      full_text: 'test',
+      fullText: 'test',
       description: 'test',
       name: 'test',
-      screen_name: 'test',
-      isPorn: false,
-      field: 'full_text',
-      restId: 'test',
+      username: 'test',
       avatar: 'test',
       lang: 'zh',
       userId: 'test',
+      following: false,
     }
     await tweetStore.add(tweet)
     expect(await tweetStore.get('test')).deep.eq(tweet)
