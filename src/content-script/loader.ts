@@ -3,6 +3,7 @@ import { getConfig, onChange } from '../constants/config'
 import { plugins } from './plugins'
 import { cleanCSS } from '../utils/css'
 import { initI18n } from '../constants/i18n'
+import { syncBlockList } from './syncBlockList'
 
 const config = await getConfig()
 
@@ -43,3 +44,5 @@ onChange((items) => {
   cleanCSS()
   activePlugins().forEach((it) => it.init?.())
 })
+
+syncBlockList()

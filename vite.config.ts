@@ -6,28 +6,45 @@ import manifest from './manifest.json'
 import { i18nextDtsGen } from '@liuli-util/rollup-plugin-i18next-dts-gen'
 import { firefox } from '@liuli-util/vite-plugin-firefox-dist'
 import { UserConfig as TestConfig } from 'vitest/config'
+import path from 'path'
 
-export default defineConfig({
-  plugins: [
+export default defineConfig(({ mode }) => {
+  const plugins = [
     react(),
-    crx({ manifest }),
     i18nextDtsGen({
       dirs: ['src/i18n'],
     }) as any,
-    firefox({
-      browser_specific_settings: {
-        gecko: { id: 'clean-twttier@rxliuli.com', strict_min_version: '109.0' },
+  ]
+  if (mode !== 'web') {
+    plugins.push(
+      crx({ manifest }),
+      firefox({
+        browser_specific_settings: {
+          gecko: {
+            id: 'clean-twttier@rxliuli.com',
+            strict_min_version: '109.0',
+          },
+        },
+      }),
+    )
+  }
+  return {
+    plugins: plugins,
+    base: './',
+    build: {
+      target: 'esnext',
+      minify: false,
+      cssMinify: false,
+      rollupOptions: {
+        input: {
+          main: path.resolve(__dirname, './index.html'),
+          callback: path.resolve(__dirname, './callback/index.html'),
+        },
       },
-    }),
-  ],
-  base: './',
-  build: {
-    target: 'esnext',
-    minify: false,
-    cssMinify: false,
-  },
-  test: {
-    environment: 'happy-dom',
-    setupFiles: ['./src/setupTests.ts'],
-  } as TestConfig['test'],
-} as UserConfig)
+    },
+    test: {
+      environment: 'happy-dom',
+      setupFiles: ['./src/setupTests.ts'],
+    } as TestConfig['test'],
+  } as UserConfig
+})

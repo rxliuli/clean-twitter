@@ -1,6 +1,11 @@
 import { expect, it } from 'vitest'
-import { parseTwitterResponserInfo, parseTwitterTimeline } from '../hijackXHR'
+import {
+  filterTweets,
+  parseTwitterResponserInfo,
+  parseTwitterTimeline,
+} from '../hijackXHR'
 import tweetDetail from './assets/tweetDetail.json'
+import tweetDetail2 from './assets/tweetDetail2.json'
 import timeline from './assets/timeline.json'
 import { TweetInfo } from '../initIndexeddb'
 
@@ -13,10 +18,12 @@ it('parseTwitterResponserInfo', () => {
         '漫画・アニメ・声優・レイヤー大好き\n無言フォロー大歓迎‼\n推し🧸👑🍏🐼🪭🧸🍼🍖⚡💎💫🍮🀄🔥🐷🍑🐓🥧💊💙',
       name: 'ゼロ🧸👑🍏🐼🪭🧸🍼🍖⚡💎💫🍮🀄🔥🐷🍑🐓',
       screen_name: '3GXAt2etoYJ9ivO',
-      isPorn: true,
-      field: 'full_text',
+      isPorn: false,
+      field: '',
       restId: '1698911099025068275',
       id: '1698911099025068275',
+      userId: '1400043510242418694',
+      lang: 'ja',
       avatar:
         'https://pbs.twimg.com/profile_images/1492003043818500098/fXLoMYqR_normal.jpg',
     },
@@ -27,8 +34,10 @@ it('parseTwitterResponserInfo', () => {
       name: '西又 葵［Aoi Nishimata］',
       screen_name: 'aoi_nishimata',
       isPorn: false,
-      field: 'full_text',
+      field: '',
       restId: '1698915213247173085',
+      userId: '88457089',
+      lang: 'ja',
       id: '1698915213247173085',
       avatar:
         'https://pbs.twimg.com/profile_images/1416775971135496194/Fl9Jzfa4_normal.jpg',
@@ -36,7 +45,17 @@ it('parseTwitterResponserInfo', () => {
   ] as TweetInfo[])
 })
 
+it('tweetDetail2', () => {
+  const r = parseTwitterResponserInfo(tweetDetail2)
+  console.log(r)
+})
+
 it('parseTimeline', () => {
   const r = parseTwitterTimeline(timeline)
+  console.log(r)
+})
+
+it('filterTweets', () => {
+  const r = filterTweets(tweetDetail2, () => false)
   console.log(r)
 })

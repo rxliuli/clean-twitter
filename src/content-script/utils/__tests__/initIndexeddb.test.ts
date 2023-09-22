@@ -50,6 +50,7 @@ describe('service', () => {
       restId: 'test',
       avatar: 'test',
       lang: 'zh',
+      userId: 'test',
     }
     await tweetStore.add(tweet)
     expect(await tweetStore.get('test')).deep.eq(tweet)

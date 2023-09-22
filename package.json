@@ -13,11 +13,13 @@
     "pack-crx": "crx3 -z release/chrome.zip -p chrome.pem -o release/chrome.crx ./dist",
     "pack-all": "rimraf release && pnpm build && pnpm pack-xpi && pnpm pack-src && pnpm pack-zip",
     "start-firefox": "web-ext run -s ./dist",
-    "start-chromium": "web-ext run -s ./dist --target=chromium"
+    "start-chromium": "web-ext run -s ./dist --target=chromium",
+    "deploy": "pnpm build --mode web && gh-pages -d dist/ --dotfiles"
   },
   "dependencies": {
     "@liuli-util/async": "^3.6.1",
     "@liuli-util/test": "^3.7.0",
+    "@mswjs/interceptors": "^0.25.2",
     "eventemitter3": "^5.0.1",
     "i18next": "^23.2.3",
     "idb": "^7.1.1",
@@ -47,6 +49,7 @@
     "dotenv": "^16.3.1",
     "fake-indexeddb": "^4.0.2",
     "fs-extra": "^11.1.1",
+    "gh-pages": "^6.0.0",
     "happy-dom": "^10.11.2",
     "langchain": "^0.0.144",
     "pathe": "^1.1.1",

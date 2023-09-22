@@ -1,3 +1,4 @@
+import { hideBlockTweet } from './hideBlockTweet'
 import { hideBlueBadge } from './hideBlueBadge'
 import { hideDiscoverMore } from './hideDiscoverMore'
 import { hideHomeTabs } from './hideHomeTabs'
@@ -20,4 +21,5 @@ export const plugins = () => [
   hideOther(),
   hideLive(),
   restoreLogo(),
+  hideBlockTweet(),
 ]
