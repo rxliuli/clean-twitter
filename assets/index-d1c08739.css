@@ -476,6 +476,9 @@ video {
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
+.block {
+  display: block;
+}
 .flex {
   display: flex;
 }
