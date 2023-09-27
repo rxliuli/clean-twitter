@@ -53,12 +53,6 @@ export function restoreShareLink(): BasePlugin {
     description: t('plugin.restoreShareLink.name'),
     default: false,
     observer() {
-      if (
-        !/^\/.*\/status\/.*/.test(location.pathname) &&
-        location.pathname !== '/home'
-      ) {
-        return
-      }
       // console.log('restoreShareLink')
       const elements = [
         ...document.querySelectorAll('[data-testid="cellInnerDiv"]'),
