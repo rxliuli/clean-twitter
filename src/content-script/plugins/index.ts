@@ -9,6 +9,7 @@ import { hideSearchAndExplore } from './hideSearchAndExplore'
 import { hideTimelineExplore } from './hideTimelineExplore'
 import { hideViewTweetAnalytics } from './hideViewTweetAnalytics'
 import { restoreLogo } from './restoreLogo'
+import { restoreShareLink } from './restoreShareLink'
 
 export const plugins = () => [
   hideBlueBadge(),
@@ -22,4 +23,5 @@ export const plugins = () => [
   hideLive(),
   restoreLogo(),
   hideBlockTweet(),
+  restoreShareLink(),
 ]

@@ -17,6 +17,9 @@ dependencies:
   '@octokit/rest':
     specifier: ^20.0.1
     version: 20.0.1
+  copy-to-clipboard:
+    specifier: ^3.3.3
+    version: 3.3.3
   eventemitter3:
     specifier: ^5.0.1
     version: 5.0.1

@@ -21,6 +21,7 @@
     "@liuli-util/test": "^3.7.0",
     "@mswjs/interceptors": "^0.25.2",
     "@octokit/rest": "^20.0.1",
+    "copy-to-clipboard": "^3.3.3",
     "eventemitter3": "^5.0.1",
     "i18next": "^23.2.3",
     "idb": "^7.1.1",

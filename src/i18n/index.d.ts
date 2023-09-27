@@ -139,6 +139,10 @@ export type TranslateType = {
         value: "Hide block tweet"
         params: [key: "plugin.hideBlockTweet.name"]
     }
+    "plugin.restoreShareLink.name": {
+        value: "Restore share link"
+        params: [key: "plugin.restoreShareLink.name"]
+    }
     "example": {
         value: "example"
         params: [key: "example"]

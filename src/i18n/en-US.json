@@ -36,6 +36,7 @@
   "plugin.hideLive.name": "Hide live",
   "plugin.restoreLogo.name": "Restore the logo",
   "plugin.hideBlockTweet.name": "Hide block tweet",
+  "plugin.restoreShareLink.name": "Restore share link",
 
   "example": "example"
 }
