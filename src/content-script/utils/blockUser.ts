@@ -15,8 +15,7 @@ export async function blockUser(id: string) {
   const p = new URLSearchParams([['user_id', id]])
   await fetch('https://twitter.com/i/api/1.1/blocks/create.json', {
     headers: {
-      authorization:
-        'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA',
+      authorization: import.meta.env.VITE_TWITTER_TOKEN,
       'content-type': 'application/x-www-form-urlencoded',
       'X-Csrf-Token': get_cookie('ct0'),
       'x-twitter-active-user': 'yes',

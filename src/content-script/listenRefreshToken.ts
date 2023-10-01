@@ -1,11 +1,9 @@
 import Browser from 'webextension-polyfill'
 import { TweetInfo } from './utils/initIndexeddb'
+import { oAuthApp } from '../constants/github'
+import { createBlockIssue } from './plugins/hideBlockTweet'
 
 function listenRefreshToken() {
-  if (!['clean-twttier.rxliuli.com', 'localhost'].includes(location.hostname)) {
-    return
-  }
-
   window.addEventListener(
     'message',
     async (event) => {
@@ -17,18 +15,18 @@ function listenRefreshToken() {
       if (event.data.type === 'FROM_PAGE') {
         const data = event.data.data as {
           code: string
-          state: TweetInfo & {
-            url: string
-          }
+          state: TweetInfo & { link: string }
         }
-        // 保存 refreshToken
-        await Browser.runtime.sendMessage({
-          method: 'getAccessToken',
+        const auth = await oAuthApp.createToken({
           code: data.code,
+          state: JSON.stringify(data.state),
         })
-        // 创建 PR
-        // const port = Browser.runtime.connect()
-        // port.postMessage(event.data.text)
+        await Browser.storage.local.set({
+          refreshToken: data.code,
+          refreshState: JSON.stringify(data.state),
+          accessToken: auth.authentication.token,
+        })
+        await createBlockIssue(data.state)
       }
     },
     false,

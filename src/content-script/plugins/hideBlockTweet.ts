@@ -3,6 +3,20 @@ import { BasePlugin } from './plugin'
 import { TweetInfo, initIndexeddb } from '../utils/initIndexeddb'
 import { t } from '../../constants/i18n'
 import Browser from 'webextension-polyfill'
+import { oAuthApp } from '../../constants/github'
+import { Octokit } from 'octokit'
+import { blockUser } from '../utils/blockUser'
+
+function extractUsernameFromTweet(elements: HTMLElement): string | undefined {
+  const avatar = elements.querySelector(
+    '[data-testid^="UserAvatar-Container-"]',
+  ) as HTMLElement
+  if (!avatar) {
+    return
+  }
+  const username = avatar.dataset.testid?.slice('UserAvatar-Container-'.length)
+  return username
+}
 
 async function hideTweet(elements: HTMLElement[]) {
   const db = await initIndexeddb()
@@ -10,15 +24,10 @@ async function hideTweet(elements: HTMLElement[]) {
     if (it.style.display) {
       return false
     }
-    const avatar = it.querySelector(
-      '[data-testid^="UserAvatar-Container-"]',
-    ) as HTMLElement
-    if (!avatar) {
+    const username = extractUsernameFromTweet(it)
+    if (!username) {
       return false
     }
-    const username = avatar.dataset.testid?.slice(
-      'UserAvatar-Container-'.length,
-    )
     const r = (await db.countFromIndex('block', 'username', username)) > 0
     // console.log('isBlock: ', username, r)
     return r
@@ -42,19 +51,38 @@ function parseQuotesLink(quotesLink: string): {
   return { link, tweetId, username }
 }
 
-async function createBlockPR(tweet: TweetInfo & { link: string }) {
-  const token = await Browser.storage.local.get('refreshToken')
-  if (!token.refreshToken) {
-    // globalThis.open(
-    //   oAuthApp.getWebFlowAuthorizationUrl({
-    //     scopes: ['public_repo'],
-    //     state: JSON.stringify(tweet),
-    //     redirectUrl: RedirectURL,
-    //   }).url,
-    //   '_blank',
-    // )
+export async function createBlockIssue(tweet: TweetInfo & { link: string }) {
+  const auth = await Browser.storage.local.get(['refreshToken', 'accessToken'])
+  if (!auth.refreshToken) {
+    globalThis.open(
+      oAuthApp.getWebFlowAuthorizationUrl({
+        state: JSON.stringify(tweet),
+      }).url,
+      '_blank',
+    )
     return
   }
+  const octokit = new Octokit({ auth: auth.accessToken })
+  const owner = import.meta.env.VITE_GITHUB_BLOCKLIST_OWNER
+  const repo = import.meta.env.VITE_GITHUB_BLOCKLIST_REPO
+  const issues = await octokit.rest.search.issuesAndPullRequests({
+    q: `repo:${owner}/${repo} ${tweet.userId} in:title type:issue`,
+  })
+  if (issues.data.total_count > 0) {
+    console.log('issue is exist')
+    return
+  }
+  await octokit.rest.issues.create({
+    owner,
+    repo,
+    title: `Block ${tweet.userId} ${tweet.username}`,
+    body:
+      '```json\n' +
+      JSON.stringify(tweet, undefined, 2) +
+      '\n```' +
+      `\n${tweet.link}`,
+  })
+  console.log('issue created')
 }
 
 async function addBlockButton() {
@@ -66,13 +94,13 @@ async function addBlockButton() {
     return
   }
   const blockButton = menu.querySelector(
-    '[role="menuitem"]:has(path[d="M12 3.75c-4.55 0-8.25 3.69-8.25 8.25 0 1.92.66 3.68 1.75 5.08L17.09 5.5C15.68 4.4 13.92 3.75 12 3.75zm6.5 3.17L6.92 18.5c1.4 1.1 3.16 1.75 5.08 1.75 4.56 0 8.25-3.69 8.25-8.25 0-1.92-.65-3.68-1.75-5.08zM1.75 12C1.75 6.34 6.34 1.75 12 1.75S22.25 6.34 22.25 12 17.66 22.25 12 22.25 1.75 17.66 1.75 12z"])',
+    '[role="menuitem"][data-testid="block"]',
   )
   if (!blockButton) {
     return
   }
-  const newNode = blockButton.cloneNode() as HTMLElement
-  newNode.textContent = 'Block and report'
+  const newNode = blockButton.cloneNode(true) as HTMLElement
+  newNode.querySelector('div > div > span')!.textContent = 'Block and report'
   newNode.id = 'block-and-report'
 
   newNode.addEventListener('click', async () => {
@@ -88,11 +116,25 @@ async function addBlockButton() {
       throw new Error('not found tweet')
     }
     console.log('click', parsed, tweet)
-    await createBlockPR({
-      ...tweet,
-      link: parsed.link,
+    await Promise.all([
+      blockUser(tweet.userId),
+      createBlockIssue({
+        ...tweet,
+        link: parsed.link,
+      }),
+    ])
+    ;(
+      [...document.querySelectorAll('[data-testid="tweet"]')] as HTMLElement[]
+    ).forEach((it) => {
+      const username = extractUsernameFromTweet(it)
+      if (!username) {
+        return
+      }
+      if (username === tweet.username) {
+        it.style.display = 'none'
+      }
     })
-    // await blockUser(tweet.userId)
+    alert('block success')
     menu.parentElement!.remove()
   })
   menu.insertBefore(newNode, menu.firstChild)
@@ -113,7 +155,7 @@ export function hideBlockTweet(): BasePlugin {
       if (elements.length === 0) {
         return
       }
-      await Promise.all([hideTweet(elements)])
+      await Promise.all([hideTweet(elements), addBlockButton()])
     },
   }
 }
