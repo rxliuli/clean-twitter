@@ -125,7 +125,7 @@ function makeString(object) {
   if (object == null) return '';
   return '' + object;
 }
-function copy(a, s, t) {
+function copy$1(a, s, t) {
   a.forEach(m => {
     if (s[m]) t[m] = s[m];
   });
@@ -414,7 +414,7 @@ class Translator extends EventEmitter {
   constructor(services) {
     let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     super();
-    copy(['resourceStore', 'languageUtils', 'pluralResolver', 'interpolator', 'backendConnector', 'i18nFormat', 'utils'], services, this);
+    copy$1(['resourceStore', 'languageUtils', 'pluralResolver', 'interpolator', 'backendConnector', 'i18nFormat', 'utils'], services, this);
     this.options = options;
     if (this.options.keySeparator === undefined) {
       this.options.keySeparator = '.';
@@ -2307,6 +2307,7 @@ const enUS = {
 	"plugin.hideLive.name": "Hide live",
 	"plugin.restoreLogo.name": "Restore the logo",
 	"plugin.hideBlockTweet.name": "Hide block tweet",
+	"plugin.restoreShareLink.name": "Restore share link",
 	example: example$3
 };
 
@@ -2347,6 +2348,7 @@ const zhCN = {
 	"plugin.hideLive.name": "隐藏直播",
 	"plugin.restoreLogo.name": "恢复 Twitter 的 Logo",
 	"plugin.hideBlockTweet.name": "屏蔽诈骗推文",
+	"plugin.restoreShareLink.name": "恢复分享链接",
 	example: example$2
 };
 
@@ -11199,28 +11201,58 @@ function onSecondaryRateLimit(retryAfter, options, octokit) {
 }
 var OAuthApp = distNode.OAuthApp.defaults({ Octokit });
 
-const RedirectURL = "http://localhost:5173/callback/";
 const oAuthApp = new OAuthApp({
   clientId: "67cbeee99525d33512c3",
-  clientSecret: "789180659086fa7e48c0b2450d5449587a7c2a40",
-  redirectUrl: "http://localhost:5173/callback/"
+  clientSecret: "42894be74a63f4ad7d6536dcef849593dd7dfb6b",
+  redirectUrl: "http://localhost:8080/callback/"
 });
 
+function get_cookie(cname) {
+  const name = cname + "=";
+  const ca = document.cookie.split(";");
+  for (let i = 0; i < ca.length; ++i) {
+    const c = ca[i].trim();
+    if (c.indexOf(name) === 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+async function blockUser(id) {
+  const p = new URLSearchParams([["user_id", id]]);
+  await fetch("https://twitter.com/i/api/1.1/blocks/create.json", {
+    headers: {
+      authorization: "Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA",
+      "content-type": "application/x-www-form-urlencoded",
+      "X-Csrf-Token": get_cookie("ct0"),
+      "x-twitter-active-user": "yes",
+      "x-twitter-auth-type": "OAuth2Session"
+    },
+    body: p.toString(),
+    method: "POST"
+  });
+}
+
+function extractUsernameFromTweet(elements) {
+  const avatar = elements.querySelector(
+    '[data-testid^="UserAvatar-Container-"]'
+  );
+  if (!avatar) {
+    return;
+  }
+  const username = avatar.dataset.testid?.slice("UserAvatar-Container-".length);
+  return username;
+}
 async function hideTweet(elements) {
   const db = await initIndexeddb();
   const list = await AsyncArray.filter(elements, async (it) => {
     if (it.style.display) {
       return false;
     }
-    const avatar = it.querySelector(
-      '[data-testid^="UserAvatar-Container-"]'
-    );
-    if (!avatar) {
+    const username = extractUsernameFromTweet(it);
+    if (!username) {
       return false;
     }
-    const username = avatar.dataset.testid?.slice(
-      "UserAvatar-Container-".length
-    );
     const r = await db.countFromIndex("block", "username", username) > 0;
     return r;
   });
@@ -11237,19 +11269,36 @@ function parseQuotesLink(quotesLink) {
   const link = quotesLink.slice(0, quotesLink.lastIndexOf("/"));
   return { link, tweetId, username };
 }
-async function createBlockPR(tweet) {
-  const token = await Browser.storage.local.get("refreshToken");
-  if (!token.refreshToken) {
+async function createBlockIssue(tweet) {
+  const auth = await Browser.storage.local.get(["refreshToken", "accessToken"]);
+  if (!auth.refreshToken) {
     globalThis.open(
       oAuthApp.getWebFlowAuthorizationUrl({
-        scopes: ["public_repo"],
-        state: JSON.stringify(tweet),
-        redirectUrl: RedirectURL
+        state: JSON.stringify(tweet)
       }).url,
       "_blank"
     );
     return;
   }
+  const octokit = new Octokit({ auth: auth.accessToken });
+  const owner = "rxliuli";
+  const repo = "clean-twitter";
+  const issues = await octokit.rest.search.issuesAndPullRequests({
+    q: `repo:${owner}/${repo} ${tweet.userId} in:title type:issue`
+  });
+  if (issues.data.total_count > 0) {
+    console.log("issue is exist");
+    return;
+  }
+  await octokit.rest.issues.create({
+    owner,
+    repo,
+    title: `Block ${tweet.userId} ${tweet.username}`,
+    body: "```json\n" + JSON.stringify(tweet, void 0, 2) + `
+\`\`\`
+${tweet.link}`
+  });
+  console.log("issue created");
 }
 async function addBlockButton() {
   if (document.getElementById("block-and-report")) {
@@ -11260,13 +11309,13 @@ async function addBlockButton() {
     return;
   }
   const blockButton = menu.querySelector(
-    '[role="menuitem"]:has(path[d="M12 3.75c-4.55 0-8.25 3.69-8.25 8.25 0 1.92.66 3.68 1.75 5.08L17.09 5.5C15.68 4.4 13.92 3.75 12 3.75zm6.5 3.17L6.92 18.5c1.4 1.1 3.16 1.75 5.08 1.75 4.56 0 8.25-3.69 8.25-8.25 0-1.92-.65-3.68-1.75-5.08zM1.75 12C1.75 6.34 6.34 1.75 12 1.75S22.25 6.34 22.25 12 17.66 22.25 12 22.25 1.75 17.66 1.75 12z"])'
+    '[role="menuitem"][data-testid="block"]'
   );
   if (!blockButton) {
     return;
   }
-  const newNode = blockButton.cloneNode();
-  newNode.textContent = "Block and report";
+  const newNode = blockButton.cloneNode(true);
+  newNode.querySelector("div > div > span").textContent = "Block and report";
   newNode.id = "block-and-report";
   newNode.addEventListener("click", async () => {
     const quotesLink = menu.querySelector(
@@ -11279,10 +11328,23 @@ async function addBlockButton() {
       throw new Error("not found tweet");
     }
     console.log("click", parsed, tweet);
-    await createBlockPR({
-      ...tweet,
-      link: parsed.link
+    await Promise.all([
+      blockUser(tweet.userId),
+      createBlockIssue({
+        ...tweet,
+        link: parsed.link
+      })
+    ]);
+    [...document.querySelectorAll('[data-testid="tweet"]')].forEach((it) => {
+      const username = extractUsernameFromTweet(it);
+      if (!username) {
+        return;
+      }
+      if (username === tweet.username) {
+        it.style.display = "none";
+      }
     });
+    alert("block success");
     menu.parentElement.remove();
   });
   menu.insertBefore(newNode, menu.firstChild);
@@ -11585,6 +11647,221 @@ function restoreLogo() {
   };
 }
 
+var toggleSelection = function () {
+  var selection = document.getSelection();
+  if (!selection.rangeCount) {
+    return function () {};
+  }
+  var active = document.activeElement;
+
+  var ranges = [];
+  for (var i = 0; i < selection.rangeCount; i++) {
+    ranges.push(selection.getRangeAt(i));
+  }
+
+  switch (active.tagName.toUpperCase()) { // .toUpperCase handles XHTML
+    case 'INPUT':
+    case 'TEXTAREA':
+      active.blur();
+      break;
+
+    default:
+      active = null;
+      break;
+  }
+
+  selection.removeAllRanges();
+  return function () {
+    selection.type === 'Caret' &&
+    selection.removeAllRanges();
+
+    if (!selection.rangeCount) {
+      ranges.forEach(function(range) {
+        selection.addRange(range);
+      });
+    }
+
+    active &&
+    active.focus();
+  };
+};
+
+var deselectCurrent = toggleSelection;
+
+var clipboardToIE11Formatting = {
+  "text/plain": "Text",
+  "text/html": "Url",
+  "default": "Text"
+};
+
+var defaultMessage = "Copy to clipboard: #{key}, Enter";
+
+function format(message) {
+  var copyKey = (/mac os x/i.test(navigator.userAgent) ? "⌘" : "Ctrl") + "+C";
+  return message.replace(/#{\s*key\s*}/g, copyKey);
+}
+
+function copy(text, options) {
+  var debug,
+    message,
+    reselectPrevious,
+    range,
+    selection,
+    mark,
+    success = false;
+  if (!options) {
+    options = {};
+  }
+  debug = options.debug || false;
+  try {
+    reselectPrevious = deselectCurrent();
+
+    range = document.createRange();
+    selection = document.getSelection();
+
+    mark = document.createElement("span");
+    mark.textContent = text;
+    // avoid screen readers from reading out loud the text
+    mark.ariaHidden = "true";
+    // reset user styles for span element
+    mark.style.all = "unset";
+    // prevents scrolling to the end of the page
+    mark.style.position = "fixed";
+    mark.style.top = 0;
+    mark.style.clip = "rect(0, 0, 0, 0)";
+    // used to preserve spaces and line breaks
+    mark.style.whiteSpace = "pre";
+    // do not inherit user-select (it may be `none`)
+    mark.style.webkitUserSelect = "text";
+    mark.style.MozUserSelect = "text";
+    mark.style.msUserSelect = "text";
+    mark.style.userSelect = "text";
+    mark.addEventListener("copy", function(e) {
+      e.stopPropagation();
+      if (options.format) {
+        e.preventDefault();
+        if (typeof e.clipboardData === "undefined") { // IE 11
+          debug && console.warn("unable to use e.clipboardData");
+          debug && console.warn("trying IE specific stuff");
+          window.clipboardData.clearData();
+          var format = clipboardToIE11Formatting[options.format] || clipboardToIE11Formatting["default"];
+          window.clipboardData.setData(format, text);
+        } else { // all other browsers
+          e.clipboardData.clearData();
+          e.clipboardData.setData(options.format, text);
+        }
+      }
+      if (options.onCopy) {
+        e.preventDefault();
+        options.onCopy(e.clipboardData);
+      }
+    });
+
+    document.body.appendChild(mark);
+
+    range.selectNodeContents(mark);
+    selection.addRange(range);
+
+    var successful = document.execCommand("copy");
+    if (!successful) {
+      throw new Error("copy command was unsuccessful");
+    }
+    success = true;
+  } catch (err) {
+    debug && console.error("unable to copy using execCommand: ", err);
+    debug && console.warn("trying IE specific stuff");
+    try {
+      window.clipboardData.setData(options.format || "text", text);
+      options.onCopy && options.onCopy(window.clipboardData);
+      success = true;
+    } catch (err) {
+      debug && console.error("unable to copy using clipboardData: ", err);
+      debug && console.error("falling back to prompt");
+      message = format("message" in options ? options.message : defaultMessage);
+      window.prompt(message, text);
+    }
+  } finally {
+    if (selection) {
+      if (typeof selection.removeRange == "function") {
+        selection.removeRange(range);
+      } else {
+        selection.removeAllRanges();
+      }
+    }
+
+    if (mark) {
+      document.body.removeChild(mark);
+    }
+    reselectPrevious();
+  }
+
+  return success;
+}
+
+var copyToClipboard = copy;
+
+const writeText = /*@__PURE__*/getDefaultExportFromCjs(copyToClipboard);
+
+let lastClickShareTweet;
+function listenTweetShareClick(tweet) {
+  if (tweet.querySelector('[role="group"] [data-restore-share-link="true"]')) {
+    return;
+  }
+  const shareButton = tweet.querySelector(
+    '[role="group"]  div + svg:has(path[d="M12 2.59l5.7 5.7-1.41 1.42L13 6.41V16h-2V6.41l-3.3 3.3-1.41-1.42L12 2.59zM21 15l-.02 3.51c0 1.38-1.12 2.49-2.5 2.49H5.5C4.11 21 3 19.88 3 18.5V15h2v3.5c0 .28.22.5.5.5h12.98c.28 0 .5-.22.5-.5L19 15h2z"],path[d="M17 4c-1.1 0-2 .9-2 2 0 .33.08.65.22.92C15.56 7.56 16.23 8 17 8c1.1 0 2-.9 2-2s-.9-2-2-2zm-4 2c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4c-1.17 0-2.22-.5-2.95-1.3l-4.16 2.37c.07.3.11.61.11.93s-.04.63-.11.93l4.16 2.37c.73-.8 1.78-1.3 2.95-1.3 2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4c0-.32.04-.63.11-.93L8.95 14.7C8.22 15.5 7.17 16 6 16c-2.21 0-4-1.79-4-4s1.79-4 4-4c1.17 0 2.22.5 2.95 1.3l4.16-2.37c-.07-.3-.11-.61-.11-.93zm-7 4c-1.1 0-2 .9-2 2s.9 2 2 2c.77 0 1.44-.44 1.78-1.08.14-.27.22-.59.22-.92s-.08-.65-.22-.92C7.44 10.44 6.77 10 6 10zm11 6c-.77 0-1.44.44-1.78 1.08-.14.27-.22.59-.22.92 0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2z"])'
+  );
+  if (!shareButton) {
+    return;
+  }
+  shareButton.dataset.restoreShareLink = "true";
+  const link = tweet.querySelector(
+    'a[role="link"][href*="/status/"]:has(time)'
+  );
+  const shareLink = link.href;
+  shareButton.addEventListener("click", () => {
+    lastClickShareTweet = shareLink;
+  });
+}
+function addShareLink() {
+  if (!lastClickShareTweet) {
+    return;
+  }
+  if (document.getElementById("clone-share-link")) {
+    return;
+  }
+  const menu = document.querySelector('[role="menu"]');
+  if (!menu) {
+    return;
+  }
+  const shareButton = menu.querySelector(
+    '[role="menuitem"]:has([d="M18.36 5.64c-1.95-1.96-5.11-1.96-7.07 0L9.88 7.05 8.46 5.64l1.42-1.42c2.73-2.73 7.16-2.73 9.9 0 2.73 2.74 2.73 7.17 0 9.9l-1.42 1.42-1.41-1.42 1.41-1.41c1.96-1.96 1.96-5.12 0-7.07zm-2.12 3.53l-7.07 7.07-1.41-1.41 7.07-7.07 1.41 1.41zm-12.02.71l1.42-1.42 1.41 1.42-1.41 1.41c-1.96 1.96-1.96 5.12 0 7.07 1.95 1.96 5.11 1.96 7.07 0l1.41-1.41 1.42 1.41-1.42 1.42c-2.73 2.73-7.16 2.73-9.9 0-2.73-2.74-2.73-7.17 0-9.9z"])'
+  );
+  if (!shareButton) {
+    return;
+  }
+  shareButton.addEventListener("click", async () => {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    console.log("copy link", lastClickShareTweet, writeText(lastClickShareTweet));
+  });
+}
+function restoreShareLink() {
+  return {
+    name: "restoreShareLink",
+    description: t("plugin.restoreShareLink.name"),
+    default: false,
+    observer() {
+      const elements = [
+        ...document.querySelectorAll('[data-testid="cellInnerDiv"]')
+      ];
+      if (elements.length === 0) {
+        return;
+      }
+      elements.forEach(listenTweetShareClick);
+      addShareLink();
+    }
+  };
+}
+
 const plugins = () => [
   hideBlueBadge(),
   hideDiscoverMore(),
@@ -11596,7 +11873,8 @@ const plugins = () => [
   hideOther(),
   hideLive(),
   restoreLogo(),
-  hideBlockTweet()
+  hideBlockTweet(),
+  restoreShareLink()
 ];
 
 const defaultConfig = plugins().reduce(
