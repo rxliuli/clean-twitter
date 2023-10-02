@@ -11281,8 +11281,8 @@ async function createBlockIssue(tweet) {
     return;
   }
   const octokit = new Octokit({ auth: auth.accessToken });
-  const owner = "rxliuli";
-  const repo = "clean-twitter";
+  const owner = ({}).VITE_GITHUB_BLOCKLIST_OWNER;
+  const repo = ({}).VITE_GITHUB_BLOCKLIST_REPO;
   const issues = await octokit.rest.search.issuesAndPullRequests({
     q: `repo:${owner}/${repo} ${tweet.userId} in:title type:issue`
   });
@@ -11309,7 +11309,7 @@ async function addBlockButton() {
     return;
   }
   const blockButton = menu.querySelector(
-    '[role="menuitem"][data-testid="block"]'
+    '[role="menu"] [role="menuitem"][data-testid="block"]'
   );
   if (!blockButton) {
     return;
@@ -11317,17 +11317,22 @@ async function addBlockButton() {
   const newNode = blockButton.cloneNode(true);
   newNode.querySelector("div > div > span").textContent = "Block and report";
   newNode.id = "block-and-report";
-  newNode.addEventListener("click", async () => {
+  newNode.addEventListener("click", async (ev) => {
     const quotesLink = menu.querySelector(
       '[role="menuitem"][data-testid="tweetEngagements"]'
     ).href;
     const db = await initIndexeddb();
     const parsed = parseQuotesLink(quotesLink);
     const tweet = await db.get("tweet", parsed.tweetId);
+    console.log("click", parsed, tweet);
     if (!tweet) {
       throw new Error("not found tweet");
     }
-    console.log("click", parsed, tweet);
+    if (await db.get("block", tweet.userId)) {
+      console.log("block user exist");
+      menu.parentElement.firstElementChild.click();
+      return;
+    }
     await Promise.all([
       blockUser(tweet.userId),
       createBlockIssue({
@@ -11345,9 +11350,10 @@ async function addBlockButton() {
       }
     });
     alert("block success");
-    menu.parentElement.remove();
+    menu.parentElement.firstElementChild.click();
   });
-  menu.insertBefore(newNode, menu.firstChild);
+  const p = blockButton.parentElement;
+  p.insertBefore(newNode, p.firstChild);
 }
 function hideBlockTweet() {
   return {
