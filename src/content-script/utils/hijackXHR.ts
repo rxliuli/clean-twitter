@@ -36,12 +36,19 @@ export function parseTwitterResponserInfo(response: any): TweetInfo[] {
     entry.entryId.includes('conversationthread-'),
   )
   return (
-    conversationEntries
-      .flatMap((entry: any) =>
-        entry.content.items
-          .filter((it: any) => it.item.itemContent.cursorType !== 'ShowMore')
-          .map((it: any) => it.item.itemContent.tweet_results.result),
-      )
+    entries
+      .flatMap((it: any) => {
+        const entityId = it.entryId as string
+        if (entityId.startsWith('conversationthread-')) {
+          return it.content.items
+            .filter((it: any) => it.item.itemContent.cursorType !== 'ShowMore')
+            .map((it: any) => it.item.itemContent.tweet_results.result)
+        }
+        if (entityId.startsWith('tweet-')) {
+          return [it.content.itemContent.tweet_results.result]
+        }
+        return []
+      })
       // "TweetWithVisibilityResults" | "Tweet"
       .filter((it) => it.__typename === 'Tweet')
       .map((result: any) => {

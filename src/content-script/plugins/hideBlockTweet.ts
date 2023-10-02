@@ -94,7 +94,7 @@ async function addBlockButton() {
     return
   }
   const blockButton = menu.querySelector(
-    '[role="menuitem"][data-testid="block"]',
+    '[role="menu"] [role="menuitem"][data-testid="block"]',
   )
   if (!blockButton) {
     return
@@ -103,7 +103,7 @@ async function addBlockButton() {
   newNode.querySelector('div > div > span')!.textContent = 'Block and report'
   newNode.id = 'block-and-report'
 
-  newNode.addEventListener('click', async () => {
+  newNode.addEventListener('click', async (ev) => {
     const quotesLink = (
       menu.querySelector(
         '[role="menuitem"][data-testid="tweetEngagements"]',
@@ -112,10 +112,15 @@ async function addBlockButton() {
     const db = await initIndexeddb()
     const parsed = parseQuotesLink(quotesLink)
     const tweet = await db.get('tweet', parsed.tweetId)
+    console.log('click', parsed, tweet)
     if (!tweet) {
       throw new Error('not found tweet')
     }
-    console.log('click', parsed, tweet)
+    if (await db.get('block', tweet.userId)) {
+      console.log('block user exist')
+      ;(menu.parentElement!.firstElementChild as HTMLElement).click()
+      return
+    }
     await Promise.all([
       blockUser(tweet.userId),
       createBlockIssue({
@@ -135,9 +140,11 @@ async function addBlockButton() {
       }
     })
     alert('block success')
-    menu.parentElement!.remove()
+    // menu.parentElement!.remove()
+    ;(menu.parentElement!.firstElementChild as HTMLElement).click()
   })
-  menu.insertBefore(newNode, menu.firstChild)
+  const p = blockButton.parentElement!
+  p.insertBefore(newNode, p.firstChild)
 }
 
 export function hideBlockTweet(): BasePlugin {
