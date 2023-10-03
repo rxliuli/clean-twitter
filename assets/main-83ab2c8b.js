@@ -11204,34 +11204,8 @@ var OAuthApp = distNode.OAuthApp.defaults({ Octokit });
 const oAuthApp = new OAuthApp({
   clientId: "67cbeee99525d33512c3",
   clientSecret: "42894be74a63f4ad7d6536dcef849593dd7dfb6b",
-  redirectUrl: "http://localhost:8080/callback/"
+  redirectUrl: ({}).VITE_GITHUB_OAUTH_REDIRECT_URL
 });
-
-function get_cookie(cname) {
-  const name = cname + "=";
-  const ca = document.cookie.split(";");
-  for (let i = 0; i < ca.length; ++i) {
-    const c = ca[i].trim();
-    if (c.indexOf(name) === 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
-async function blockUser(id) {
-  const p = new URLSearchParams([["user_id", id]]);
-  await fetch("https://twitter.com/i/api/1.1/blocks/create.json", {
-    headers: {
-      authorization: "Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA",
-      "content-type": "application/x-www-form-urlencoded",
-      "X-Csrf-Token": get_cookie("ct0"),
-      "x-twitter-active-user": "yes",
-      "x-twitter-auth-type": "OAuth2Session"
-    },
-    body: p.toString(),
-    method: "POST"
-  });
-}
 
 function extractUsernameFromTweet(elements) {
   const avatar = elements.querySelector(
@@ -11334,7 +11308,7 @@ async function addBlockButton() {
       return;
     }
     await Promise.all([
-      blockUser(tweet.userId),
+      // blockUser(tweet.userId),
       createBlockIssue({
         ...tweet,
         link: parsed.link
