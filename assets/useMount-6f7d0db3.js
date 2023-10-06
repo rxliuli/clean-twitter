@@ -525,6 +525,129 @@ var m = reactDomExports;
   client.hydrateRoot = m.hydrateRoot;
 }
 
+var __defProp = Object.defineProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+
+// src/wait.ts
+function wait(param) {
+  return new Promise((resolve) => {
+    if (typeof param === "number") {
+      setTimeout(resolve, param);
+    } else if (typeof param === "function") {
+      const timer = setInterval(async () => {
+        if (await param()) {
+          clearInterval(timer);
+          resolve();
+        }
+      }, 100);
+    } else {
+      resolve();
+    }
+  });
+}
+
+// src/AsyncArray.ts
+var ActionTypeEnum = /* @__PURE__ */ ((ActionTypeEnum2) => {
+  ActionTypeEnum2["Filter"] = "filter";
+  ActionTypeEnum2["Map"] = "map";
+  ActionTypeEnum2["ForEach"] = "forEach";
+  ActionTypeEnum2["Reduce"] = "reduce";
+  ActionTypeEnum2["FlatMap"] = "flatMap";
+  return ActionTypeEnum2;
+})(ActionTypeEnum || {});
+var Action = class {
+  constructor(type, args) {
+    this.type = type;
+    this.args = args;
+    this.type = type;
+    this.args = args;
+  }
+};
+__publicField(Action, "Type", ActionTypeEnum);
+var AsyncArray = class {
+  constructor(arr) {
+    this.arr = arr;
+  }
+  static reduce(arr, fn, res) {
+    return arr.reduce(
+      (res2, item, index) => res2.then((r) => fn(r, item, index)),
+      Promise.resolve(res)
+    );
+  }
+  static map(arr, fn) {
+    return Promise.all(arr.map((item, index) => fn(item, index)));
+  }
+  static async filter(arr, fn) {
+    const res = [];
+    await AsyncArray.map(arr, async (item, index) => {
+      if (await fn(item, index)) {
+        res.push(item);
+      }
+    });
+    return res;
+  }
+  static async flatMap(arr, fn) {
+    return (await Promise.all(arr.map((item, index) => fn(item, index)))).flatMap((r) => r);
+  }
+  static async forEach(arr, fn) {
+    await AsyncArray.map(arr, fn);
+  }
+  tasks = [];
+  map(fn) {
+    this.tasks.push(new Action("map" /* Map */, [fn]));
+    return this;
+  }
+  flatMap(fn) {
+    this.tasks.push(new Action("flatMap" /* FlatMap */, [fn]));
+    return this;
+  }
+  filter(fn) {
+    this.tasks.push(new Action("filter" /* Filter */, [fn]));
+    return this;
+  }
+  async forEach(fn) {
+    this.tasks.push(new Action("map" /* Map */, [fn]));
+    await this;
+  }
+  then(resolve, reject) {
+    const res = this.value();
+    res.then((r) => {
+      resolve && resolve(res);
+      return r;
+    }).catch((e) => {
+      reject && reject(e);
+      throw e;
+    });
+    return res;
+  }
+  async value() {
+    let res = this.arr;
+    for (const task of this.tasks) {
+      switch (task.type) {
+        case "filter" /* Filter */:
+          res = await AsyncArray.filter(res, task.args[0]);
+          break;
+        case "map" /* Map */:
+          res = await AsyncArray.map(res, task.args[0]);
+          break;
+        case "flatMap" /* FlatMap */:
+          res = await AsyncArray.flatMap(res, task.args[0]);
+          break;
+        case "forEach" /* ForEach */:
+          await AsyncArray.forEach(res, task.args[0]);
+          return;
+        case "reduce" /* Reduce */:
+          return await AsyncArray.reduce(res, task.args[0], task.args[1]);
+      }
+    }
+    return res;
+  }
+};
+
 var useEffectOnce = function (effect) {
     reactExports.useEffect(effect, []);
 };
@@ -537,4 +660,4 @@ var useMount = function (fn) {
 };
 const useMount$1 = useMount;
 
-export { React as R, getAugmentedNamespace as a, client as b, commonjsGlobal as c, getDefaultExportFromCjs as g, jsxRuntimeExports as j, reactExports as r, useMount$1 as u };
+export { AsyncArray as A, React as R, getAugmentedNamespace as a, client as b, commonjsGlobal as c, getDefaultExportFromCjs as g, jsxRuntimeExports as j, reactExports as r, useMount$1 as u, wait as w };
