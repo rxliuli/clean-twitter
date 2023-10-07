@@ -1,10 +1,10 @@
+import { wait } from '@liuli-util/async'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { useMount } from 'react-use'
 
 const CallbackView: React.FC = () => {
-  useMount(() => {
-    console.log('onMount')
+  function init() {
     const p = new URLSearchParams(location.search)
     window.postMessage(
       {
@@ -16,6 +16,11 @@ const CallbackView: React.FC = () => {
       },
       '*',
     )
+  }
+  useMount(async () => {
+    console.log('page mount')
+    await wait(() => !!document.body.dataset.contentScript)
+    init()
   })
   return <div>callback</div>
 }

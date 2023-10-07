@@ -1,4 +1,4 @@
-import { OAuthApp } from 'octokit'
+import { OAuthApp } from '@octokit/oauth-app'
 
 export const oAuthApp = new OAuthApp({
   clientId: import.meta.env.VITE_GITHUB_OAUTH_CLIENT_ID,

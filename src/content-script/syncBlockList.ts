@@ -2,6 +2,8 @@ import { AsyncArray } from '@liuli-util/async'
 import dayjs from 'dayjs'
 import Browser from 'webextension-polyfill'
 import { initIndexeddb } from './utils/initIndexeddb'
+import { BackgroundChannel } from '../background'
+import { warp } from './listenRefreshToken'
 
 export function oncePerHour<T extends (...args: any[]) => any>(
   fn: T,
@@ -28,10 +30,8 @@ export async function f() {
   ]
   const db = await initIndexeddb()
   await AsyncArray.forEach(blocks, async (url) => {
-    const list = (await Browser.runtime.sendMessage({
-      method: 'get',
-      url,
-    })) as {
+    const api = warp<BackgroundChannel>({ name: 'background' })
+    const list = (await api.get(url)) as {
       id_str: string
       username: string
     }[]

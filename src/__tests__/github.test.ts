@@ -69,18 +69,17 @@ it('fork repo', async () => {
 })
 
 it('create issue', async () => {
-  const title = '1588312978268786688'
-  const r = await octokit.rest.search.issuesAndPullRequests({
-    q: `repo:rxliuli/clean-twitter label:"report" ${title} in:title type:issue`,
-  })
-  console.log(r.data)
-  // await octokit.rest.issues.create({
-  //   owner: 'rxliuli',
-  //   repo: 'clean-twitter',
-  //   title: '1143743380486275072',
-  //   body: 'test',
-  //   labels: ['report'],
+  // const title = '1588312978268786688'
+  // const r = await octokit.rest.search.issuesAndPullRequests({
+  //   q: `repo:rxliuli/clean-twitter label:"report" ${title} in:title type:issue`,
   // })
+  // console.log(r.data)
+  await octokit.rest.issues.create({
+    owner: 'rxliuli',
+    repo: 'clean-twitter',
+    title: '1143743380486275072',
+    body: 'test',
+  })
 })
 
 it('github app', async () => {

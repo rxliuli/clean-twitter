@@ -4,7 +4,9 @@ import { TweetInfo, initIndexeddb } from '../utils/initIndexeddb'
 import { t } from '../../constants/i18n'
 import Browser from 'webextension-polyfill'
 import { oAuthApp } from '../../constants/github'
-import { Octokit } from 'octokit'
+import { Octokit } from '@octokit/rest'
+import { BackgroundChannel } from '../../background'
+import { warp } from '../listenRefreshToken'
 import { blockUser } from '../utils/blockUser'
 
 function extractUsernameFromTweet(elements: HTMLElement): string | undefined {
@@ -52,37 +54,31 @@ function parseQuotesLink(quotesLink: string): {
 }
 
 export async function createBlockIssue(tweet: TweetInfo & { link: string }) {
-  const auth = await Browser.storage.local.get(['refreshToken', 'accessToken'])
-  if (!auth.refreshToken) {
-    globalThis.open(
+  function redirect() {
+    open(
       oAuthApp.getWebFlowAuthorizationUrl({
         state: JSON.stringify(tweet),
+        scopes: ['public_repo'],
       }).url,
       '_blank',
     )
+  }
+
+  const auth = await Browser.storage.local.get(['refreshToken', 'accessToken'])
+  if (!auth.refreshToken) {
+    redirect()
     return
   }
-  const octokit = new Octokit({ auth: auth.accessToken })
-  const owner = import.meta.env.VITE_GITHUB_BLOCKLIST_OWNER
-  const repo = import.meta.env.VITE_GITHUB_BLOCKLIST_REPO
-  const issues = await octokit.rest.search.issuesAndPullRequests({
-    q: `repo:${owner}/${repo} ${tweet.userId} in:title type:issue`,
-  })
-  if (issues.data.total_count > 0) {
-    console.log('issue is exist')
-    return
+  const api = warp<BackgroundChannel>({ name: 'background' })
+  try {
+    await api.createIssue(tweet)
+  } catch (err) {
+    if ((err as any).code === 401) {
+      redirect()
+      return
+    }
+    throw err
   }
-  await octokit.rest.issues.create({
-    owner,
-    repo,
-    title: `Block ${tweet.userId} ${tweet.username}`,
-    body:
-      '```json\n' +
-      JSON.stringify(tweet, undefined, 2) +
-      '\n```' +
-      `\n${tweet.link}`,
-  })
-  console.log('issue created')
 }
 
 async function addBlockButton() {
@@ -140,7 +136,6 @@ async function addBlockButton() {
       }
     })
     alert('block success')
-    // menu.parentElement!.remove()
     ;(menu.parentElement!.firstElementChild as HTMLElement).click()
   })
   const p = blockButton.parentElement!

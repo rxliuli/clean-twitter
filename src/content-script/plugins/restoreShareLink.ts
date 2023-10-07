@@ -18,6 +18,9 @@ function listenTweetShareClick(tweet: HTMLElement) {
   const link = tweet.querySelector(
     'a[role="link"][href*="/status/"]:has(time)',
   ) as HTMLAnchorElement
+  if (!link) {
+    return
+  }
   const shareLink = link.href
   shareButton.addEventListener('click', () => {
     // console.log('click share link', shareLink)
