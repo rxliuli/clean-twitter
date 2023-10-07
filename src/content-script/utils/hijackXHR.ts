@@ -32,16 +32,15 @@ export function parseTwitterResponseResult(result: any): TweetInfo {
 export function parseTwitterResponserInfo(response: any): TweetInfo[] {
   const entries = response.data.threaded_conversation_with_injections_v2
     .instructions[0].entries as any[]
-  const conversationEntries = entries.filter((entry: any) =>
-    entry.entryId.includes('conversationthread-'),
-  )
   return (
     entries
       .flatMap((it: any) => {
         const entityId = it.entryId as string
         if (entityId.startsWith('conversationthread-')) {
           return it.content.items
-            .filter((it: any) => it.item.itemContent.cursorType !== 'ShowMore')
+            .filter(
+              (it: any) => it.item.itemContent.itemType === 'TimelineTweet',
+            )
             .map((it: any) => it.item.itemContent.tweet_results.result)
         }
         if (entityId.startsWith('tweet-')) {

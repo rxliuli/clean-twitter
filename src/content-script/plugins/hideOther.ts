@@ -15,7 +15,9 @@ export function hideOther(): BasePlugin {
           `[aria-label="${t('symbol.TwitterBlue')}"]`,
           `[aria-label="${t('symbol.Verified')}"]`,
           `[aria-label="${t('symbol.TimelineTrendingNow')}"]`,
-          `[aria-label="${t('symbol.Trending')}"] *:has(> [aria-label="${t('symbol.WhoToFollow')}"])`,
+          `[aria-label="${t('symbol.Trending')}"] *:has(> [aria-label="${t(
+            'symbol.WhoToFollow',
+          )}"])`,
           // `[aria-label="${t('symbol.SearchAndExplore')}"]`,
           `[aria-label="${t('symbol.VerifiedOrganizations')}"]`,
           // submean
@@ -24,13 +26,21 @@ export function hideOther(): BasePlugin {
           '* > [href="/i/verified-choose"]',
           '* > [href="/settings/monetization"]',
           // sidebar
-          `[aria-label="${t('symbol.Trending')}"] > * > *:nth-child(3):not([aria-label="${t('symbol.Trending')}"] *:has(> [aria-label="${t(
-            'symbol.VerifiedAccount',
-          )}"]))`,
+          `[aria-label="${t(
+            'symbol.Trending',
+          )}"] > * > *:nth-child(3):not([aria-label="${t(
+            'symbol.Trending',
+          )}"] *:has(> [aria-label="${t('symbol.VerifiedAccount')}"]))`,
           `[aria-label="${t('symbol.Trending')}"] > * > *:nth-child(4)`,
           `[aria-label="${t('symbol.Trending')}"] > * > *:nth-child(5)`,
           // "Verified" tab
           '[role="presentation"]:has(> [href="/notifications/verified"][role="tab"])',
+          // Who to follow
+          '[data-testid="cellInnerDiv"]:has(h2 > div > span)',
+          '[data-testid="cellInnerDiv"]:has(h2 > div > span) + *',
+          '[data-testid="cellInnerDiv"]:has(h2 > div > span) + * + *',
+          '[data-testid="cellInnerDiv"]:has(h2 > div > span) + * + * + *',
+          '[data-testid="cellInnerDiv"]:has(h2 > div > span) + * + * + * + *',
         ),
       )
     },
