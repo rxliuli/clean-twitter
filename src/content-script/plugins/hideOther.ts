@@ -1,5 +1,5 @@
 import { t } from '../../constants/i18n'
-import { addCSS, generateHideCSS } from '../../utils/css'
+import { addCSS, cleanCSS, generateHideCSS } from '../../utils/css'
 import { BasePlugin } from './plugin'
 
 export function hideOther(): BasePlugin {
@@ -35,14 +35,25 @@ export function hideOther(): BasePlugin {
           `[aria-label="${t('symbol.Trending')}"] > * > *:nth-child(5)`,
           // "Verified" tab
           '[role="presentation"]:has(> [href="/notifications/verified"][role="tab"])',
-          // Who to follow
-          '[data-testid="cellInnerDiv"]:has(h2 > div > span)',
-          '[data-testid="cellInnerDiv"]:has(h2 > div > span) + *',
-          '[data-testid="cellInnerDiv"]:has(h2 > div > span) + * + *',
-          '[data-testid="cellInnerDiv"]:has(h2 > div > span) + * + * + *',
-          '[data-testid="cellInnerDiv"]:has(h2 > div > span) + * + * + * + *',
         ),
       )
+    },
+    observer() {
+      if (location.pathname.includes('/status/')) {
+        cleanCSS('whoToFollow')
+      } else {
+        addCSS(
+          generateHideCSS(
+            // Who to follow
+            '[data-testid="cellInnerDiv"]:has(h2 > div > span)',
+            '[data-testid="cellInnerDiv"]:has(h2 > div > span) + *',
+            '[data-testid="cellInnerDiv"]:has(h2 > div > span) + * + *',
+            '[data-testid="cellInnerDiv"]:has(h2 > div > span) + * + * + *',
+            '[data-testid="cellInnerDiv"]:has(h2 > div > span) + * + * + * + *',
+          ),
+          'whoToFollow',
+        )
+      }
     },
   }
 }
