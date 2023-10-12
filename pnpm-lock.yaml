@@ -71,8 +71,8 @@ devDependencies:
     specifier: ^0.4.3
     version: 0.4.3(typescript@5.1.3)
   '@liuli-util/vite-plugin-firefox-dist':
-    specifier: ^0.2.0
-    version: 0.2.0
+    specifier: ^0.2.1
+    version: 0.2.1
   '@types/express':
     specifier: ^4.17.18
     version: 4.17.18
@@ -833,8 +833,8 @@ packages:
       - webdriverio
     dev: false
 
-  /@liuli-util/vite-plugin-firefox-dist@0.2.0:
-    resolution: {integrity: sha512-ieB+4sD1Wai/BCvkW5TLB6laJACzbwotEkUGcK56Dzs7EylGXV336MVhcBjHCFBbEJW63mKOUvXgkbPFy7ZZfQ==}
+  /@liuli-util/vite-plugin-firefox-dist@0.2.1:
+    resolution: {integrity: sha512-v7DPnuyCaItPgK4rXRB5g4YgQGhnpdqU2hOjrfeW8IeDVI0TKWX8LyFGifm6TgHcRUYAv4MuiD4Zu+P00ssi4Q==}
     dependencies:
       lodash-es: 4.17.21
       utility-types: 3.10.0
