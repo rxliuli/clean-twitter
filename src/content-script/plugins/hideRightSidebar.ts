@@ -46,6 +46,14 @@ export function hideRightSidebar(): BasePlugin {
           max-width: initial;
         }
       `)
+      addCSS(`
+        [data-testid="primaryColumn"] {
+          max-width: initial;
+        }
+        [data-testid="primaryColumn"] > div > div:last-child {
+          max-width: initial;
+        }
+      `)
     },
   }
 }
