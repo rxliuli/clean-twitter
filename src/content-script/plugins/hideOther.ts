@@ -38,23 +38,23 @@ export function hideOther(): BasePlugin {
         ),
       )
     },
-    observer() {
-      const tag = 'whoToFollow'
-      if (!location.pathname.includes('/home')) {
-        cleanCSS(tag)
-        return
-      }
-      addCSS(
-        generateHideCSS(
-          // Who to follow
-          '[data-testid="cellInnerDiv"]:has(h2 > div > span)',
-          '[data-testid="cellInnerDiv"]:has(h2 > div > span) + *',
-          '[data-testid="cellInnerDiv"]:has(h2 > div > span) + * + *',
-          '[data-testid="cellInnerDiv"]:has(h2 > div > span) + * + * + *',
-          '[data-testid="cellInnerDiv"]:has(h2 > div > span) + * + * + * + *',
-        ),
-        tag,
-      )
-    },
+    // observer() {
+    //   const tag = 'whoToFollow'
+    //   if (!location.pathname.includes('/home')) {
+    //     cleanCSS(tag)
+    //     return
+    //   }
+    //   addCSS(
+    //     generateHideCSS(
+    //       // Who to follow
+    //       '[data-testid="cellInnerDiv"]:has(h2 > div > span)',
+    //       '[data-testid="cellInnerDiv"]:has(h2 > div > span) + *',
+    //       '[data-testid="cellInnerDiv"]:has(h2 > div > span) + * + *',
+    //       '[data-testid="cellInnerDiv"]:has(h2 > div > span) + * + * + *',
+    //       '[data-testid="cellInnerDiv"]:has(h2 > div > span) + * + * + * + *',
+    //     ),
+    //     tag,
+    //   )
+    // },
   }
 }
