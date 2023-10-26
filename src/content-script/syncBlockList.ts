@@ -4,24 +4,7 @@ import Browser from 'webextension-polyfill'
 import { initIndexeddb } from './utils/initIndexeddb'
 import { BackgroundChannel } from '../background'
 import { warp } from './listenRefreshToken'
-
-export function oncePerHour<T extends (...args: any[]) => any>(
-  fn: T,
-  cacheKey: string,
-): T {
-  return async function (...args) {
-    const today = dayjs().format('YYYY-MM-DD hh') // 获取 YYYY-MM-DD 格式的日期
-
-    const cachedData = localStorage.getItem(cacheKey)
-    if (cachedData) {
-      return JSON.parse(cachedData).result
-    }
-
-    const result = await fn(...args)
-    localStorage.setItem(cacheKey, JSON.stringify({ date: today, result }))
-    return result
-  } as T
-}
+import { oncePerHour } from '../utils/oncePerHour'
 
 export async function f() {
   const blocks = [
@@ -52,6 +35,4 @@ export async function f() {
   })
 }
 
-export const syncBlockList = import.meta.env.DEV
-  ? f
-  : oncePerHour(f, 'syncBlockList')
+export const syncBlockList = oncePerHour(f, 'syncBlockList')
