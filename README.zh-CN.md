@@ -19,6 +19,25 @@
 - 隐藏直播
 - 恢复 Twitter 的 Logo
 
+## 屏蔽评论区黄推
+
+该功能默认启用，会自动屏蔽在 [黑名单](https://github.com/daymade/Twitter-Block-Porn/blob/master/lists/all.json) 中黄推诈骗用户。
+
+如何报告让所有人共同免受黄推侵扰
+
+1. 点击每条回复推文的菜单
+   <img width="900" alt="image" src="https://github.com/daymade/Twitter-Block-Porn/assets/24560368/201da897-f781-41bd-bb6b-bb30bddb84fd">
+
+2. 看到菜单中新增了 block and report，点击即可，它会立刻使用 twitter 屏蔽用户，并且报告给 github 项目
+   <img width="295" alt="image" src="https://github.com/daymade/Twitter-Block-Porn/assets/24560368/da5ceafb-3aed-4e1f-825c-e62aafa00f7e">
+
+3. 第一次使用会自动跳转到 github 要求授权（如果没有账户则需要注册）
+
+自动屏蔽逻辑如下
+
+1. 拦截网络请求找到在屏蔽列表中的用户，调用 twitter 的屏蔽 api
+2. 如果出现在页面上就隐藏它，适用于第一次遇到及钞能力用户
+
 ## 局限性
 
 由于 Firefox 默认不支持 CSS 特性 `:has`，所以需要手动启用它，参考：<https://developer.mozilla.org/en-US/docs/Web/CSS/:has#browser_compatibility>
