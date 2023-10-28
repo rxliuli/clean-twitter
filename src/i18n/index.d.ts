@@ -143,6 +143,10 @@ export type TranslateType = {
         value: "Restore share link"
         params: [key: "plugin.restoreShareLink.name"]
     }
+    "plugin.disableTransparency.name": {
+        value: "Disable transparency"
+        params: [key: "plugin.disableTransparency.name"]
+    }
     "example": {
         value: "example"
         params: [key: "example"]

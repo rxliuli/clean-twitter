@@ -41,7 +41,7 @@ export function hideOther(): BasePlugin {
       )
       // fix outer sidebar opacity
       addCSS(`
-          [data-testid="BottomBar"] {
+          [data-testid="BottomBar"], div:has( > [href="/compose/tweet"]) {
             opacity: 1 !important;
           }
       `)

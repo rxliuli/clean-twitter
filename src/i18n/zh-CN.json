@@ -37,6 +37,7 @@
   "plugin.restoreLogo.name": "恢复 Twitter 的 Logo",
   "plugin.hideBlockTweet.name": "屏蔽诈骗推文",
   "plugin.restoreShareLink.name": "恢复分享链接",
+  "plugin.disableTransparency.name": "禁用透明效果",
 
   "example": "example"
 }

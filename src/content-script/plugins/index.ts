@@ -1,3 +1,4 @@
+import { disableTransparency } from './disableTransparency'
 import { hideBlockTweet } from './hideBlockTweet'
 import { hideBlueBadge } from './hideBlueBadge'
 import { hideDiscoverMore } from './hideDiscoverMore'
@@ -24,4 +25,5 @@ export const plugins = () => [
   restoreLogo(),
   hideBlockTweet(),
   restoreShareLink(),
+  disableTransparency(),
 ]
