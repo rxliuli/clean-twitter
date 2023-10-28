@@ -1,5 +1,4 @@
 {
-  "symbol.TimelineConversation": "タイムライン: 会話",
   "symbol.DiscoverMore": "もっと見つける",
   "symbol.SourcedFromAcrossTwitter": "Twitter から",
   "symbol.MoreTween": "返信をさらに表示",
@@ -10,7 +9,6 @@
   "symbol.Verified": "認証済み",
   "symbol.TimelineTrendingNow": "タイムライン: トレンド",
   "symbol.WhoToFollow": "おすすめユーザー",
-  "symbol.SearchAndExplore": "調べたいものを検索",
   "symbol.TimelineExplore": "タイムライン: 話題を検索",
   "symbol.HomeTimeline": "ホームタイムライン",
   "symbol.VerifiedOrganizations": "Verified Organizations",
@@ -18,7 +16,6 @@
   "symbol.Toolbar.reply": "返信",
   "symbol.Toolbar.Retweet": "のリツイート",
   "symbol.Toolbar.likes": "いいね",
-  "symbol.Toolbar.ViewTweetAnalytics": "ツイートアナリティクスを表示",
   "symbol.Image": "画像",
   "symbol.ProfileTimelines": "プロフィールタイムライン",
 

@@ -5,11 +5,9 @@ import Browser from 'webextension-polyfill'
 
 export interface Config {
   language?: Lang // default: Display language
-  hideBlueBadge?: boolean // default: true
   hideDiscoverMore?: boolean // default: true
   hideHomeTabs?: boolean // default: true
   hideRightSidebar?: boolean // default: false
-  hideSearchAndExplore?: boolean // default: true
   hideTimelineExplore?: boolean // default: true
   hideOther?: boolean // default: true
 }

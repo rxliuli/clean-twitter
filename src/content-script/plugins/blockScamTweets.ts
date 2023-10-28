@@ -142,10 +142,10 @@ async function addBlockButton() {
   p.insertBefore(newNode, p.firstChild)
 }
 
-export function hideBlockTweet(): BasePlugin {
+export function blockScamTweets(): BasePlugin {
   return {
-    name: 'hideBlockTweet',
-    description: t('plugin.hideBlockTweet.name'),
+    name: 'blockScamTweets',
+    description: t('plugin.blockScamTweets.name'),
     default: true,
     async observer() {
       if (!/^\/.*\/status\/.*/.test(location.pathname)) {

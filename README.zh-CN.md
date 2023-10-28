@@ -6,29 +6,33 @@
 
 清理 twitter 上烦人的内容或功能，让你的 twitter 体验更加干净。
 
-## 功能
+✨ 功能
 
 - 隐藏首页的标签页
-- 隐藏主页右侧边栏
-- 隐藏搜索和发现
-- 隐藏获得认证的广告
-- 隐藏发现更多
 - 隐藏搜索页面的推荐
+- 隐藏主页右侧边栏
 - 隐藏查看推文分析链接
-- 隐藏其他的广告
+- 隐藏发现更多
 - 隐藏直播
+- 隐藏其他的广告
+- 恢复分享链接
 - 恢复 Twitter 的 Logo
-- 自动屏蔽诈骗黄推
+- 恢复底部选项卡
+- 屏蔽诈骗推文
 
-## 使用
+🎉 观看演示视频
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/dYWI7RQMH_A/0.jpg)](https://www.youtube.com/watch?v=dYWI7RQMH_A)
+
+🚀 开始使用
 
 1. 在 chrome 或 firefox 扩展商店安装插件
-2. 点击工具栏选择 twitter 使用的语言，默认会根据浏览器语言推测
-3. 选择哪些功能启用或关闭
+2. 点击工具栏选择 twitter 使用的语言（默认会根据浏览器语言推测）
+3. 选择哪些功能启用或关闭（一些功能会自动启用）
 
-<img width="406" alt="image" src="https://github.com/rxliuli/clean-twitter/assets/24560368/1b8a82a2-1ade-46d2-a8fb-f2e67d111c32">
+![Get started](https://github.com/rxliuli/clean-twitter/assets/24560368/1b8a82a2-1ade-46d2-a8fb-f2e67d111c32)
 
-## 屏蔽评论区黄推
+## 屏蔽评论区的黄推
 
 该功能默认启用，会自动屏蔽在 [黑名单](https://github.com/daymade/Twitter-Block-Porn/blob/master/lists/all.json) 中黄推诈骗用户。
 

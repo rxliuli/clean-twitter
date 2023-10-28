@@ -7,7 +7,7 @@ export function hideTimelineExplore(): BasePlugin {
     name: 'hideTimelineExplore',
     description: t('plugin.hideTimelineExplore.name'),
     default: true,
-    observer() {
+    init() {
       if (location.pathname !== '/explore') {
         cleanCSS('hideTimelineExplore')
         return
@@ -28,6 +28,9 @@ export function hideTimelineExplore(): BasePlugin {
         ),
         'hideTimelineExplore',
       )
+    },
+    observer() {
+      this.init!()
     },
   }
 }

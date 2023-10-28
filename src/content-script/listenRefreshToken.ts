@@ -1,7 +1,7 @@
 import Browser from 'webextension-polyfill'
 import { TweetInfo } from './utils/initIndexeddb'
 import { BackgroundChannel, Channel } from '../background'
-import { createBlockIssue } from './plugins/hideBlockTweet'
+import { createBlockIssue } from './plugins/blockScamTweets'
 import { once } from 'lodash-es'
 
 export function warp<T extends Channel<string>>(options: {

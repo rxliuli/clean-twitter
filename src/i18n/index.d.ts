@@ -1,8 +1,4 @@
 export type TranslateType = {
-    "symbol.TimelineConversation": {
-        value: "Timeline: Conversation"
-        params: [key: "symbol.TimelineConversation"]
-    }
     "symbol.DiscoverMore": {
         value: "Discover more"
         params: [key: "symbol.DiscoverMore"]
@@ -43,10 +39,6 @@ export type TranslateType = {
         value: "Who to follow"
         params: [key: "symbol.WhoToFollow"]
     }
-    "symbol.SearchAndExplore": {
-        value: "Search and explore"
-        params: [key: "symbol.SearchAndExplore"]
-    }
     "symbol.TimelineExplore": {
         value: "Timeline: Explore"
         params: [key: "symbol.TimelineExplore"]
@@ -75,10 +67,6 @@ export type TranslateType = {
         value: "Like"
         params: [key: "symbol.Toolbar.likes"]
     }
-    "symbol.Toolbar.ViewTweetAnalytics": {
-        value: "View Tweet analytics"
-        params: [key: "symbol.Toolbar.ViewTweetAnalytics"]
-    }
     "symbol.Image": {
         value: "Image"
         params: [key: "symbol.Image"]
@@ -99,53 +87,45 @@ export type TranslateType = {
         value: "Hide home tabs"
         params: [key: "plugin.hideHomeTabs.name"]
     }
-    "plugin.hideBlueBadge.name": {
-        value: "Hide blue badge"
-        params: [key: "plugin.hideBlueBadge.name"]
-    }
-    "plugin.hideDiscoverMore.name": {
-        value: "Hide discover more"
-        params: [key: "plugin.hideDiscoverMore.name"]
+    "plugin.hideTimelineExplore.name": {
+        value: "Hide timeline: Explore"
+        params: [key: "plugin.hideTimelineExplore.name"]
     }
     "plugin.hideRightSidebar.name": {
         value: "Hide right sidebar"
         params: [key: "plugin.hideRightSidebar.name"]
     }
-    "plugin.hideSearchAndExplore.name": {
-        value: "Hide search and explore"
-        params: [key: "plugin.hideSearchAndExplore.name"]
-    }
-    "plugin.hideTimelineExplore.name": {
-        value: "Hide timeline: Explore"
-        params: [key: "plugin.hideTimelineExplore.name"]
-    }
     "plugin.hideViewTweetAnalytics.name": {
         value: "Hide view Tweet analytics"
         params: [key: "plugin.hideViewTweetAnalytics.name"]
     }
-    "plugin.hideOther.name": {
-        value: "Hide other"
-        params: [key: "plugin.hideOther.name"]
+    "plugin.hideDiscoverMore.name": {
+        value: "Hide discover more"
+        params: [key: "plugin.hideDiscoverMore.name"]
     }
     "plugin.hideLive.name": {
         value: "Hide live"
         params: [key: "plugin.hideLive.name"]
     }
-    "plugin.restoreLogo.name": {
-        value: "Restore the logo"
-        params: [key: "plugin.restoreLogo.name"]
-    }
-    "plugin.hideBlockTweet.name": {
-        value: "Hide block tweet"
-        params: [key: "plugin.hideBlockTweet.name"]
+    "plugin.hideOther.name": {
+        value: "Hide other"
+        params: [key: "plugin.hideOther.name"]
     }
     "plugin.restoreShareLink.name": {
         value: "Restore share link"
         params: [key: "plugin.restoreShareLink.name"]
     }
-    "plugin.disableTransparency.name": {
-        value: "Disable transparency"
-        params: [key: "plugin.disableTransparency.name"]
+    "plugin.restoreLogo.name": {
+        value: "Restore the logo"
+        params: [key: "plugin.restoreLogo.name"]
+    }
+    "plugin.restoreTabbar.name": {
+        value: "Restore tabbar"
+        params: [key: "plugin.restoreTabbar.name"]
+    }
+    "plugin.blockScamTweets.name": {
+        value: "Block scam tweets"
+        params: [key: "plugin.blockScamTweets.name"]
     }
     "example": {
         value: "example"

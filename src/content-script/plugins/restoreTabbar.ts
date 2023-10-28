@@ -2,10 +2,10 @@ import { t } from '../../constants/i18n'
 import { addCSS } from '../../utils/css'
 import { BasePlugin } from './plugin'
 
-export function disableTransparency(): BasePlugin {
+export function restoreTabbar(): BasePlugin {
   return {
-    name: 'disableTransparency',
-    description: t('plugin.disableTransparency.name'),
+    name: 'restoreTabbar',
+    description: t('plugin.restoreTabbar.name'),
     default: false,
     init() {
       addCSS(
@@ -14,7 +14,7 @@ export function disableTransparency(): BasePlugin {
             opacity: 1 !important;
           }
       `,
-        'disableTransparency',
+        'restoreTabbar',
       )
     },
   }
