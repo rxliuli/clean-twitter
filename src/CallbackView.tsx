@@ -21,8 +21,11 @@ const CallbackView: React.FC = () => {
     console.log('page mount')
     await wait(() => !!document.body.dataset.contentScript)
     init()
+    setTimeout(() => {
+      window.close()
+    }, 1000)
   })
-  return <div>callback</div>
+  return <div>callback...</div>
 }
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

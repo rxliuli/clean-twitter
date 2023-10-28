@@ -1,5 +1,5 @@
 import { t } from '../../constants/i18n'
-import { addCSS, cleanCSS, generateHideCSS } from '../../utils/css'
+import { addCSS, generateHideCSS } from '../../utils/css'
 import { BasePlugin } from './plugin'
 
 export function hideOther(): BasePlugin {
@@ -35,26 +35,16 @@ export function hideOther(): BasePlugin {
           `[aria-label="${t('symbol.Trending')}"] > * > *:nth-child(5)`,
           // "Verified" tab
           '[role="presentation"]:has(> [href="/notifications/verified"][role="tab"])',
+          // who to follow
+          `div[data-testid="cellInnerDiv"]:has(> div > div > div > h2), div[data-testid="cellInnerDiv"]:has([d="M17.863 13.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44zM12 2C9.791 2 8 3.79 8 6s1.791 4 4 4 4-1.79 4-4-1.791-4-4-4z"]), div[data-testid="cellInnerDiv"]:has([d="M17.863 13.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44zM12 2C9.791 2 8 3.79 8 6s1.791 4 4 4 4-1.79 4-4-1.791-4-4-4z"]) + *`,
         ),
       )
+      // fix outer sidebar opacity
+      addCSS(`
+          [data-testid="BottomBar"] {
+            opacity: 1 !important;
+          }
+      `)
     },
-    // observer() {
-    //   const tag = 'whoToFollow'
-    //   if (!location.pathname.includes('/home')) {
-    //     cleanCSS(tag)
-    //     return
-    //   }
-    //   addCSS(
-    //     generateHideCSS(
-    //       // Who to follow
-    //       '[data-testid="cellInnerDiv"]:has(h2 > div > span)',
-    //       '[data-testid="cellInnerDiv"]:has(h2 > div > span) + *',
-    //       '[data-testid="cellInnerDiv"]:has(h2 > div > span) + * + *',
-    //       '[data-testid="cellInnerDiv"]:has(h2 > div > span) + * + * + *',
-    //       '[data-testid="cellInnerDiv"]:has(h2 > div > span) + * + * + * + *',
-    //     ),
-    //     tag,
-    //   )
-    // },
   }
 }
