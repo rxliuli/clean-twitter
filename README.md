@@ -32,8 +32,6 @@ Clean up some annoying elements on Twitter and make your Twitter experience clea
 2. Click the toolbar to select the language used by twitter (the default is based on the browser language)
 3. Choose which features to enable or disable (some features will be enabled automatically)
 
-![Get started](https://github.com/rxliuli/clean-twitter/assets/24560368/1b8a82a2-1ade-46d2-a8fb-f2e67d111c32)
-
 ## Limitations
 
 Since Firefox does not support the CSS feature `:has` by default, it needs to be manually enabled. Refer to: <https://developer.mozilla.org/en-US/docs/Web/CSS/:has#browser_compatibility>
