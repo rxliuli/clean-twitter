@@ -18,8 +18,11 @@ const CallbackView = () => {
     console.log("page mount");
     await wait(() => !!document.body.dataset.contentScript);
     init();
+    setTimeout(() => {
+      window.close();
+    }, 1e3);
   });
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "callback" });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "callback..." });
 };
 client.createRoot(document.getElementById("root")).render(
   /* @__PURE__ */ jsxRuntimeExports.jsx(CallbackView, {})

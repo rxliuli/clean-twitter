@@ -2308,6 +2308,7 @@ const enUS = {
 	"plugin.restoreLogo.name": "Restore the logo",
 	"plugin.hideBlockTweet.name": "Hide block tweet",
 	"plugin.restoreShareLink.name": "Restore share link",
+	"plugin.disableTransparency.name": "Disable transparency",
 	example: example$3
 };
 
@@ -2349,6 +2350,7 @@ const zhCN = {
 	"plugin.restoreLogo.name": "恢复 Twitter 的 Logo",
 	"plugin.hideBlockTweet.name": "屏蔽诈骗推文",
 	"plugin.restoreShareLink.name": "恢复分享链接",
+	"plugin.disableTransparency.name": "禁用透明效果",
 	example: example$2
 };
 
@@ -3897,6 +3899,38 @@ const initI18n = async () => await instance.init({
 });
 function t(...args) {
   return instance.t(args[0], args[1]);
+}
+
+function addCSS(css, tag = "") {
+  const style = document.createElement("style");
+  style.dataset.cleanTwitter = tag;
+  style.textContent = css;
+  document.head.appendChild(style);
+}
+function generateHideCSS(...selector) {
+  return `${selector.join(",")}{ display: none !important; }`;
+}
+function cleanCSS(tag) {
+  const selector = tag ? `style[data-clean-twitter="${tag}"]` : "style[data-clean-twitter]";
+  [...document.querySelectorAll(selector)].forEach((it) => it.remove());
+}
+
+function disableTransparency() {
+  return {
+    name: "disableTransparency",
+    description: t("plugin.disableTransparency.name"),
+    default: false,
+    init() {
+      addCSS(
+        `
+          [data-testid="BottomBar"], div:has( > [href="/compose/tweet"]) {
+            opacity: 1 !important;
+          }
+      `,
+        "disableTransparency"
+      );
+    }
+  };
 }
 
 const instanceOfAny = (object, constructors) => constructors.some((c) => object instanceof c);
@@ -7455,6 +7489,32 @@ async function listenRefreshToken() {
 }
 listenRefreshToken();
 
+function get_cookie(cname) {
+  const name = cname + "=";
+  const ca = document.cookie.split(";");
+  for (let i = 0; i < ca.length; ++i) {
+    const c = ca[i].trim();
+    if (c.indexOf(name) === 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+async function blockUser(id) {
+  const p = new URLSearchParams([["user_id", id]]);
+  await fetch("https://twitter.com/i/api/1.1/blocks/create.json", {
+    headers: {
+      authorization: "Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA",
+      "content-type": "application/x-www-form-urlencoded",
+      "X-Csrf-Token": get_cookie("ct0"),
+      "x-twitter-active-user": "yes",
+      "x-twitter-auth-type": "OAuth2Session"
+    },
+    body: p.toString(),
+    method: "POST"
+  });
+}
+
 function extractUsernameFromTweet(elements) {
   const avatar = elements.querySelector(
     '[data-testid^="UserAvatar-Container-"]'
@@ -7551,12 +7611,21 @@ async function addBlockButton() {
       return;
     }
     await Promise.all([
-      // blockUser(tweet.userId),
+      blockUser(tweet.userId),
       createBlockIssue({
         ...tweet,
         link: parsed.link
       })
     ]);
+    [...document.querySelectorAll('[data-testid="tweet"]')].forEach((it) => {
+      const username = extractUsernameFromTweet(it);
+      if (!username) {
+        return;
+      }
+      if (username === tweet.username) {
+        it.style.display = "none";
+      }
+    });
     alert("block success");
     menu.parentElement.firstElementChild.click();
   });
@@ -7581,20 +7650,6 @@ function hideBlockTweet() {
       await Promise.all([hideTweet(elements), addBlockButton()]);
     }
   };
-}
-
-function addCSS(css, tag = "") {
-  const style = document.createElement("style");
-  style.dataset.cleanTwitter = tag;
-  style.textContent = css;
-  document.head.appendChild(style);
-}
-function generateHideCSS(...selector) {
-  return `${selector.join(",")}{ display: none !important; }`;
-}
-function cleanCSS(tag) {
-  const selector = tag ? `style[data-clean-twitter="${tag}"]` : "style[data-clean-twitter]";
-  [...document.querySelectorAll(selector)].forEach((it) => it.remove());
 }
 
 function hideBlueBadge() {
@@ -7707,7 +7762,9 @@ function hideOther() {
           `[aria-label="${t("symbol.TwitterBlue")}"]`,
           `[aria-label="${t("symbol.Verified")}"]`,
           `[aria-label="${t("symbol.TimelineTrendingNow")}"]`,
-          `[aria-label="${t("symbol.Trending")}"] *:has(> [aria-label="${t("symbol.WhoToFollow")}"])`,
+          `[aria-label="${t("symbol.Trending")}"] *:has(> [aria-label="${t(
+            "symbol.WhoToFollow"
+          )}"])`,
           // `[aria-label="${t('symbol.SearchAndExplore')}"]`,
           `[aria-label="${t("symbol.VerifiedOrganizations")}"]`,
           // submean
@@ -7716,15 +7773,24 @@ function hideOther() {
           '* > [href="/i/verified-choose"]',
           '* > [href="/settings/monetization"]',
           // sidebar
-          `[aria-label="${t("symbol.Trending")}"] > * > *:nth-child(3):not([aria-label="${t("symbol.Trending")}"] *:has(> [aria-label="${t(
-            "symbol.VerifiedAccount"
-          )}"]))`,
+          `[aria-label="${t(
+            "symbol.Trending"
+          )}"] > * > *:nth-child(3):not([aria-label="${t(
+            "symbol.Trending"
+          )}"] *:has(> [aria-label="${t("symbol.VerifiedAccount")}"]))`,
           `[aria-label="${t("symbol.Trending")}"] > * > *:nth-child(4)`,
           `[aria-label="${t("symbol.Trending")}"] > * > *:nth-child(5)`,
           // "Verified" tab
-          '[role="presentation"]:has(> [href="/notifications/verified"][role="tab"])'
+          '[role="presentation"]:has(> [href="/notifications/verified"][role="tab"])',
+          // who to follow
+          `div[data-testid="cellInnerDiv"]:has(> div > div > div > h2), div[data-testid="cellInnerDiv"]:has([d="M17.863 13.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44zM12 2C9.791 2 8 3.79 8 6s1.791 4 4 4 4-1.79 4-4-1.791-4-4-4z"]), div[data-testid="cellInnerDiv"]:has([d="M17.863 13.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44zM12 2C9.791 2 8 3.79 8 6s1.791 4 4 4 4-1.79 4-4-1.791-4-4-4z"]) + *`
         )
       );
+      addCSS(`
+          [data-testid="BottomBar"], div:has( > [href="/compose/tweet"]) {
+            opacity: 1 !important;
+          }
+      `);
     }
   };
 }
@@ -7770,6 +7836,14 @@ function hideRightSidebar() {
         }
         /* Profile */
         div:has(> nav[aria-label="${t$1("symbol.ProfileTimelines")}"]) {
+          max-width: initial;
+        }
+      `);
+      addCSS(`
+        [data-testid="primaryColumn"] {
+          max-width: initial;
+        }
+        [data-testid="primaryColumn"] > div > div:last-child {
           max-width: initial;
         }
       `);
@@ -8031,6 +8105,9 @@ function listenTweetShareClick(tweet) {
   const link = tweet.querySelector(
     'a[role="link"][href*="/status/"]:has(time)'
   );
+  if (!link) {
+    return;
+  }
   const shareLink = link.href;
   shareButton.addEventListener("click", () => {
     lastClickShareTweet = shareLink;
@@ -8088,7 +8165,8 @@ const plugins = () => [
   hideLive(),
   restoreLogo(),
   hideBlockTweet(),
-  restoreShareLink()
+  restoreShareLink(),
+  disableTransparency()
 ];
 
 const defaultConfig = plugins().reduce(
