@@ -137,6 +137,7 @@ async function addBlockButton() {
     })
     alert('block success')
     ;(menu.parentElement!.firstElementChild as HTMLElement).click()
+    ;(document.querySelector('[data-testid="mask"]') as HTMLElement)?.click()
   })
   const p = blockButton.parentElement!
   p.insertBefore(newNode, p.firstChild)

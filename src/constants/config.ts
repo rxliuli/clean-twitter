@@ -10,6 +10,7 @@ export interface Config {
   hideRightSidebar?: boolean // default: false
   hideTimelineExplore?: boolean // default: true
   hideOther?: boolean // default: true
+  blockScamTweets?: boolean // default: true
 }
 
 export const defaultConfig = plugins().reduce(

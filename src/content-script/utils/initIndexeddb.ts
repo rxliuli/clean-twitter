@@ -38,7 +38,7 @@ export interface AllDBSchema extends DBSchema {
 }
 
 export const initIndexeddb = async (): Promise<IDBPDatabase<AllDBSchema>> =>
-  await openDB<AllDBSchema>('clean-twitter-0.5.4', 1, {
+  await openDB<AllDBSchema>('clean-twitter-data', 1, {
     upgrade(db) {
       const names = db.objectStoreNames
       if (!names.contains('config')) {
