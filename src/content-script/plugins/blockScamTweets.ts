@@ -147,7 +147,7 @@ export function blockScamTweets(): BasePlugin {
   return {
     name: 'blockScamTweets',
     description: t('plugin.blockScamTweets.name'),
-    default: true,
+    default: false,
     async observer() {
       if (!/^\/.*\/status\/.*/.test(location.pathname)) {
         return

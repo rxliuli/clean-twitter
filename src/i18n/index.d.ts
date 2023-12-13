@@ -107,6 +107,10 @@ export type TranslateType = {
         value: "Hide live"
         params: [key: "plugin.hideLive.name"]
     }
+    "plugin.hidePremium.name": {
+        value: "Hide premium"
+        params: [key: "plugin.hidePremium.name"]
+    }
     "plugin.hideOther.name": {
         value: "Hide other"
         params: [key: "plugin.hideOther.name"]

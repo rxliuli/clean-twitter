@@ -46,7 +46,7 @@ export function hideHomeTabs(): BasePlugin {
   return {
     name: 'hideHomeTabs',
     description: t('plugin.hideHomeTabs.name'),
-    default: true,
+    default: false,
     init: hideTabs,
     observer: hideTabs,
   }

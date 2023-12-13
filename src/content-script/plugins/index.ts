@@ -9,6 +9,7 @@ import { hideTimelineExplore } from './hideTimelineExplore'
 import { hideViewTweetAnalytics } from './hideViewTweetAnalytics'
 import { restoreLogo } from './restoreLogo'
 import { restoreShareLink } from './restoreShareLink'
+import { hidePremium } from './hidePremium'
 
 export const plugins = () => [
   hideHomeTabs(),
@@ -17,7 +18,8 @@ export const plugins = () => [
   hideViewTweetAnalytics(),
   hideDiscoverMore(),
   hideLive(),
-  hideOther(),
+  hidePremium(),
+  // hideOther(),
   restoreShareLink(),
   restoreLogo(),
   restoreTabbar(),

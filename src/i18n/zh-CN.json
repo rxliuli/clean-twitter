@@ -28,6 +28,7 @@
   "plugin.hideViewTweetAnalytics.name": "隐藏查看推文分析链接",
   "plugin.hideDiscoverMore.name": "隐藏发现更多",
   "plugin.hideLive.name": "隐藏直播",
+  "plugin.hidePremium.name": "隐藏 Twitter Blue",
   "plugin.hideOther.name": "隐藏其他的广告",
   "plugin.restoreShareLink.name": "恢复分享链接",
   "plugin.restoreLogo.name": "恢复 Twitter 的 Logo",
