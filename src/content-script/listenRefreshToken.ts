@@ -3,6 +3,7 @@ import { TweetInfo } from './utils/initIndexeddb'
 import { BackgroundChannel, Channel } from '../background'
 import { createBlockIssue } from './plugins/blockScamTweets'
 import { once } from 'lodash-es'
+import { wait } from '@liuli-util/async'
 
 export function warp<T extends Channel<string>>(options: {
   name: T['name']
@@ -60,6 +61,7 @@ async function listenRefreshToken() {
     }),
     false,
   )
+  await wait(() => !!document.body?.dataset.contentScript)
   document.body.dataset.contentScript = 'true'
 }
 

@@ -3,6 +3,7 @@ import { getConfig, onChange } from '../constants/config';
 import { plugins } from './plugins';
 import { cleanCSS } from '../utils/css';
 import { initI18n } from '../constants/i18n';
+import { wait } from '@liuli-util/async';
 
 export async function loadPlugin() {
   const config = await getConfig();
@@ -31,6 +32,7 @@ export async function loadPlugin() {
       }
     });
   });
+  await wait(() => !!document.body?.dataset.contentScript)
   observer.observe(document.body, { childList: true, subtree: true });
 
   onChange((items) => {

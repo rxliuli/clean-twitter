@@ -1,3 +1,4 @@
+import { wait } from '@liuli-util/async'
 import { t } from '../../constants/i18n'
 import { BasePlugin } from './plugin'
 
@@ -11,11 +12,21 @@ export function restoreLogo(): BasePlugin {
     default: false,
     description: t('plugin.restoreLogo.name'),
     init: () => {
-      const $logo = document.querySelector(
-        'svg path[d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"]',
-      )
+      const selector =
+        'svg path[d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"]'
+      const $logo = document.querySelector(selector)
       if ($logo) {
+        // console.log('restoreLogo')
         $logo.outerHTML = svg
+        new MutationObserver(() => {
+          const $logo = document.querySelector(selector)
+          if ($logo) {
+            $logo.outerHTML = svg
+          }
+        }).observe(document.documentElement, {
+          attributes: true,
+          subtree: true,
+        })
       }
       const $ico = document.querySelector(`head>link[rel="shortcut icon"]`)
       if ($ico) {
@@ -24,7 +35,7 @@ export function restoreLogo(): BasePlugin {
       }
     },
     observer() {
-      this.init?.()
+      // this.init?.()
     },
   }
 }

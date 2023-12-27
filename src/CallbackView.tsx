@@ -19,7 +19,7 @@ const CallbackView: React.FC = () => {
   }
   useMount(async () => {
     console.log('page mount')
-    await wait(() => !!document.body.dataset.contentScript)
+    await wait(() => !!document.body?.dataset.contentScript)
     init()
     setTimeout(() => {
       window.close()
