@@ -17,6 +17,7 @@ export function hidePremium(): BasePlugin {
           )}"] > * > *:nth-child(3):not([aria-label="${t(
             'symbol.Trending',
           )}"] *:has(> [aria-label="${t('symbol.VerifiedAccount')}"]))`,
+          'div[data-testid="cellInnerDiv"]:has([data-testid="inlinePrompt-primaryAction"] [href="https://pro.x.com"])',
         ),
       )
     },
