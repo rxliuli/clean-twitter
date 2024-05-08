@@ -1,9 +1,7 @@
 import { restoreTabbar } from './restoreTabbar'
-import { blockScamTweets } from './blockScamTweets'
 import { hideDiscoverMore } from './hideDiscoverMore'
 import { hideHomeTabs } from './hideHomeTabs'
 import { hideLive } from './hideLive'
-import { hideOther } from './hideOther'
 import { hideRightSidebar } from './hideRightSidebar'
 import { hideTimelineExplore } from './hideTimelineExplore'
 import { hideViewTweetAnalytics } from './hideViewTweetAnalytics'
@@ -23,5 +21,4 @@ export const plugins = () => [
   restoreShareLink(),
   restoreLogo(),
   restoreTabbar(),
-  blockScamTweets(),
 ]

@@ -1,6 +1,4 @@
 import { AsyncArray } from '@liuli-util/async'
-import dayjs from 'dayjs'
-import Browser from 'webextension-polyfill'
 import { initIndexeddb } from './utils/initIndexeddb'
 import { BackgroundChannel } from '../background'
 import { warp } from './listenRefreshToken'
