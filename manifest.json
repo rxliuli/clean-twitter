@@ -13,7 +13,7 @@
   "content_scripts": [
     {
       "js": ["src/content-script/main.ts"],
-      "matches": ["https://twitter.com/*"],
+      "matches": ["https://x.com/*"],
       "run_at": "document_start"
     },
     {
