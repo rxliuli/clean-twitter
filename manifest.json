@@ -13,19 +13,9 @@
   "content_scripts": [
     {
       "js": ["src/content-script/main.ts"],
-      "matches": ["https://x.com/*"],
-      "run_at": "document_start"
-    },
-    {
-      "js": ["src/content-script/listenRefreshToken.ts"],
-      "matches": [
-        "https://clean-twitter.rxliuli.com/callback/*",
-        "http://localhost:5173/callback/*"
-      ],
-      "run_at": "document_start"
+      "matches": ["https://x.com/*"]
     }
   ],
-  "host_permissions": ["https://github.com/*", "https://api.github.com/*"],
   "background": {
     "service_worker": "src/background.ts"
   }
