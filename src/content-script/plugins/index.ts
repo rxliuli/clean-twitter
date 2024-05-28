@@ -8,6 +8,7 @@ import { hideViewTweetAnalytics } from './hideViewTweetAnalytics'
 import { restoreLogo } from './restoreLogo'
 import { restoreShareLink } from './restoreShareLink'
 import { hidePremium } from './hidePremium'
+import { hideCommunities } from './hideCommunities'
 
 export const plugins = () => [
   hideHomeTabs(),
@@ -17,6 +18,7 @@ export const plugins = () => [
   hideDiscoverMore(),
   hideLive(),
   hidePremium(),
+  hideCommunities(),
   // hideOther(),
   restoreShareLink(),
   restoreLogo(),

@@ -111,6 +111,10 @@ export type TranslateType = {
         value: "Hide premium"
         params: [key: "plugin.hidePremium.name"]
     }
+    "plugin.hideCommunities.name": {
+        value: "Hide communities"
+        params: [key: "plugin.hideCommunities.name"]
+    }
     "plugin.hideOther.name": {
         value: "Hide other"
         params: [key: "plugin.hideOther.name"]

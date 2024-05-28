@@ -30,6 +30,7 @@
   "plugin.hideLive.name": "隐藏直播",
   "plugin.hidePremium.name": "隐藏 Twitter Blue",
   "plugin.hideOther.name": "隐藏其他的广告",
+  "plugin.hideCommunities.name": "隐藏社区",
   "plugin.restoreShareLink.name": "恢复分享链接",
   "plugin.restoreLogo.name": "恢复 Twitter 的 Logo",
   "plugin.restoreTabbar.name": "恢复底部选项卡",

@@ -29,6 +29,7 @@
   "plugin.hideDiscoverMore.name": "Hide discover more",
   "plugin.hideLive.name": "Hide live",
   "plugin.hidePremium.name": "Hide premium",
+  "plugin.hideCommunities.name": "Hide communities",
   "plugin.hideOther.name": "Hide other",
   "plugin.restoreShareLink.name": "Restore share link",
   "plugin.restoreLogo.name": "Restore the logo",
