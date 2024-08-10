@@ -2,7 +2,7 @@
   "name": "clean-twitter",
   "description": "Clean up some annoying elements on Twitter and make your Twitter experience cleaner",
   "private": true,
-  "version": "0.11.1",
+  "version": "0.11.2",
   "type": "module",
   "scripts": {
     "dev": "wxt",
