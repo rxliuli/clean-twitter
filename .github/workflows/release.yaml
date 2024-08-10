@@ -1,6 +1,6 @@
 env:
   DIRECTORY: .output
-  PROJECT_NAME: font-changer
+  PROJECT_NAME: clean-twitter
 
 name: Deploy
 
