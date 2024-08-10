@@ -1,5 +1,5 @@
 import { t } from '../../constants/i18n'
-import { addCSS, cleanCSS, generateHideCSS } from '../../utils/css'
+import { addCSS, cleanCSS, generateHideCSS, hasCSS } from '../../utils/css'
 import { BasePlugin } from './plugin'
 
 /**
@@ -36,7 +36,7 @@ function hideTabs() {
     cleanCSS('hideHomeTabs')
     return
   }
-  if (!document.querySelector('style[data-clean-twitter="hideHomeTabs"]')) {
+  if (!hasCSS('hideHomeTabs')) {
     hideSelectedFollowingTab()
   }
   selectedFollowingTab()

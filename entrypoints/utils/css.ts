@@ -18,3 +18,7 @@ export function cleanCSS(tag?: string) {
     : 'style[data-clean-twitter]'
   ;[...document.querySelectorAll(selector)].forEach((it) => it.remove())
 }
+
+export function hasCSS(tag: string) {
+  return !!document.querySelector(`style[data-clean-twitter="${tag}"]`)
+}
