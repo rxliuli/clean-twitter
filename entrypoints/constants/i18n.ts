@@ -18,7 +18,7 @@ export const langs = langList.filter((it) =>
 
 export const initI18n = async () =>
   await i18next.init({
-    lng: (await Browser.storage.sync.get('language')).language,
+    lng: (await browser.storage.sync.get('language')).language,
     fallbackLng: 'en-US',
     debug: true,
     resources: {

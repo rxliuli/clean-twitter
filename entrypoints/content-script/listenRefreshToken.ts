@@ -11,7 +11,7 @@ export function warp<T extends Channel<string>>(options: {
   return new Proxy({} as any, {
     get(_, p) {
       return async (...args: any[]) => {
-        const r = await Browser.runtime.sendMessage({
+        const r = await browser.runtime.sendMessage({
           method: options.name + '.' + (p as string),
           params: args,
         })
@@ -52,7 +52,7 @@ async function listenRefreshToken() {
         state: JSON.stringify(data.state),
       })
       console.log('authToken', authToken)
-      await Browser.storage.local.set({
+      await browser.storage.local.set({
         refreshToken: data.code,
         refreshState: JSON.stringify(data.state),
         accessToken: authToken,

@@ -1,10 +1,15 @@
 import { useState } from 'react'
-import { initI18n, langs, t } from './constants/i18n'
-import { Lang } from './constants/langs'
-import { Config, defaultConfig, getConfig, setConfig } from './constants/config'
 import { useMount } from 'react-use'
-import { plugins } from './content-script/plugins'
 import i18next from 'i18next'
+import {
+  Config,
+  defaultConfig,
+  getConfig,
+  setConfig,
+} from '../constants/config'
+import { initI18n, langs, t } from '../constants/i18n'
+import { Lang } from '../constants/langs'
+import { plugins } from '../content-script/plugins'
 
 function useConfig(): [Config, (value: Partial<Config>) => Promise<void>] {
   const [v, set] = useState<Config>(defaultConfig)

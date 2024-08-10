@@ -64,7 +64,7 @@ export async function createBlockIssue(tweet: TweetInfo & { link: string }) {
     )
   }
 
-  const auth = await Browser.storage.local.get(['refreshToken', 'accessToken'])
+  const auth = await browser.storage.local.get(['refreshToken', 'accessToken'])
   if (!auth.refreshToken) {
     redirect()
     return

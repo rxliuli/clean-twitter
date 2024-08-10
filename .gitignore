@@ -8,10 +8,11 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
-dist-ssr
-dist-firefox
-*.local
+.output
+stats.html
+stats-*.json
+.wxt
+web-ext.config.ts
 
 # Editor directories and files
 .vscode/*
@@ -23,6 +24,3 @@ dist-firefox
 *.njsproj
 *.sln
 *.sw?
-release/
-*.pem
-*.crx

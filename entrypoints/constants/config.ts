@@ -1,7 +1,6 @@
+import { Storage } from 'wxt/browser'
 import { plugins } from '../content-script/plugins'
 import { Lang } from './langs'
-import type { Storage } from 'webextension-polyfill'
-import Browser from 'webextension-polyfill'
 
 export interface Config {
   language?: Lang // default: Display language
@@ -23,7 +22,7 @@ export const defaultConfig = plugins().reduce(
 export async function getConfig() {
   return {
     ...defaultConfig,
-    ...(await Browser.storage.sync.get([
+    ...(await browser.storage.sync.get([
       ...plugins().map((it) => it.name),
       'language',
     ])),
@@ -31,12 +30,12 @@ export async function getConfig() {
 }
 
 export async function setConfig(config: Partial<Config>) {
-  await Browser.storage.sync.set(config)
+  await browser.storage.sync.set(config)
 }
 
 export async function onChange(
-  cb: (changes: Storage.StorageAreaOnChangedChangesType) => void,
+  cb: (changes: Storage.StorageAreaSyncOnChangedChangesType) => void,
 ) {
-  Browser.storage.sync.onChanged.addListener(cb)
-  return async () => Browser.storage.sync.onChanged.removeListener(cb)
+  browser.storage.sync.onChanged.addListener(cb)
+  return async () => browser.storage.sync.onChanged.removeListener(cb)
 }
