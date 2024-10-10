@@ -25,6 +25,9 @@ export function hidePremium(): BasePlugin {
           '[data-testid="UserName"] [href="/i/premium_sign_up"]',
           // 出现在 timeline 上的升级按钮
           '[data-testid="cellInnerDiv"]:has(a[href="/i/premium_sign_up?tier=premium_plus&referring_page=timeline_prompt"])',
+          'a[href="/i/premium_sign_up"]',
+          'a[href="/jobs"]',
+          'a[href^="https://ads.x.com/"]',
         ),
       )
     },
