@@ -28,6 +28,7 @@ export function hidePremium(): BasePlugin {
           'a[href="/i/premium_sign_up"]',
           'a[href="/jobs"]',
           'a[href^="https://ads.x.com/"]',
+          '[data-testid="cellInnerDiv"]:has(img[src^="https://ton.twitter.com/onboarding/subscriptions/announcement_ad_rev_share_"])',
         ),
       )
     },
