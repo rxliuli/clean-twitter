@@ -29,6 +29,8 @@ export function hidePremium(): BasePlugin {
           'a[href="/jobs"]',
           'a[href^="https://ads.x.com/"]',
           '[data-testid="cellInnerDiv"]:has(img[src^="https://ton.twitter.com/onboarding/subscriptions/announcement_ad_rev_share_"])',
+          // 底部的 account_analytics tab
+          '* > [href="/i/account_analytics"]',
         ),
       )
     },
