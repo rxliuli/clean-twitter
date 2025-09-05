@@ -14,6 +14,7 @@ export default defineConfig({
   webExt: {
     disabled: true,
   },
+  manifestVersion: 3,
   manifest: (env) => {
     const manifest: UserManifest = {
       name: 'Clean Twitter',
