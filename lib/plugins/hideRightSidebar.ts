@@ -1,0 +1,15 @@
+import { hideElement, insertCSS } from '../css'
+import { BasePlugin } from './plugin'
+
+export function hideRightSidebar(): BasePlugin {
+  return {
+    name: 'hideRightSidebar',
+    description: 'Hide right sidebar',
+    default: false,
+    init() {
+      hideElement([
+        '[aria-label="Trending"] > div > div > div:nth-child(1) ~ div',
+      ])
+    },
+  }
+}

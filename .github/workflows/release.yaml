@@ -2,7 +2,7 @@ env:
   DIRECTORY: .output
   PROJECT_NAME: clean-twitter
 
-name: Deploy
+name: Release
 
 on:
   push:

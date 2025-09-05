@@ -1,7 +1,6 @@
 import tailwindcss from '@tailwindcss/vite'
-import { defineConfig } from 'wxt'
+import { defineConfig, UserManifest } from 'wxt'
 
-// See https://wxt.dev/api/config.html
 export default defineConfig({
   vite: () => ({
     plugins: [tailwindcss()] as any,
@@ -15,8 +14,28 @@ export default defineConfig({
   webExt: {
     disabled: true,
   },
-  manifest: {
-    name: 'Clean Twitter',
-    permissions: ['storage'],
+  manifest: (env) => {
+    const manifest: UserManifest = {
+      name: 'Clean Twitter',
+      description:
+        'Clean up some annoying elements on Twitter and make your Twitter experience cleaner',
+      permissions: ['storage'],
+      author: {
+        email: 'rxliuli@gmail.com',
+      },
+      homepage_url: 'https://store.rxliuli.com/extensions/clean-twitter/',
+    }
+    if (env.browser === 'firefox') {
+      manifest.browser_specific_settings = {
+        gecko: {
+          id:
+            manifest.name!.toLowerCase().replaceAll(' ', '-') + '@rxliuli.com',
+        },
+      }
+      // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/author
+      // @ts-expect-error
+      manifest.author = 'rxliuli'
+    }
+    return manifest
   },
 })
