@@ -1,35 +1,69 @@
 # Clean Twitter
 
-<!-- markdownlint-disable MD033 -->
+Clean up unnecessary elements on X (Twitter) and enjoy a cleaner, more focused experience.
 
-<a href="https://chrome.google.com/webstore/detail/lbbfmkbgembfbohdadeggdcgdkmfdmpb"><img src="https://user-images.githubusercontent.com/585534/107280622-91a8ea80-6a26-11eb-8d07-77c548b28665.png" alt="Get uBlock Origin for Chromium"></a> <a href="https://addons.mozilla.org/zh-CN/firefox/addon/clean-twitter-2333/"><img src="https://user-images.githubusercontent.com/585534/107280546-7b9b2a00-6a26-11eb-8f9f-f95932f4bfec.png" alt="Get uBlock Origin for Firefox"></a> <a href="https://www.producthunt.com/posts/clean-twitter?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-clean&#0045;twitter" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=401819&theme=light" alt="Clean&#0032;Twitter - Some&#0032;features&#0032;of&#0032;cleaning&#0032;Twitter | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+## ✨ Features
 
-Clean up some annoying elements on Twitter and make your Twitter experience cleaner.
+### Core Features
 
-✨ Features
+- **Restore Logo** - Bring back the classic Twitter bird logo
+- **Hide Right Sidebar** - Remove the trending and suggestions sidebar for a cleaner interface
 
-- Hide home tabs
-- Hide timeline: Explore
-- Hide right sidebar
-- Hide view Twee
-- Hide discover more
-- Hide live
-- Hide other
-- Restore share link
-- Restore the logo
-- Restore tabbar
-- Block scam tweets
+### Navigation Cleanup
 
-🎉 Watch demo video
+- **Hide Timeline Explore** - Remove the Explore tab from your timeline
+- **Hide Discover More** - Remove the "Discover more" section
+- **Hide Premium** - Remove Premium/X Premium promotional elements
+- **Hide Communities** - Remove the Communities tab
+- **Hide Bookmarks** - Remove the Bookmarks tab
+- **Hide Grok** - Remove the Grok AI assistant
+- **Hide Jobs** - Remove the Jobs section
+- **Hide Analytics** - Remove the Analytics tab
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/dYWI7RQMH_A/0.jpg)](https://www.youtube.com/watch?v=dYWI7RQMH_A)
+## 🎉 Demo
 
-🚀 Get started
+[![Clean Twitter Demo](https://img.youtube.com/vi/YBHtrP5zVd8/0.jpg)](https://www.youtube.com/watch?v=YBHtrP5zVd8)
 
-1. Install the plug-in in the chrome or firefox extension store
-2. Click the toolbar to select the language used by twitter (the default is based on the browser language)
-3. Choose which features to enable or disable (some features will be enabled automatically)
+## 🚀 Getting Started
 
-## Limitations
+1. **Install the extension** from [Chrome Web Store](https://chrome.google.com/webstore/detail/lbbfmkbgembfbohdadeggdcgdkmfdmpb) or [Firefox Add-ons](https://addons.mozilla.org/zh-CN/firefox/addon/clean-twitter-2333/)
+2. **Visit X (Twitter)** - The extension will automatically activate
+3. **Customize your experience** - Click the extension icon in your toolbar to enable/disable specific features
 
-Since Firefox does not support the CSS feature `:has` by default, it needs to be manually enabled. Refer to: <https://developer.mozilla.org/en-US/docs/Web/CSS/:has#browser_compatibility>
+## 🔧 Configuration
+
+All features can be individually toggled on/off through the extension popup. Your preferences are saved automatically and sync across your devices (if browser sync is enabled).
+
+## ⚠️ Firefox Users
+
+Firefox users need to manually enable the CSS `:has` selector for full functionality:
+
+1. Type `about:config` in the address bar
+2. Search for `layout.css.has-selector.enabled`
+3. Set it to `true`
+
+Reference: [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/CSS/:has#browser_compatibility)
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to submit issues or pull requests on our GitHub repository.
+
+## 💬 Community
+
+Join our [Discord community](https://discord.gg/gFhKUthc88) to discuss features, report issues, and connect with other users.
+
+## 📄 License
+
+[License](./LICENSE.md)
+
+## 🙏 Support
+
+If you find this extension helpful, please consider:
+
+- ⭐ Starring the project on GitHub
+- 📝 Leaving a review on the extension store
+- 💬 Joining our [Discord community](https://discord.gg/gFhKUthc88)
+
+---
+
+Made with ❤️ for a cleaner X (Twitter) experience

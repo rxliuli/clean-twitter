@@ -28,8 +28,8 @@ export default defineConfig({
     if (env.browser === 'firefox') {
       manifest.browser_specific_settings = {
         gecko: {
-          id:
-            manifest.name!.toLowerCase().replaceAll(' ', '-') + '@rxliuli.com',
+          // Might as well go with the flow.
+          id: 'clean-twttier@rxliuli.com',
         },
       }
       // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/author

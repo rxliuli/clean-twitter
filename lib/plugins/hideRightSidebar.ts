@@ -8,6 +8,7 @@ export function hideRightSidebar(): BasePlugin {
     default: false,
     init() {
       hideElement([
+        '[aria-label="Trending"] > div > div:nth-child(1) ~ div',
         '[aria-label="Trending"] > div > div > div:nth-child(1) ~ div',
       ])
     },
