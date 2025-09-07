@@ -37,6 +37,9 @@ export default defineConfig({
       // @ts-expect-error
       manifest.author = 'rxliuli'
     }
+    if (env.browser === 'safari') {
+      manifest.name = 'Cleaner for X'
+    }
     return manifest
   },
 })

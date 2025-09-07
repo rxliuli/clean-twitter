@@ -9,12 +9,12 @@ dotenv.config({ path: path.resolve(rootPath, '.env.local') })
 // https://github.com/vitejs/vite/issues/5885
 process.env.NODE_ENV = 'production'
 
-const ProjectName = 'Clean Twitter'
+const ProjectName = 'Cleaner for X'
 const AppCategory = 'public.app-category.productivity'
 const DevelopmentTeam = process.env.DEVELOPMENT_TEAM
 
 await $`pnpm wxt build -b safari`
-await $`xcrun safari-web-extension-converter --bundle-identifier com.rxliuli.clean-twitter --force --project-location .output .output/safari-mv3`
+await $`xcrun safari-web-extension-converter --bundle-identifier com.rxliuli.clean-for-x --force --project-location .output .output/safari-mv3`
 async function updateProjectConfig() {
   const projectConfigPath = path.resolve(rootPath, `.output/${ProjectName}/${ProjectName}.xcodeproj/project.pbxproj`)
   const packageJson = await import(path.resolve(rootPath, 'package.json'))
