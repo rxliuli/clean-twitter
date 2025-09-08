@@ -5,6 +5,7 @@ export interface Config {
   hideDiscoverMore?: boolean
   hidePremium?: boolean
   hideCommunities?: boolean
+  hideLists?: boolean
   hideBookmarks?: boolean
   hideGrok?: boolean
   hideJobs?: boolean

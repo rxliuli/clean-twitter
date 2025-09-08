@@ -18,6 +18,10 @@ export function hidePremium(): BasePlugin {
         // sidebar
         '[role="navigation"] > [href="/i/premium_sign_up"]',
         '[role="navigation"] > [href="/i/verified-orgs-signup"]',
+        // sidebar mobile
+        'div:has( > a[href="/i/premium_sign_up"])',
+        'div:has( > a[href="/i/verified-orgs-signup"])',
+        'div:has( > a[href="/i/monetization"])',
         // profile
         '[data-testid="UserName"] [href="/i/premium_sign_up"]',
         '[data-testid="cellInnerDiv"]:has(a[href="/i/premium_sign_up?tier=premium_plus&referring_page=timeline_prompt"])',

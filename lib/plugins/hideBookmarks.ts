@@ -10,6 +10,8 @@ export function hideBookmarks(): BasePlugin {
       hideElement([
         // sidebar
         '[role="navigation"] > a[href="/i/bookmarks"]',
+        // sidebar mobile
+        'div:has( > a[href="/i/bookmarks"])',
         // tweet action
         'div:has(> [data-testid="bookmark"])',
       ])

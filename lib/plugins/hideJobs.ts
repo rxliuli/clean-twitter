@@ -7,7 +7,12 @@ export function hideJobs(): BasePlugin {
     description: 'Hide Jobs',
     default: false,
     init() {
-      hideElement(['[role="navigation"] > a[href="/jobs"]'])
+      hideElement([
+        // sidebar desktop
+        '[role="navigation"] > a[href="/jobs"]'
+        // sidebar mobile
+        , 'div:has( > a[href="/jobs"])'
+      ])
     },
   }
 }

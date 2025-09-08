@@ -7,7 +7,8 @@ import { hideCommunities } from './hideCommunities'
 import { hideBookmarks } from './hideBookmarks'
 import { hideGrok } from './hideGrok'
 import { hideJobs } from './hideJobs'
-import { hideAnalytics } from './hideCommunities copy'
+import { hideAnalytics } from './hideAnalytics'
+import { hideLists } from './hideList'
 
 export const plugins = [
   restoreLogo(),
@@ -16,6 +17,7 @@ export const plugins = [
   hideDiscoverMore(),
   hidePremium(),
   hideCommunities(),
+  hideLists(),
   hideBookmarks(),
   hideGrok(),
   hideJobs(),

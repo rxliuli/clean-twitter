@@ -7,7 +7,12 @@ export function hideCommunities(): BasePlugin {
     description: 'Hide Communities',
     default: false,
     init() {
-      hideElement(['[role="navigation"] > a[href$="/communities"]'])
+      hideElement([
+        // desktop
+        '[role="navigation"] > a[href$="/communities"]',
+        // mobile
+        'div:has( > a[href$="/communities"])',
+      ])
     },
   }
 }
