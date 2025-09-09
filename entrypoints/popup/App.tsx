@@ -48,7 +48,7 @@ export function App() {
   }
 
   return (
-    <div className="min-w-[400px] space-y-4 p-4">
+    <div className="min-w-[240px] space-y-4 p-4">
       <header className="flex items-center justify-between">
         <h2 className="text-lg font-bold">Clean Twitter</h2>
         <div className="flex items-center gap-2">

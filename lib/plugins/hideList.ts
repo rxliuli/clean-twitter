@@ -8,8 +8,10 @@ export function hideLists(): BasePlugin {
     default: false,
     init() {
       hideElement([
-        // desktop
+        // desktop navigation
         '[role="navigation"] > a[href$="/lists"]',
+        // desktop dropdown menu
+        '[data-testid="Dropdown"] > [href="/i/lists/add_member"]',
         // mobile
         'div:has( > a[href$="/lists"])',
       ])

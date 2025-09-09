@@ -8,7 +8,10 @@ export function hideAnalytics(): BasePlugin {
     default: false,
     init() {
       hideElement([
-        'div:has(> [href*="/status/"][href$="/analytics"])'
+        // tweet actions
+        'div:has(> [href*="/status/"][href$="/analytics"]):not([data-testid="Dropdown"])',
+        // desktop action dropdown menu
+        '[data-testid="Dropdown"] > [data-testid="tweetEngagements"]',
       ])
     },
   }

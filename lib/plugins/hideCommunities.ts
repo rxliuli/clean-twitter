@@ -10,6 +10,8 @@ export function hideCommunities(): BasePlugin {
       hideElement([
         // desktop
         '[role="navigation"] > a[href$="/communities"]',
+        // desktop dropdown menu
+        '[data-testid="Dropdown"] > [href^="/i/communitynotes/noterequest/"]',
         // mobile
         'div:has( > a[href$="/communities"])',
       ])

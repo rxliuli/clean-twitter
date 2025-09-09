@@ -15,6 +15,8 @@ export function hidePremium(): BasePlugin {
         'div[data-testid="cellInnerDiv"]:has([data-testid="inlinePrompt-primaryAction"] [href="https://pro.x.com"])',
         // tweet action
         '[href*="/status/"][href$="/quick_promote_web/targeting"]',
+        // desktop dropdown menu
+        '[data-testid="Dropdown"] > [data-testid="subscribe"]',
         // sidebar
         '[role="navigation"] > [href="/i/premium_sign_up"]',
         '[role="navigation"] > [href="/i/verified-orgs-signup"]',
