@@ -12,8 +12,9 @@ export function hideLists(): BasePlugin {
         '[role="navigation"] > a[href$="/lists"]',
         // desktop dropdown menu
         '[data-testid="Dropdown"] > [href="/i/lists/add_member"]',
+        '[data-testid="Dropdown"] > [href$="/lists"]',
         // mobile
-        'div:has( > a[href$="/lists"])',
+        'div:has( > a[href$="/lists"]):not([data-testid="Dropdown"])',
       ])
     },
   }
