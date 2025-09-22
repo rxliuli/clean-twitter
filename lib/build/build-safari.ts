@@ -14,7 +14,7 @@ const AppCategory = 'public.app-category.productivity'
 const DevelopmentTeam = process.env.DEVELOPMENT_TEAM
 
 await $`pnpm wxt build -b safari`
-await $`xcrun safari-web-extension-converter --bundle-identifier com.rxliuli.clean-for-x --force --project-location .output .output/safari-mv3`
+await $`xcrun safari-web-extension-converter --bundle-identifier com.rxliuli.Cleaner-for-X --force --project-location .output .output/safari-mv3`
 async function updateProjectConfig() {
   const projectConfigPath = path.resolve(rootPath, `.output/${ProjectName}/${ProjectName}.xcodeproj/project.pbxproj`)
   const packageJson = await import(path.resolve(rootPath, 'package.json'))
