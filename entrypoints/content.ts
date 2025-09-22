@@ -7,9 +7,20 @@ export default defineContentScript({
   async main(ctx) {
     let config = await getConfig()
 
+    const effects: (() => void)[] = []
     const activePlugins = () => {
       cleanCSS()
-      plugins.filter((it) => config[it.name]).forEach((it) => it.init())
+      effects.forEach((it) => it())
+      effects.length = 0
+      // init
+      plugins
+        .filter((it) => config[it.name])
+        .forEach(async (it) => {
+          const r = await it.init()
+          if (r instanceof Function) {
+            effects.push(r)
+          }
+        })
     }
 
     // observer

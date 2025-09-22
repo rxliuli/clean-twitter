@@ -14,10 +14,12 @@ export interface Config {
 
 export async function getConfig() {
   return (
-    await browser.storage.sync.get<{
-      config: Config
-    }>('config')
-  ).config
+    (
+      await browser.storage.sync.get<{
+        config: Config
+      }>('config')
+    ).config ?? {}
+  )
 }
 
 export async function setConfig(config: Partial<Config>) {
