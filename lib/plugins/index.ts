@@ -9,12 +9,16 @@ import { hideGrok } from './hideGrok'
 import { hideJobs } from './hideJobs'
 import { hideAnalytics } from './hideAnalytics'
 import { hideLists } from './hideList'
+import { hideTodayNews } from './hideTodayNews'
+import { hideAdvertisement } from './hideAdvertisement'
 
 export const plugins = [
   restoreLogo(),
   hideRightSidebar(),
   hideTimelineExplore(),
   hideDiscoverMore(),
+  hideTodayNews(),
+  hideAdvertisement(),
   hidePremium(),
   hideCommunities(),
   hideLists(),

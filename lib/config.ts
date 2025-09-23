@@ -3,6 +3,8 @@ export interface Config {
   hideRightSidebar?: boolean
   hideTimelineExplore?: boolean
   hideDiscoverMore?: boolean
+  hideTodayNews?: boolean
+  hideAdvertisement?: boolean
   hidePremium?: boolean
   hideCommunities?: boolean
   hideLists?: boolean
