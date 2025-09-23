@@ -5,7 +5,6 @@ export function hideBookmarks(): BasePlugin {
   return {
     name: 'hideBookmarks',
     description: 'Hide Bookmarks',
-    default: false,
     init() {
       hideElement([
         // sidebar

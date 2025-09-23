@@ -5,7 +5,6 @@ export function hideLists(): BasePlugin {
   return {
     name: 'hideLists',
     description: 'Hide Lists',
-    default: false,
     init() {
       hideElement([
         // desktop navigation

@@ -5,7 +5,6 @@ export function hideAnalytics(): BasePlugin {
   return {
     name: 'hideAnalytics',
     description: 'Hide Analytics',
-    default: false,
     init() {
       hideElement([
         // tweet actions

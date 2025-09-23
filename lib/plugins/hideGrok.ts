@@ -5,7 +5,6 @@ export function hideGrok(): BasePlugin {
   return {
     name: 'hideGrok',
     description: 'Hide Grok',
-    default: false,
     init() {
       hideElement([
         // sidebar

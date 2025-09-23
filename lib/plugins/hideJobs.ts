@@ -5,7 +5,6 @@ export function hideJobs(): BasePlugin {
   return {
     name: 'hideJobs',
     description: 'Hide Jobs',
-    default: false,
     init() {
       hideElement([
         // sidebar desktop

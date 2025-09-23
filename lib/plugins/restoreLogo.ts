@@ -8,7 +8,6 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" style="width: 30px; height:
 export function restoreLogo(): BasePlugin {
   return {
     name: 'restoreLogo',
-    default: false,
     description: 'Restore logo',
     init: async () => {
       const selector =

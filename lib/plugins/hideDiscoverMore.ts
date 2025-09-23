@@ -5,7 +5,6 @@ export function hideDiscoverMore(): BasePlugin {
   return {
     name: 'hideDiscoverMore',
     description: 'Hide Discover More',
-    default: false,
     // observer() {
     //   _hideDiscoverMore()
     // },

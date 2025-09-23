@@ -1,4 +1,10 @@
-import { cleanCSS, hasCSS, hideElement, generateHideCSS } from '../css'
+import {
+  cleanCSS,
+  hasCSS,
+  hideElement,
+  generateHideCSS,
+  insertCSS,
+} from '../css'
 import { BasePlugin } from './plugin'
 
 function hideSearchExplore() {
@@ -9,14 +15,11 @@ function hideSearchExplore() {
   if (hasCSS('hideTimelineExplore')) {
     return
   }
-  hideElement(
-    generateHideCSS(
-      `[aria-label="Timeline: Explore"]`,
-      `[role="tablist"]:has(> [role="presentation"])`,
-    ),
-    'hideTimelineExplore',
-  )
-  hideElement(
+  hideElement([
+    '[aria-label="Timeline: Explore"]',
+    '[role="tablist"]:has(> [role="presentation"])',
+  ])
+  insertCSS(
     `
     @media (max-width: 500px) {
       header[role="banner"] > * {
@@ -24,7 +27,6 @@ function hideSearchExplore() {
       }
     }
   `,
-    'hideTimelineExplore',
   )
 }
 
@@ -32,7 +34,6 @@ export function hideTimelineExplore(): BasePlugin {
   return {
     name: 'hideTimelineExplore',
     description: 'Hide Timeline Explore',
-    default: false,
     init: hideSearchExplore,
     observer: hideSearchExplore,
   }

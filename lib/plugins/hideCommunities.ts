@@ -5,7 +5,6 @@ export function hideCommunities(): BasePlugin {
   return {
     name: 'hideCommunities',
     description: 'Hide Communities',
-    default: false,
     init() {
       hideElement([
         // desktop

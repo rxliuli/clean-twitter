@@ -5,7 +5,6 @@ export function hidePremium(): BasePlugin {
   return {
     name: 'hidePremium',
     description: 'Hide Premium',
-    default: false,
     init() {
       hideElement([
         // timeline
