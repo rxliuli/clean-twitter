@@ -11,6 +11,8 @@ export function hideAnalytics(): BasePlugin {
         'div:has(> [href*="/status/"][href$="/analytics"]):not([data-testid="Dropdown"])',
         // desktop action dropdown menu
         '[data-testid="Dropdown"] > [data-testid="tweetEngagements"]',
+        // desktop profile analytics link
+        '[data-testid="analytics-preview"]',
       ])
     },
   }

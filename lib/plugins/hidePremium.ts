@@ -20,7 +20,7 @@ export function hidePremium(): BasePlugin {
         '[role="navigation"] > [href="/i/premium_sign_up"]',
         '[role="navigation"] > [href="/i/verified-orgs-signup"]',
         // sidebar mobile
-        'div:has( > a[href="/i/premium_sign_up"])',
+        'div:has( > a[href="/i/premium_sign_up"]):not([data-testid="analytics-preview"] *)',
         'div:has( > a[href="/i/verified-orgs-signup"])',
         'div:has( > a[href="/i/monetization"])',
         // profile
