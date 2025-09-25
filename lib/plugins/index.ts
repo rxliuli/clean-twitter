@@ -11,6 +11,7 @@ import { hideAnalytics } from './hideAnalytics'
 import { hideLists } from './hideList'
 import { hideTodayNews } from './hideTodayNews'
 import { hideAdvertisement } from './hideAdvertisement'
+import { hideWhoToFollow } from './ hideWhoToFollow'
 
 export const plugins = [
   restoreLogo(),
@@ -18,6 +19,7 @@ export const plugins = [
   hideTimelineExplore(),
   hideDiscoverMore(),
   hideTodayNews(),
+  hideWhoToFollow(),
   hideAdvertisement(),
   hidePremium(),
   hideCommunities(),

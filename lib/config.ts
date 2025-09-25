@@ -4,6 +4,7 @@ export interface Config {
   hideTimelineExplore?: boolean
   hideDiscoverMore?: boolean
   hideTodayNews?: boolean
+  hideWhoToFollow?: boolean
   hideAdvertisement?: boolean
   hidePremium?: boolean
   hideCommunities?: boolean
