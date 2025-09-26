@@ -6,9 +6,9 @@ export function hideWhoToFollow(): BasePlugin {
     name: 'hideWhoToFollow',
     description: 'Hide Who to Follow',
     init() {
-      const nextSelector = ' + div[data-testid="cellInnerDiv"]'
+      const nextSelector = ' + [data-testid="cellInnerDiv"]'
       const selector =
-        '[data-testid="cellInnerDiv"]:has(h2 [data-testid="caret"])'
+        '[data-testid="cellInnerDiv"]:has(h2):not(:has(img[src^="https://pbs.twimg.com/profile_images/"]))'
       hideElement([
         selector,
         selector + nextSelector.repeat(1),
