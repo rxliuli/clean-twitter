@@ -11,17 +11,15 @@ export function restoreLogo(): BasePlugin {
     description: 'Restore logo',
     init: async () => {
       const selector =
-        'svg:has(path[d="M21.742 21.75l-7.563-11.179 7.056-8.321h-2.456l-5.691 6.714-4.54-6.714H2.359l7.29 10.776L2.25 21.75h2.456l6.035-7.118 4.818 7.118h6.191-.008zM7.739 3.818L18.81 20.182h-2.447L5.29 3.818h2.447z"])'
+        'div:has(> svg path[d="M21.742 21.75l-7.563-11.179 7.056-8.321h-2.456l-5.691 6.714-4.54-6.714H2.359l7.29 10.776L2.25 21.75h2.456l6.035-7.118 4.818 7.118h6.191-.008zM7.739 3.818L18.81 20.182h-2.447L5.29 3.818h2.447z"])'
       await wait(() => !!document.querySelector(selector))
-      const $logos = document.querySelectorAll(selector)
+      const $logos = [...document.querySelectorAll(selector)] as SVGElement[]
       const effects: (() => void)[] = []
       $logos.forEach((it) => {
-        const original = it.outerHTML
-        it.outerHTML = svg
+        const original = it.innerHTML
+        it.innerHTML = svg
         effects.push(() => {
-          document.querySelector(
-            'svg[data-clean-twitter="restore-logo"]',
-          )!.outerHTML = original
+          it.innerHTML = original
         })
       })
 
