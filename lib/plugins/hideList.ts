@@ -13,7 +13,8 @@ export function hideLists(): BasePlugin {
         '[data-testid="Dropdown"] > [href="/i/lists/add_member"]',
         '[data-testid="Dropdown"] > [href$="/lists"]',
         // mobile
-        'div:has( > a[href$="/lists"]):not([data-testid="Dropdown"])',
+        'a[href="/i/lists/add_member"]',
+        'a[href$="/lists"]',
       ])
     },
   }

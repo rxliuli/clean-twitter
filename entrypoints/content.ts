@@ -15,17 +15,29 @@ export default defineContentScript({
       // init
       plugins
         .filter((it) => config[it.name])
-        .forEach(async (it) => {
-          const r = await it.init()
-          if (r instanceof Function) {
+        .forEach((it) => {
+          const r = it.init(ctx)
+          if (typeof r === 'function') {
             effects.push(r)
           }
         })
     }
 
     // observer
-    ctx.addEventListener(window, 'wxt:locationchange', ({ newUrl }) => {
-      plugins.filter((it) => config[it.name]).forEach((it) => it.observer?.())
+    new MutationObserver(() => {
+      requestAnimationFrame(() => {
+        plugins
+          .filter((it) => config[it.name] && it.observer)
+          .forEach((it) => {
+            const r = it.observer!()
+            if (typeof r === 'function') {
+              effects.push(r)
+            }
+          })
+      })
+    }).observe(document.body, {
+      childList: true,
+      subtree: true,
     })
 
     activePlugins()
