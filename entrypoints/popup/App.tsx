@@ -113,6 +113,19 @@ export function App() {
               </div>
             ))}
           </div>
+
+          {/* 其他扩展链接 */}
+          <div className="pt-2 border-t">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-full justify-start gap-2"
+              onClick={() => window.open('https://store.rxliuli.com/', '_blank')}
+            >
+              <ExternalLink className="h-4 w-4" />
+              <span className="text-sm">Our other extensions</span>
+            </Button>
+          </div>
         </div>
       )}
     </div>
