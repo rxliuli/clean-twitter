@@ -2,6 +2,26 @@ export function hideElement(selector: string[], tag?: string) {
   insertCSS(`${selector.join(',')}{ display: none !important; }`, tag)
 }
 
+export function wrapCSSOnMobile(selector: string) {
+  return `@media (max-width: 768px) { ${selector} }`
+}
+
+export function hideElementOnMobile(selector: string[], tag?: string) {
+  insertCSS(
+    wrapCSSOnMobile(`${selector.join(',')}{ display: none !important; }`),
+    tag,
+  )
+}
+
+export function hideElementOnDesktop(selector: string[], tag?: string) {
+  insertCSS(
+    `@media (min-width: 769px) { ${selector.join(
+      ',',
+    )}{ display: none !important; } }`,
+    tag,
+  )
+}
+
 export function insertCSS(css: string, tag: string = '') {
   // 创建一个新的 <style> 元素
   const style = document.createElement('style')
