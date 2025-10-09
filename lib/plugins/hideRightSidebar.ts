@@ -7,8 +7,7 @@ export function hideRightSidebar(): BasePlugin {
     description: 'Hide right sidebar',
     init() {
       hideElement([
-        '[aria-label="Trending"] > div > div:nth-child(1) ~ div',
-        '[aria-label="Trending"] > div > div > div:nth-child(1) ~ div',
+        '[data-testid="sidebarColumn"] [aria-label][tabindex="0"] > div > div:nth-child(n+2)',
       ])
     },
   }
