@@ -34,15 +34,35 @@ Clean up unnecessary elements on X (Twitter) and enjoy a cleaner, more focused e
 
 All features can be individually toggled on/off through the extension popup. Your preferences are saved automatically and sync across your devices (if browser sync is enabled).
 
-## ⚠️ Firefox Users
+## Screenshot
 
-Firefox users need to manually enable the CSS `:has` selector for full functionality:
+**Restore Logo**
+<img width="1280" height="800" alt="image" src="https://github.com/user-attachments/assets/2fd5e21b-5810-4711-822a-72724cbb1213" />
 
-1. Type `about:config` in the address bar
-2. Search for `layout.css.has-selector.enabled`
-3. Set it to `true`
+**Hide Right Sidebar**
+<img width="1280" height="800" alt="image" src="https://github.com/user-attachments/assets/561979c7-0993-4485-a832-2c1d4a7dc97c" />
 
-Reference: [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/CSS/:has#browser_compatibility)
+**Hide Timeline Explore**
+<img width="1280" height="800" alt="image" src="https://github.com/user-attachments/assets/d6d27042-540a-4026-b836-1c8cdf11a4e5" />
+
+**Hide Discover More**
+
+**Hide Premium**
+<img width="1280" height="800" alt="image" src="https://github.com/user-attachments/assets/80877af7-d5e6-4c1e-b760-fef882ece452" />
+
+**Hide Communities**
+<img width="1280" height="800" alt="image" src="https://github.com/user-attachments/assets/ab3439c2-e279-4fa8-98fa-eaa62292d86d" />
+
+**Hide Bookmarks**
+<img width="1280" height="800" alt="image" src="https://github.com/user-attachments/assets/f33c1126-444c-4daa-9920-158e7b50e696" />
+
+**Hide Grok**
+<img width="1280" height="800" alt="image" src="https://github.com/user-attachments/assets/fb0532c8-046b-4d2f-ba1b-b1c40ed78c89" />
+
+~~Hide Jobs~~
+**Hide Analytics**
+<img width="1280" height="800" alt="image" src="https://github.com/user-attachments/assets/a3321542-eeb2-41f7-820d-902c09d4e3f7" />
+
 
 ## 🤝 Contributing
 
