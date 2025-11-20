@@ -12,7 +12,6 @@ import { hideLists } from './hideList'
 import { hideTodayNews } from './hideTodayNews'
 import { hideAdvertisement } from './hideAdvertisement'
 import { hideWhoToFollow } from './ hideWhoToFollow'
-import { hideSpace } from './hideSpace'
 
 export const plugins = [
   restoreLogo(),
@@ -29,5 +28,4 @@ export const plugins = [
   hideGrok(),
   hideJobs(),
   hideAnalytics(),
-  hideSpace(),
 ]

@@ -12,7 +12,6 @@ export interface Config {
   hideBookmarks?: boolean
   hideGrok?: boolean
   hideJobs?: boolean
-  hideSpace?: boolean
   hideAnalytics?: boolean
 }
 

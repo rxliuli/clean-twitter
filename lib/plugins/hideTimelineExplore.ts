@@ -31,7 +31,7 @@ function hideSearchExplore() {
 export function hideTimelineExplore(): BasePlugin {
   return {
     name: 'hideTimelineExplore',
-    description: 'Hide Timeline Explore',
+    description: 'Hide Search Explore',
     init: hideSearchExplore,
     observer: hideSearchExplore,
   }
