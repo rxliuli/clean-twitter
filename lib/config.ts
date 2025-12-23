@@ -9,6 +9,7 @@ export interface Config {
   hideNavHome?: boolean
   hideNavExplore?: boolean
   hideNavNotifications?: boolean
+  hideNavFollow?: boolean
   hideNavChat?: boolean
   hideNavBookmarks?: boolean
   hideNavLists?: boolean
