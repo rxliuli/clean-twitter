@@ -1,11 +1,17 @@
 import { useState } from 'react'
 import { useAsync } from 'react-use'
 import { Config, getConfig, setConfig } from '../../lib/config'
-import { plugins } from '@/lib/plugins'
-import { Checkbox } from '@/components/ui/checkbox'
+import { pluginGroups } from '@/lib/plugins'
 import { Button } from '@/components/ui/button'
 import { ExternalLink } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme/ThemeToggle'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
+import { PluginOption } from '@/components/PluginOption'
 
 function useConfig(): {
   config: Config
@@ -30,25 +36,8 @@ function useConfig(): {
 export function App() {
   const { config, set, loading } = useConfig()
 
-  // 计算已选中的插件数量
-  const enabledPlugins = plugins.filter(
-    (plugin) => config[plugin.name] ?? false,
-  )
-  const isAllSelected = enabledPlugins.length === plugins.length
-  const isPartialSelected =
-    enabledPlugins.length > 0 && enabledPlugins.length < plugins.length
-
-  // 全选/取消全选功能
-  const handleSelectAll = () => {
-    const newConfig: Partial<Config> = {}
-    plugins.forEach((plugin) => {
-      newConfig[plugin.name] = !isAllSelected
-    })
-    set(newConfig)
-  }
-
   return (
-    <div className="min-w-[240px] space-y-4 p-4">
+    <div className="min-w-[320px] space-y-4 p-4">
       <header className="flex items-center justify-between">
         <h2 className="text-lg font-bold">Clean Twitter</h2>
         <div className="flex items-center gap-2">
@@ -78,43 +67,90 @@ export function App() {
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <div className="space-y-4">
-          {/* 全选/取消全选 */}
-          <div className="flex items-center space-x-2 pb-2 border-b">
-            <Checkbox
-              id="select-all"
-              checked={isAllSelected}
-              onCheckedChange={handleSelectAll}
-              className={
-                isPartialSelected ? 'data-[state=checked]:bg-primary/50' : ''
-              }
-            />
-            <label htmlFor="select-all" className="font-medium text-sm">
-              {isAllSelected ? 'Deselect All' : 'Select All'} (
-              {enabledPlugins.length}/{plugins.length})
-            </label>
-          </div>
-
-          {/* 插件列表 */}
+        <div className="space-y-3">
+          {/* Branding Group */}
           <div className="space-y-3">
-            {plugins.map((plugin) => (
-              <div className="flex items-center space-x-3" key={plugin.name}>
-                <Checkbox
-                  id={plugin.name}
-                  checked={config[plugin.name] ?? false}
-                  onCheckedChange={(checked) => set({ [plugin.name]: checked })}
-                />
-                <label
-                  htmlFor={plugin.name}
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  {plugin.description}
-                </label>
-              </div>
+            {pluginGroups.branding.map((plugin) => (
+              <PluginOption
+                key={plugin.name}
+                id={plugin.name}
+                label={plugin.description}
+                checked={config[plugin.name] ?? false}
+                onCheckedChange={(checked) => set({ [plugin.name]: checked })}
+                tooltip="Restore the classic Twitter bird logo"
+              />
             ))}
           </div>
 
-          {/* 其他扩展链接 */}
+          {/* Layout Group */}
+          <div className="space-y-3">
+            {pluginGroups.layout.map((plugin) => (
+              <PluginOption
+                key={plugin.name}
+                id={plugin.name}
+                label={plugin.description}
+                checked={config[plugin.name] ?? false}
+                onCheckedChange={(checked) => set({ [plugin.name]: checked })}
+                tooltip="Hide the entire right sidebar (trending, suggestions, etc.)"
+              />
+            ))}
+          </div>
+
+          {/* Collapsible Groups */}
+          <Accordion type="multiple" className="space-y-2">
+            {/* Left Navigation Group */}
+            <AccordionItem value="left-navigation" className="border rounded-lg">
+              <AccordionTrigger className="px-3">Left Navigation</AccordionTrigger>
+              <AccordionContent className="px-3 space-y-3">
+                {pluginGroups.leftNavigation.map((plugin) => (
+                  <PluginOption
+                    key={plugin.name}
+                    id={plugin.name}
+                    label={plugin.description}
+                    checked={config[plugin.name] ?? false}
+                    onCheckedChange={(checked) => set({ [plugin.name]: checked })}
+                    tooltip={`Hide ${plugin.description} from navigation`}
+                  />
+                ))}
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Tweet Actions Group */}
+            <AccordionItem value="tweet-actions" className="border rounded-lg">
+              <AccordionTrigger className="px-3">Tweet Actions</AccordionTrigger>
+              <AccordionContent className="px-3 space-y-3">
+                {pluginGroups.tweetActions.map((plugin) => (
+                  <PluginOption
+                    key={plugin.name}
+                    id={plugin.name}
+                    label={plugin.description}
+                    checked={config[plugin.name] ?? false}
+                    onCheckedChange={(checked) => set({ [plugin.name]: checked })}
+                    tooltip="Hide view/analytics count on tweets"
+                  />
+                ))}
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Content Area Group */}
+            <AccordionItem value="content-area" className="border rounded-lg">
+              <AccordionTrigger className="px-3">Content Area</AccordionTrigger>
+              <AccordionContent className="px-3 space-y-3">
+                {pluginGroups.contentArea.map((plugin) => (
+                  <PluginOption
+                    key={plugin.name}
+                    id={plugin.name}
+                    label={plugin.description}
+                    checked={config[plugin.name] ?? false}
+                    onCheckedChange={(checked) => set({ [plugin.name]: checked })}
+                    tooltip={`Hide ${plugin.description.toLowerCase()} from timeline`}
+                  />
+                ))}
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+
+          {/* Other extensions link */}
           <div className="pt-2 border-t">
             <Button
               variant="ghost"

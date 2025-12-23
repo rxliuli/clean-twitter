@@ -1,4 +1,4 @@
-import { getConfig } from '@/lib/config'
+import { Config, getConfig } from '@/lib/config'
 import { cleanCSS } from '@/lib/css'
 import { plugins } from '@/lib/plugins'
 
@@ -44,7 +44,7 @@ export default defineContentScript({
 
     browser.storage.sync.onChanged.addListener(async (changes) => {
       if (changes.config) {
-        config = changes.config.newValue
+        config = changes.config.newValue as Config
         activePlugins()
       }
     })

@@ -1,4 +1,4 @@
-import { hideElement, insertCSS } from '../css'
+import { hideElement } from '../css'
 import { BasePlugin } from './plugin'
 
 export function hideRightSidebar(): BasePlugin {

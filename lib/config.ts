@@ -1,28 +1,57 @@
 export interface Config {
+  // Branding
   restoreLogo?: boolean
+
+  // Layout
   hideRightSidebar?: boolean
-  hideTimelineExplore?: boolean
+
+  // Left Navigation
+  hideNavHome?: boolean
+  hideNavExplore?: boolean
+  hideNavNotifications?: boolean
+  hideNavChat?: boolean
+  hideNavBookmarks?: boolean
+  hideNavLists?: boolean
+  hideNavCommunities?: boolean
+  hideNavPremium?: boolean
+  hideNavGrok?: boolean
+  hideNavJobs?: boolean
+  hideNavProfile?: boolean
+  hideNavAds?: boolean
+  hideNavMore?: boolean
+
+  // Tweet Actions
+  hideActionAnalytics?: boolean
+  hideActionBookmarks?: boolean
+  hideActionGrok?: boolean
+
+  // Content Area
+  hideSearchExplore?: boolean
   hideDiscoverMore?: boolean
-  hideTodayNews?: boolean
-  hideWhoToFollow?: boolean
   hideAdvertisement?: boolean
-  hidePremium?: boolean
-  hideCommunities?: boolean
-  hideLists?: boolean
-  hideBookmarks?: boolean
-  hideGrok?: boolean
-  hideJobs?: boolean
-  hideAnalytics?: boolean
+}
+
+export const DEFAULT_CONFIG: Config = {
+  restoreLogo: true,
+  hideRightSidebar: true,
+  hideNavPremium: true,
+  hideActionAnalytics: true,
+  hideSearchExplore: true,
+  hideDiscoverMore: true,
+  hideAdvertisement: true,
 }
 
 export async function getConfig() {
-  return (
+  const stored =
     (
       await browser.storage.sync.get<{
         config: Config
       }>('config')
     ).config ?? {}
-  )
+  return {
+    ...DEFAULT_CONFIG,
+    ...stored,
+  }
 }
 
 export async function setConfig(config: Partial<Config>) {

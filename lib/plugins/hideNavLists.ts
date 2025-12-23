@@ -1,10 +1,10 @@
 import { hideElement } from '../css'
 import { BasePlugin } from './plugin'
 
-export function hideLists(): BasePlugin {
+export function hideNavLists(): BasePlugin {
   return {
-    name: 'hideLists',
-    description: 'Hide Lists',
+    name: 'hideNavLists',
+    description: 'Lists',
     init() {
       hideElement([
         // desktop navigation

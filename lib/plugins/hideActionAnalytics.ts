@@ -1,14 +1,14 @@
-import { hideElement, hideElementOnDesktop, hideElementOnMobile } from '../css'
+import { hideElementOnDesktop, hideElementOnMobile } from '../css'
 import { BasePlugin } from './plugin'
 
-export function hideAnalytics(): BasePlugin {
+export function hideActionAnalytics(): BasePlugin {
   return {
-    name: 'hideAnalytics',
+    name: 'hideActionAnalytics',
     description: 'Hide Analytics',
     init() {
       hideElementOnDesktop([
         // tweet actions
-        'div:has(> [href*="/status/"][href$="/analytics"]):not([data-testid="Dropdown"])',
+        '[data-testid="cellInnerDiv"] div:has(> [href*="/status/"][href$="/analytics"]):not([data-testid="Dropdown"])',
         // desktop action dropdown menu
         '[data-testid="Dropdown"] > [data-testid="analytics"]',
         // desktop profile analytics link
@@ -16,9 +16,9 @@ export function hideAnalytics(): BasePlugin {
       ])
       hideElementOnMobile([
         // tweet actions
-        '[role="group"] > div:has(> [href*="/status/"][href$="/analytics"])',
+        '[data-testid="cellInnerDiv"] [role="group"] > div:has(> [href*="/status/"][href$="/analytics"])',
         // mobile action dropdown menu
-        '[data-testid="sheetDialog"] > [data-testid="analytics"]'
+        '[data-testid="sheetDialog"] > [data-testid="analytics"]',
       ])
     },
   }

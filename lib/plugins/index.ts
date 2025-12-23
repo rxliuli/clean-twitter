@@ -1,31 +1,63 @@
-import { hideDiscoverMore } from './hideDiscoverMore'
-import { hideRightSidebar } from './hideRightSidebar'
-import { hideTimelineExplore } from './hideTimelineExplore'
+// Branding
 import { restoreLogo } from './restoreLogo'
-import { hidePremium } from './hidePremium'
-import { hideCommunities } from './hideCommunities'
-import { hideBookmarks } from './hideBookmarks'
-import { hideGrok } from './hideGrok'
-import { hideJobs } from './hideJobs'
-import { hideAnalytics } from './hideAnalytics'
-import { hideLists } from './hideList'
-import { hideTodayNews } from './hideTodayNews'
-import { hideAdvertisement } from './hideAdvertisement'
-import { hideWhoToFollow } from './ hideWhoToFollow'
 
+// Layout
+import { hideRightSidebar } from './hideRightSidebar'
+
+// Left Navigation
+import { hideNavHome } from './hideNavHome'
+import { hideNavExplore } from './hideNavExplore'
+import { hideNavNotifications } from './hideNavNotifications'
+import { hideNavChat } from './hideNavChat'
+import { hideNavBookmarks } from './hideBookmarks'
+import { hideNavLists } from './hideNavLists'
+import { hideNavCommunities } from './hideCommunities'
+import { hideNavPremium } from './hideNavPremium'
+import { hideNavGrok } from './hideNavGrok'
+import { hideNavProfile } from './hideNavProfile'
+import { hideNavMore } from './hideNavMore'
+
+// Tweet Actions
+import { hideActionAnalytics } from './hideActionAnalytics'
+
+// Content Area
+import { hideSearchExplore } from './hideTimelineExplore'
+import { hideDiscoverMore } from './hideDiscoverMore'
+import { hideAdvertisement } from './hideAdvertisement'
+import { hideActionGrok } from './hideActionGrok'
+import { hideActionBookmarks } from './hideActionBookmarks'
+import { hideNavAds } from './hideNavAds'
+
+export const pluginGroups = {
+  branding: [restoreLogo()],
+  layout: [hideRightSidebar()],
+  leftNavigation: [
+    // hideNavHome(),
+    // hideNavExplore(),
+    // hideNavNotifications(),
+    hideNavChat(),
+    hideNavGrok(),
+    hideNavLists(),
+    hideNavBookmarks(),
+    hideNavCommunities(),
+    hideNavPremium(),
+    hideNavProfile(),
+    hideNavAds(),
+    hideNavMore(),
+  ],
+  tweetActions: [
+    hideActionGrok(),
+    hideActionAnalytics(),
+    hideActionBookmarks(),
+  ],
+  contentArea: [hideSearchExplore(), hideDiscoverMore(), hideAdvertisement()],
+}
+
+// Flat array for backward compatibility
 export const plugins = [
-  restoreLogo(),
-  hideRightSidebar(),
-  hideTimelineExplore(),
-  hideDiscoverMore(),
-  hideTodayNews(),
-  hideWhoToFollow(),
-  hideAdvertisement(),
-  hidePremium(),
-  hideCommunities(),
-  hideLists(),
-  hideBookmarks(),
-  hideGrok(),
-  hideJobs(),
-  hideAnalytics(),
+  ...pluginGroups.branding,
+  ...pluginGroups.layout,
+  ...pluginGroups.leftNavigation,
+  ...pluginGroups.tweetActions,
+  ...pluginGroups.contentArea,
 ]

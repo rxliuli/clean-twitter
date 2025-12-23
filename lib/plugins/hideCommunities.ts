@@ -1,10 +1,10 @@
 import { hideElement } from '../css'
 import { BasePlugin } from './plugin'
 
-export function hideCommunities(): BasePlugin {
+export function hideNavCommunities(): BasePlugin {
   return {
-    name: 'hideCommunities',
-    description: 'Hide Communities',
+    name: 'hideNavCommunities',
+    description: 'Communities',
     init() {
       hideElement([
         // desktop

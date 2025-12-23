@@ -1,38 +1,15 @@
-import { cleanCSS, hasCSS, hideElement, insertCSS } from '../css'
+import { hideElement } from '../css'
 import { BasePlugin } from './plugin'
 
-function hideSearchExplore() {
-  if (location.pathname !== '/explore') {
-    cleanCSS('hideTimelineExplore')
-    return
-  }
-  if (hasCSS('hideTimelineExplore')) {
-    return
-  }
-  hideElement(
-    [
-      '[aria-label="Timeline: Explore"]',
-      '[role="tablist"]:has(> [role="presentation"])',
-    ],
-    'hideTimelineExplore',
-  )
-  insertCSS(
-    `
-    @media (max-width: 500px) {
-      header[role="banner"] > * {
-        height: 54px !important;
-      }
-    }
-  `,
-    'hideTimelineExplore',
-  )
-}
-
-export function hideTimelineExplore(): BasePlugin {
+export function hideSearchExplore(): BasePlugin {
   return {
-    name: 'hideTimelineExplore',
+    name: 'hideSearchExplore',
     description: 'Hide Search Explore',
-    init: hideSearchExplore,
-    observer: hideSearchExplore,
+    init() {
+      hideElement([
+        ':has([href="/settings/explore"]) [aria-labelledby^="accessible-list-"]',
+        ':has([href="/settings/explore"]) [data-testid="ScrollSnap-List"]',
+      ])
+    },
   }
 }
