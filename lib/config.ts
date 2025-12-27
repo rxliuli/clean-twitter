@@ -19,6 +19,8 @@ export interface Config {
   hideNavJobs?: boolean
   hideNavProfile?: boolean
   hideNavAds?: boolean
+  hideNavCreatorStudio?: boolean
+  hideNavCreateSpace?: boolean
   hideNavMore?: boolean
 
   // Tweet Actions

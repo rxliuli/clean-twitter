@@ -16,6 +16,8 @@ import { hideNavCommunities } from './hideCommunities'
 import { hideNavPremium } from './hideNavPremium'
 import { hideNavGrok } from './hideNavGrok'
 import { hideNavProfile } from './hideNavProfile'
+import { hideNavCreatorStudio } from './hideNavCreatorStudio'
+import { hideNavCreateSpace } from './hideNavCreateSpace'
 import { hideNavMore } from './hideNavMore'
 
 // Tweet Actions
@@ -44,7 +46,9 @@ export const pluginGroups = {
     hideNavCommunities(),
     hideNavPremium(),
     hideNavProfile(),
+    hideNavCreatorStudio(),
     hideNavAds(),
+    hideNavCreateSpace(),
     hideNavMore(),
   ],
   tweetActions: [
