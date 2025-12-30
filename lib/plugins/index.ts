@@ -27,9 +27,11 @@ import { hideActionAnalytics } from './hideActionAnalytics'
 import { hideSearchExplore } from './hideTimelineExplore'
 import { hideDiscoverMore } from './hideDiscoverMore'
 import { hideAdvertisement } from './hideAdvertisement'
+import { hideTodayNews } from './hideTodayNews'
 import { hideActionGrok } from './hideActionGrok'
 import { hideActionBookmarks } from './hideActionBookmarks'
 import { hideNavAds } from './hideNavAds'
+import { hideWhoToFollow } from './hideWhoToFollow'
 
 export const pluginGroups = {
   branding: [restoreLogo()],
@@ -56,7 +58,13 @@ export const pluginGroups = {
     hideActionAnalytics(),
     hideActionBookmarks(),
   ],
-  contentArea: [hideSearchExplore(), hideDiscoverMore(), hideAdvertisement()],
+  contentArea: [
+    hideSearchExplore(),
+    hideDiscoverMore(),
+    hideAdvertisement(),
+    hideTodayNews(),
+    hideWhoToFollow(),
+  ],
 }
 
 // Flat array for backward compatibility

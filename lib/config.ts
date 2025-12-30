@@ -6,17 +6,16 @@ export interface Config {
   hideRightSidebar?: boolean
 
   // Left Navigation
-  hideNavHome?: boolean
-  hideNavExplore?: boolean
-  hideNavNotifications?: boolean
+  // hideNavHome?: boolean
+  // hideNavExplore?: boolean
+  // hideNavNotifications?: boolean
   hideNavFollow?: boolean
   hideNavChat?: boolean
-  hideNavBookmarks?: boolean
-  hideNavLists?: boolean
-  hideNavCommunities?: boolean
-  hideNavPremium?: boolean
   hideNavGrok?: boolean
-  hideNavJobs?: boolean
+  hideNavPremium?: boolean
+  hideNavLists?: boolean
+  hideNavBookmarks?: boolean
+  hideNavCommunities?: boolean
   hideNavProfile?: boolean
   hideNavAds?: boolean
   hideNavCreatorStudio?: boolean
@@ -32,6 +31,8 @@ export interface Config {
   hideSearchExplore?: boolean
   hideDiscoverMore?: boolean
   hideAdvertisement?: boolean
+  hideTodayNews?: boolean
+  hideWhoToFollow?: boolean
 }
 
 export const DEFAULT_CONFIG: Config = {
