@@ -1,5 +1,10 @@
 import { Checkbox } from './ui/checkbox'
-import { Info } from 'lucide-react'
+import { Info, ExternalLink } from 'lucide-react'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from './ui/tooltip'
 
 interface PluginOptionProps {
   id: string
@@ -7,6 +12,7 @@ interface PluginOptionProps {
   checked: boolean
   onCheckedChange: (checked: boolean) => void
   tooltip?: string
+  screenshotUrl?: string
 }
 
 export function PluginOption({
@@ -15,6 +21,7 @@ export function PluginOption({
   checked,
   onCheckedChange,
   tooltip,
+  screenshotUrl,
 }: PluginOptionProps) {
   return (
     <div className="flex items-center justify-between space-x-2">
@@ -32,12 +39,30 @@ export function PluginOption({
         </label>
       </div>
       {tooltip && (
-        <div className="group relative">
-          <Info className="h-3 w-3 text-muted-foreground cursor-help" />
-          <div className="absolute right-0 bottom-full mb-2 hidden group-hover:block w-48 p-2 bg-popover text-popover-foreground text-xs rounded-md shadow-md border z-10">
-            {tooltip}
-          </div>
-        </div>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button type="button" className="inline-flex">
+              <Info className="h-3 w-3 text-muted-foreground cursor-help" />
+            </button>
+          </TooltipTrigger>
+          <TooltipContent side="left" className="max-w-[250px] text-left">
+            <div className="space-y-2">
+              <p className="text-xs leading-relaxed">{tooltip}</p>
+              {screenshotUrl && (
+                <a
+                  href={screenshotUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-blue-400 hover:text-blue-300 hover:underline text-xs"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <ExternalLink className="h-3 w-3" />
+                  <span>View screenshot</span>
+                </a>
+              )}
+            </div>
+          </TooltipContent>
+        </Tooltip>
       )}
     </div>
   )

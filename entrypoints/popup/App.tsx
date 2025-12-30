@@ -12,6 +12,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { PluginOption } from '@/components/PluginOption'
+import { getFeatureUrl } from '@/lib/utils/featureUrl'
 
 function useConfig(): {
   config: Config
@@ -78,6 +79,7 @@ export function App() {
                 checked={config[plugin.name] ?? false}
                 onCheckedChange={(checked) => set({ [plugin.name]: checked })}
                 tooltip="Restore the classic Twitter bird logo"
+                screenshotUrl={getFeatureUrl(plugin.name)}
               />
             ))}
           </div>
@@ -92,6 +94,7 @@ export function App() {
                 checked={config[plugin.name] ?? false}
                 onCheckedChange={(checked) => set({ [plugin.name]: checked })}
                 tooltip="Hide the entire right sidebar (trending, suggestions, etc.)"
+                screenshotUrl={getFeatureUrl(plugin.name)}
               />
             ))}
           </div>
@@ -110,6 +113,7 @@ export function App() {
                     checked={config[plugin.name] ?? false}
                     onCheckedChange={(checked) => set({ [plugin.name]: checked })}
                     tooltip={`Hide ${plugin.description} from navigation`}
+                    screenshotUrl={getFeatureUrl(plugin.name)}
                   />
                 ))}
               </AccordionContent>
@@ -127,6 +131,7 @@ export function App() {
                     checked={config[plugin.name] ?? false}
                     onCheckedChange={(checked) => set({ [plugin.name]: checked })}
                     tooltip="Hide view/analytics count on tweets"
+                    screenshotUrl={getFeatureUrl(plugin.name)}
                   />
                 ))}
               </AccordionContent>
@@ -144,6 +149,7 @@ export function App() {
                     checked={config[plugin.name] ?? false}
                     onCheckedChange={(checked) => set({ [plugin.name]: checked })}
                     tooltip={`Hide ${plugin.description.toLowerCase()} from timeline`}
+                    screenshotUrl={getFeatureUrl(plugin.name)}
                   />
                 ))}
               </AccordionContent>
