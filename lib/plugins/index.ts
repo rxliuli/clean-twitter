@@ -9,6 +9,7 @@ import { hideNavHome } from './hideNavHome'
 import { hideNavExplore } from './hideNavExplore'
 import { hideNavNotifications } from './hideNavNotifications'
 import { hideNavFollow } from './hideNavFollow'
+import { hideNavArticles } from './hideNavArticles'
 import { hideNavChat } from './hideNavChat'
 import { hideNavBookmarks } from './hideBookmarks'
 import { hideNavLists } from './hideNavLists'
@@ -41,6 +42,7 @@ export const pluginGroups = {
     // hideNavExplore(),
     // hideNavNotifications(),
     hideNavFollow(),
+    hideNavArticles(),
     hideNavChat(),
     hideNavGrok(),
     hideNavLists(),

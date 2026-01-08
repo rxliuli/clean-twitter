@@ -6,7 +6,7 @@ export function hideNavFollow(): BasePlugin {
     name: 'hideNavFollow',
     description: 'Follow',
     init() {
-      hideElement(['[href="/i/connect_people"]'])
+      hideElement(['[href="/i/connect_people"]', '[href="/i/follow_people"]'])
     },
   }
 }

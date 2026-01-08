@@ -10,6 +10,7 @@ export interface Config {
   // hideNavExplore?: boolean
   // hideNavNotifications?: boolean
   hideNavFollow?: boolean
+  hideNavArticles?: boolean
   hideNavChat?: boolean
   hideNavGrok?: boolean
   hideNavPremium?: boolean
