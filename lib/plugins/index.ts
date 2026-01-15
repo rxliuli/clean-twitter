@@ -33,6 +33,7 @@ import { hideActionGrok } from './hideActionGrok'
 import { hideActionBookmarks } from './hideActionBookmarks'
 import { hideNavAds } from './hideNavAds'
 import { hideWhoToFollow } from './hideWhoToFollow'
+import { textMode } from './textMode'
 
 export const pluginGroups = {
   branding: [restoreLogo()],
@@ -66,6 +67,7 @@ export const pluginGroups = {
     hideAdvertisement(),
     hideTodayNews(),
     hideWhoToFollow(),
+    textMode(),
   ],
 }
 

@@ -34,6 +34,7 @@ export interface Config {
   hideAdvertisement?: boolean
   hideTodayNews?: boolean
   hideWhoToFollow?: boolean
+  textMode?: boolean
 }
 
 export const DEFAULT_CONFIG: Config = {
