@@ -4,7 +4,7 @@ import { plugins } from '@/lib/plugins'
 
 export default defineContentScript({
   matches: ['https://x.com/**'],
-  async main(ctx) {
+  async main() {
     let config = await getConfig()
 
     const effects: (() => void)[] = []
@@ -16,7 +16,7 @@ export default defineContentScript({
       plugins
         .filter((it) => config[it.name])
         .forEach((it) => {
-          const r = it.init(ctx)
+          const r = it.init()
           if (typeof r === 'function') {
             effects.push(r)
           }
