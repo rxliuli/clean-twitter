@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useAsync } from 'react-use'
-import { Config, getConfig, setConfig } from '../../lib/config'
+import { getConfig, setConfig } from '../../lib/config'
 import { pluginGroups } from '@/lib/plugins'
 import { Button } from '@/components/ui/button'
 import { ExternalLink } from 'lucide-react'
@@ -13,6 +13,16 @@ import {
 } from '@/components/ui/accordion'
 import { PluginOption } from '@/components/PluginOption'
 import { getFeatureUrl } from '@/lib/utils/featureUrl'
+
+const groupLabels: Record<keyof typeof pluginGroups, string> = {
+  branding: 'Branding',
+  layout: 'Layout',
+  leftNavigation: 'Left Navigation',
+  tweetActions: 'Tweet Actions',
+  contentArea: 'Content Area',
+}
+
+type Config = Record<string, boolean>
 
 function useConfig(): {
   config: Config
@@ -27,7 +37,7 @@ function useConfig(): {
   return {
     config: v || {},
     set: async (newV) => {
-      const config = { ...v, ...newV }
+      const config = { ...v, ...newV } as Config
       setV(config)
       await setConfig(config)
     },
@@ -69,91 +79,30 @@ export function App() {
         <div>Loading...</div>
       ) : (
         <div className="space-y-3">
-          {/* Branding Group */}
-          <div className="space-y-3">
-            {pluginGroups.branding.map((plugin) => (
-              <PluginOption
-                key={plugin.name}
-                id={plugin.name}
-                label={plugin.description}
-                checked={config[plugin.name] ?? false}
-                onCheckedChange={(checked) => set({ [plugin.name]: checked })}
-                tooltip="Restore the classic Twitter bird logo"
-                screenshotUrl={getFeatureUrl(plugin.name)}
-              />
-            ))}
-          </div>
-
-          {/* Layout Group */}
-          <div className="space-y-3">
-            {pluginGroups.layout.map((plugin) => (
-              <PluginOption
-                key={plugin.name}
-                id={plugin.name}
-                label={plugin.description}
-                checked={config[plugin.name] ?? false}
-                onCheckedChange={(checked) => set({ [plugin.name]: checked })}
-                tooltip="Hide the entire right sidebar (trending, suggestions, etc.)"
-                screenshotUrl={getFeatureUrl(plugin.name)}
-              />
-            ))}
-          </div>
-
-          {/* Collapsible Groups */}
-          <Accordion type="multiple" className="space-y-2">
-            {/* Left Navigation Group */}
-            <AccordionItem value="left-navigation" className="border rounded-lg">
-              <AccordionTrigger className="px-3">Left Navigation</AccordionTrigger>
-              <AccordionContent className="px-3 space-y-3">
-                {pluginGroups.leftNavigation.map((plugin) => (
-                  <PluginOption
-                    key={plugin.name}
-                    id={plugin.name}
-                    label={plugin.description}
-                    checked={config[plugin.name] ?? false}
-                    onCheckedChange={(checked) => set({ [plugin.name]: checked })}
-                    tooltip={`Hide ${plugin.description} from navigation`}
-                    screenshotUrl={getFeatureUrl(plugin.name)}
-                  />
-                ))}
-              </AccordionContent>
-            </AccordionItem>
-
-            {/* Tweet Actions Group */}
-            <AccordionItem value="tweet-actions" className="border rounded-lg">
-              <AccordionTrigger className="px-3">Tweet Actions</AccordionTrigger>
-              <AccordionContent className="px-3 space-y-3">
-                {pluginGroups.tweetActions.map((plugin) => (
-                  <PluginOption
-                    key={plugin.name}
-                    id={plugin.name}
-                    label={plugin.description}
-                    checked={config[plugin.name] ?? false}
-                    onCheckedChange={(checked) => set({ [plugin.name]: checked })}
-                    tooltip="Hide view/analytics count on tweets"
-                    screenshotUrl={getFeatureUrl(plugin.name)}
-                  />
-                ))}
-              </AccordionContent>
-            </AccordionItem>
-
-            {/* Content Area Group */}
-            <AccordionItem value="content-area" className="border rounded-lg">
-              <AccordionTrigger className="px-3">Content Area</AccordionTrigger>
-              <AccordionContent className="px-3 space-y-3">
-                {pluginGroups.contentArea.map((plugin) => (
-                  <PluginOption
-                    key={plugin.name}
-                    id={plugin.name}
-                    label={plugin.description}
-                    checked={config[plugin.name] ?? false}
-                    onCheckedChange={(checked) => set({ [plugin.name]: checked })}
-                    tooltip={`Hide ${plugin.description.toLowerCase()} from timeline`}
-                    screenshotUrl={getFeatureUrl(plugin.name)}
-                  />
-                ))}
-              </AccordionContent>
-            </AccordionItem>
+          <Accordion type="single" collapsible defaultValue="leftNavigation">
+            {(Object.keys(pluginGroups) as (keyof typeof pluginGroups)[]).map(
+              (groupKey) => (
+                <AccordionItem key={groupKey} value={groupKey}>
+                  <AccordionTrigger>{groupLabels[groupKey]}</AccordionTrigger>
+                  <AccordionContent>
+                    <div className="space-y-3">
+                      {pluginGroups[groupKey].map((plugin) => (
+                        <PluginOption
+                          key={plugin.name}
+                          id={plugin.name}
+                          label={plugin.description}
+                          checked={config[plugin.name] ?? false}
+                          onCheckedChange={(checked) =>
+                            set({ [plugin.name]: checked })
+                          }
+                          screenshotUrl={getFeatureUrl(plugin.name)}
+                        />
+                      ))}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ),
+            )}
           </Accordion>
 
           {/* Other extensions link */}

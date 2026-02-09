@@ -1,7 +1,5 @@
-import { Config } from '../config'
-
 export interface BasePlugin {
-  name: keyof Config
+  name: string
   description: string
   init(): void | (() => void)
   observer?(): void | (() => void)

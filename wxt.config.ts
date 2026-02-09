@@ -10,7 +10,12 @@ export default defineConfig({
       },
     },
   }),
-  modules: ['@wxt-dev/module-react'],
+  modules: ['@wxt-dev/module-react', 'wxt-module-safari-xcode'],
+  safariXcode: {
+    appCategory: 'public.app-category.productivity',
+    bundleIdentifier: 'com.rxliuli.Cleaner-for-X',
+    developmentTeam: 'N2X78TUUFG',
+  },
   webExt: {
     disabled: true,
   },
@@ -38,7 +43,7 @@ export default defineConfig({
       manifest.author = 'rxliuli'
     }
     if (env.browser === 'safari') {
-      manifest.name = 'Cleaner for X'
+      manifest.name = 'Clean for Twitter'
     }
     return manifest
   },
