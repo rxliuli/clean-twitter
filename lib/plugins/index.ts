@@ -33,6 +33,7 @@ import { hideActionGrok } from './hideActionGrok'
 import { hideActionBookmarks } from './hideActionBookmarks'
 import { hideNavAds } from './hideNavAds'
 import { hideWhoToFollow } from './hideWhoToFollow'
+import { hideAppDownload } from './hideAppDownload'
 import { textMode } from './textMode'
 
 export const pluginGroups = {
@@ -55,6 +56,7 @@ export const pluginGroups = {
     hideNavAds(),
     hideNavCreateSpace(),
     hideNavMore(),
+    hideAppDownload(),
   ],
   tweetActions: [
     hideActionGrok(),
