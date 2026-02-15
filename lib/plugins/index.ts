@@ -34,6 +34,7 @@ import { hideActionBookmarks } from './hideActionBookmarks'
 import { hideNavAds } from './hideNavAds'
 import { hideWhoToFollow } from './hideWhoToFollow'
 import { hideAppDownload } from './hideAppDownload'
+import { hideNotificationRecommendation } from './hideNotificationRecommendation'
 import { textMode } from './textMode'
 
 export const pluginGroups = {
@@ -69,6 +70,7 @@ export const pluginGroups = {
     hideAdvertisement(),
     hideTodayNews(),
     hideWhoToFollow(),
+    hideNotificationRecommendation(),
     textMode(),
   ],
 }
