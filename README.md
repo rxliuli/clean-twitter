@@ -19,6 +19,7 @@ Clean up unnecessary elements on X (Twitter) and enjoy a cleaner, more focused e
 - **Hide Grok** - Remove the Grok AI assistant
 - **Hide Jobs** - Remove the Jobs section
 - **Hide Analytics** - Remove the Analytics tab
+- **Hide Notification Recommendation** - Remove recommended posts from notifications
 
 ## 🎉 Demo
 
