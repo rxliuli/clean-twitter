@@ -8,7 +8,7 @@ export function hideActionAnalytics(): BasePlugin {
     init() {
       hideElementOnDesktop([
         // tweet actions
-        '[data-testid="cellInnerDiv"] div:has(> [href*="/status/"][href$="/analytics"]):not([data-testid="Dropdown"])',
+        '[data-testid="cellInnerDiv"] [role="group"] > div:has(> [href*="/status/"][href$="/analytics"]):not([data-testid="Dropdown"])',
         // desktop action dropdown menu
         '[data-testid="Dropdown"] > [data-testid="analytics"]',
         // desktop profile analytics link
