@@ -13,5 +13,5 @@ function toKebabCase(str: string): string {
 
 export function getFeatureUrl(pluginName: string): string {
   const fragment = `feature-${toKebabCase(pluginName)}`
-  return `https://store.rxliuli.com/extensions/clean-twitter/#${fragment}`
+  return `https://store.rxliuli.com/extensions/clean-twitter/screenshots#${fragment}`
 }
