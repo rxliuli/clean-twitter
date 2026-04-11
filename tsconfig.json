@@ -4,7 +4,6 @@
     "allowImportingTsExtensions": true,
     "jsx": "react-jsx",
     "moduleResolution": "bundler",
-    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./*"
