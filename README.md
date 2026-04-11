@@ -4,22 +4,38 @@ Clean up unnecessary elements on X (Twitter) and enjoy a cleaner, more focused e
 
 ## ✨ Features
 
-### Core Features
+### Branding & Layout
 
 - **Restore Logo** - Bring back the classic Twitter bird logo
 - **Hide Right Sidebar** - Remove the trending and suggestions sidebar for a cleaner interface
 
-### Navigation Cleanup
+### Text Mode
 
-- **Hide Timeline Explore** - Remove the Explore tab from your timeline
-- **Hide Discover More** - Remove the "Discover more" section
-- **Hide Premium** - Remove Premium/X Premium promotional elements
-- **Hide Communities** - Remove the Communities tab
-- **Hide Bookmarks** - Remove the Bookmarks tab
-- **Hide Grok** - Remove the Grok AI assistant
-- **Hide Jobs** - Remove the Jobs section
-- **Hide Analytics** - Remove the Analytics tab
+- **Text Mode** - Strip images, videos, and media cards from the home timeline (For You and Following) for a distraction-free, text-only feed
+
+  > Unlike the other features, Text Mode works by intercepting `HomeTimeline` / `HomeLatestTimeline` GraphQL responses and removing media fields before X's frontend renders them. This is necessary because X's timeline uses virtual scrolling, and hiding media with CSS alone breaks scroll-height calculation. When the toggle is off, no interception happens.
+
+### Timeline & Content
+
+- **Hide Advertisement** - Remove promoted tweets from the timeline
+- **Hide Who to Follow** - Remove the "Who to follow" suggestions
+- **Hide Discover More** - Remove the "Discover more" section below tweets
+- **Hide Today News** - Remove the "Today's News" widget
 - **Hide Notification Recommendation** - Remove recommended posts from notifications
+- **Hide Search Explore** - Remove the Explore section on search result pages
+- **Hide App Download** - Remove the "get the app" banner
+
+### Left Navigation Cleanup
+
+Hide any of the following items from the left sidebar:
+
+- **Connect People** · **Articles** · **Messages** · **Grok** · **Lists** · **Bookmarks** · **Communities** · **Premium** · **Profile** · **Creator Studio** · **Ads** · **Create Space** · **More**
+
+### Tweet Action Buttons
+
+Hide action buttons below individual tweets:
+
+- **Grok** · **Analytics** · **Bookmarks**
 
 ## 🎉 Demo
 
@@ -43,7 +59,7 @@ All features can be individually toggled on/off through the extension popup. You
 **Hide Right Sidebar**
 <img width="1280" height="800" alt="image" src="https://github.com/user-attachments/assets/561979c7-0993-4485-a832-2c1d4a7dc97c" />
 
-**Hide Timeline Explore**
+**Hide Search Explore**
 <img width="1280" height="800" alt="image" src="https://github.com/user-attachments/assets/d6d27042-540a-4026-b836-1c8cdf11a4e5" />
 
 **Hide Discover More**
@@ -60,7 +76,6 @@ All features can be individually toggled on/off through the extension popup. You
 **Hide Grok**
 <img width="1280" height="800" alt="image" src="https://github.com/user-attachments/assets/fb0532c8-046b-4d2f-ba1b-b1c40ed78c89" />
 
-~~Hide Jobs~~
 **Hide Analytics**
 <img width="1280" height="800" alt="image" src="https://github.com/user-attachments/assets/a3321542-eeb2-41f7-820d-902c09d4e3f7" />
 
