@@ -23,6 +23,7 @@ Clean up unnecessary elements on X (Twitter) and enjoy a cleaner, more focused e
 - **Hide Today News** - Remove the "Today's News" widget
 - **Hide Notification Recommendation** - Remove recommended posts from notifications
 - **Hide Search Explore** - Remove the Explore section on search result pages
+- **Hide Space Live** - Hide the Space live notification bar on the home timeline
 - **Hide App Download** - Remove the "get the app" banner
 
 ### Left Navigation Cleanup
