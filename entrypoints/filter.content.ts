@@ -25,7 +25,7 @@ export default defineContentScript({
       }
       if (textModeEnabled === null) {
         const config = await getConfig()
-        textModeEnabled = config[textMode().name]
+        textModeEnabled = config[textMode().name] ?? false
       }
       if (!textModeEnabled) {
         console.log('text mode is disabled, stop intercepting')

@@ -4,7 +4,7 @@ import {
   insertCSS,
   wrapCSSOnMobile,
 } from '../css'
-import { BasePlugin } from './plugin'
+import type { BasePlugin } from './plugin'
 
 export function hideSpaceLive(): BasePlugin {
   return {

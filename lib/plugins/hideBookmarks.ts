@@ -1,5 +1,5 @@
 import { hideElement } from '../css'
-import { BasePlugin } from './plugin'
+import type { BasePlugin } from './plugin'
 
 export function hideNavBookmarks(): BasePlugin {
   return {

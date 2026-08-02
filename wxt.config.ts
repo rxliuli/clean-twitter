@@ -1,20 +1,26 @@
 import tailwindcss from '@tailwindcss/vite'
-import { defineConfig, UserManifest } from 'wxt'
+import { defineConfig, type UserManifest } from 'wxt'
 
 export default defineConfig({
   vite: () => ({
-    plugins: [tailwindcss()] as any,
+    plugins: [tailwindcss()],
     resolve: {
       alias: {
         '@': __dirname,
       },
     },
   }),
-  modules: ['@wxt-dev/module-react', 'wxt-module-safari-xcode'],
-  safariXcode: {
-    appCategory: 'public.app-category.productivity',
-    bundleIdentifier: 'com.rxliuli.Cleaner-for-X',
-    developmentTeam: 'N2X78TUUFG',
+  modules: ['@wxt-dev/module-react', '@extport/wxt'],
+  extport: {
+    extension: 'ext_CECOPdH35ZpP6JI6wuWc',
+    analytics: true,
+    safari: {
+      appCategory: 'public.app-category.productivity',
+      bundleIdentifier: 'com.rxliuli.Cleaner-for-X',
+      developmentTeam: 'N2X78TUUFG',
+      issuerId: '48f39427-c063-4e33-98d2-31de80aad0be',
+      keyId: '8N27UWG9RG',
+    },
   },
   webExt: {
     disabled: true,

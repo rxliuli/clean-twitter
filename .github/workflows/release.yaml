@@ -1,71 +1,129 @@
 env:
-  DIRECTORY: .output
+  DIRECTORY: .
   PROJECT_NAME: clean-twitter
 
 name: Release
 
 on:
   push:
-    branches: ['main']
-  pull_request:
-    branches: ['main']
+    branches: [main]
+    paths:
+      - 'package.json'
 
 jobs:
-  Version:
+  version:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     outputs:
-      version: ${{ steps.get_version.outputs.version }}
-      version_changed: ${{ steps.check_version.outputs.version_changed }}
+      changed: ${{ steps.version.outputs.changed }}
+      version: ${{ steps.version.outputs.version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
-          fetch-depth: 0
-      - name: Check for version change
-        id: check_version
-        run: |
-          if git diff --name-only HEAD~1..HEAD | grep -q '^package\.json$'; then
-            VERSION_CHANGED=1
-          else
-            VERSION_CHANGED=0
-          fi
-          echo "version_changed=$VERSION_CHANGED" >> "$GITHUB_OUTPUT"
-      - name: Get version
-        if: ${{ steps.check_version.outputs.version_changed == '1' }}
-        id: get_version
-        run: |
-          VERSION=$(jq -r .version package.json)
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          fetch-depth: 2
+      - name: Check version change
+        id: version
+        uses: rxliuli/version-check@v1
+        with:
+          file: ${{ env.DIRECTORY }}/package.json
 
-  Submit:
+  release:
     permissions:
       contents: write
-    needs: Version
-    if: ${{ needs.Version.outputs.version_changed == '1' }}
+    needs: version
+    if: needs.version.outputs.changed == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
         with:
-          version: 'latest'
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+          node-version: 24
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install
       - name: Zip extensions
         run: |
+          cd ${{ env.DIRECTORY }}
           pnpm zip
           pnpm zip:firefox
+
       - name: Create Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
-          tag_name: 'v${{ needs.Version.outputs.version }}'
-          name: 'v${{ needs.Version.outputs.version }}'
+          tag_name: 'v${{ needs.version.outputs.version }}'
+          name: 'v${{ needs.version.outputs.version }}'
+          generate_release_notes: true
           draft: false
           prerelease: false
           files: |
-            ${{ env.DIRECTORY }}/${{env.PROJECT_NAME}}-${{ needs.Version.outputs.version }}-chrome.zip
-            ${{ env.DIRECTORY }}/${{env.PROJECT_NAME}}-${{ needs.Version.outputs.version }}-firefox.zip
-            ${{ env.DIRECTORY }}/${{env.PROJECT_NAME}}-${{ needs.Version.outputs.version }}-sources.zip
+            ${{ env.DIRECTORY }}/.output/${{ env.PROJECT_NAME }}-${{ needs.version.outputs.version }}-chrome.zip
+            ${{ env.DIRECTORY }}/.output/${{ env.PROJECT_NAME }}-${{ needs.version.outputs.version }}-firefox.zip
+            ${{ env.DIRECTORY }}/.output/${{ env.PROJECT_NAME }}-${{ needs.version.outputs.version }}-sources.zip
+
+      - name: Push to Chrome Web Store
+        uses: extport-dev/actions/push@v1
+        with:
+          # file/version/extension inferred from .output/, its manifest.json, and extport.config.json.
+          store: chrome
+          api-key: ${{ secrets.EXTPORT_API_KEY }}
+
+      - name: Push to Edge Add-ons
+        uses: extport-dev/actions/push@v1
+        with:
+          # Edge is Chromium-based — extport falls back to the chrome zip
+          # when no dedicated edge one was built, same as this used to do by hand.
+          store: edge
+          api-key: ${{ secrets.EXTPORT_API_KEY }}
+
+      - name: Push to Firefox AMO
+        uses: extport-dev/actions/push@v1
+        with:
+          # file/version inferred; source-zip has no equivalent convention to infer from.
+          source-zip: .output/${{ env.PROJECT_NAME }}-${{ needs.version.outputs.version }}-sources.zip
+          store: firefox
+          api-key: ${{ secrets.EXTPORT_API_KEY }}
+
+  safari:
+    needs: version
+    if: needs.version.outputs.changed == 'true'
+    runs-on: macos-26
+    timeout-minutes: 15
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Safari extension
+        run: pnpm build:safari
+
+      - uses: extport-dev/actions/safari-build@v1
+        with:
+          # project-path/team-id inferred from extport.config.json (synced by
+          # @extport/wxt). Automatic code signing via -allowProvisioningUpdates,
+          # reusing the certificate below instead of minting a new one every
+          # run — an ephemeral runner has no local keychain, so without this
+          # it silently burns one Apple certificate per run until the account
+          # hits Apple's cap.
+          issuer-id: ${{ secrets.APPLE_API_ISSUER }}
+          key-id: ${{ secrets.APPLE_API_KEY_ID }}
+          key-base64: ${{ secrets.APPLE_API_KEY }}
+          certificate-base64: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
+          certificate-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          version: ${{ needs.version.outputs.version }}
+
+      - name: Register the Safari version with extport
+        uses: extport-dev/actions/push@v1
+        with:
+          # version/extension inferred — no zip travels through extport for safari.
+          # Submission for review happens on its own once extport's reconcile
+          # sees the build finish processing in App Store Connect.
+          store: safari
+          api-key: ${{ secrets.EXTPORT_API_KEY }}

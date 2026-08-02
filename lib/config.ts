@@ -1,5 +1,5 @@
 import { plugins } from './plugins'
-import { BasePlugin } from './plugins/plugin'
+import type { BasePlugin } from './plugins/plugin'
 import { hideNavChat } from './plugins/hideNavChat'
 import { hideNavGrok } from './plugins/hideNavGrok'
 import { hideNavBookmarks } from './plugins/hideBookmarks'

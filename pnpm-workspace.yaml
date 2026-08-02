@@ -1,0 +1,7 @@
+allowBuilds:
+  esbuild: true
+  spawn-sync: true
+minimumReleaseAgeExclude:
+  - '@extport/sdk'
+  - '@extport/wxt'
+  - '@rxliuli/vista'

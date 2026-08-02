@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import HomeTimeline from '../assets/HomeTimeline.json'
-import HomeLatestTimeline from '../assets/HomeLatestTimeline.json'
+import HomeTimeline from './assets/HomeTimeline.json'
+import HomeLatestTimeline from './assets/HomeLatestTimeline.json'
 import { stripHomeTimelineMedia } from './stripTweetMedia'
 
 function clone<T>(v: T): T {
