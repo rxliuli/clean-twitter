@@ -2,7 +2,7 @@ import { plugins } from './plugins'
 import type { BasePlugin } from './plugins/plugin'
 import { hideNavChat } from './plugins/hideNavChat'
 import { hideNavGrok } from './plugins/hideNavGrok'
-import { hideNavBookmarks } from './plugins/hideBookmarks'
+import { hideNavHistory } from './plugins/hideHistory'
 import { hideNavProfile } from './plugins/hideNavProfile'
 import { hideNavMore } from './plugins/hideNavMore'
 import { hideActionGrok } from './plugins/hideActionGrok'
@@ -14,7 +14,7 @@ const disabledByDefault = new Set(
   [
     hideNavChat(),
     hideNavGrok(),
-    hideNavBookmarks(),
+    hideNavHistory(),
     hideNavProfile(),
     hideNavMore(),
     hideActionGrok(),

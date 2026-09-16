@@ -30,7 +30,7 @@ Clean up unnecessary elements on X (Twitter) and enjoy a cleaner, more focused e
 
 Hide any of the following items from the left sidebar:
 
-- **Connect People** · **Articles** · **Messages** · **Grok** · **Lists** · **Bookmarks** · **Communities** · **Premium** · **Profile** · **Creator Studio** · **Ads** · **Create Space** · **More**
+- **Connect People** · **Articles** · **Messages** · **Grok** · **Lists** · **History** · **Communities** · **Premium** · **Profile** · **Creator Studio** · **Ads** · **Create Space** · **More**
 
 ### Tweet Action Buttons
 
