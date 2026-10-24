@@ -1,6 +1,7 @@
 import { plugins } from './plugins'
 import type { BasePlugin } from './plugins/plugin'
 import { hideNavChat } from './plugins/hideNavChat'
+import { hideNavCalls } from './plugins/hideNavCalls'
 import { hideNavGrok } from './plugins/hideNavGrok'
 import { hideNavHistory } from './plugins/hideHistory'
 import { hideNavProfile } from './plugins/hideNavProfile'
@@ -13,6 +14,7 @@ import { textMode } from './plugins/textMode'
 const disabledByDefault = new Set(
   [
     hideNavChat(),
+    hideNavCalls(),
     hideNavGrok(),
     hideNavHistory(),
     hideNavProfile(),

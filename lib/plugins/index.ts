@@ -11,6 +11,7 @@ import { hideNavNotifications } from './hideNavNotifications'
 import { hideNavFollow } from './hideNavFollow'
 import { hideNavArticles } from './hideNavArticles'
 import { hideNavChat } from './hideNavChat'
+import { hideNavCalls } from './hideNavCalls'
 import { hideNavHistory } from './hideHistory'
 import { hideNavLists } from './hideNavLists'
 import { hideNavCommunities } from './hideCommunities'
@@ -48,6 +49,7 @@ export const pluginGroups = {
     hideNavFollow(),
     hideNavArticles(),
     hideNavChat(),
+    hideNavCalls(),
     hideNavGrok(),
     hideNavLists(),
     hideNavHistory(),
