@@ -3,6 +3,7 @@ import type { BasePlugin } from './plugins/plugin'
 import { hideNavChat } from './plugins/hideNavChat'
 import { hideNavCalls } from './plugins/hideNavCalls'
 import { hideNavGrok } from './plugins/hideNavGrok'
+import { hideFloatingGrok } from './plugins/hideFloatingGrok'
 import { hideNavHistory } from './plugins/hideHistory'
 import { hideNavProfile } from './plugins/hideNavProfile'
 import { hideNavMore } from './plugins/hideNavMore'
@@ -16,6 +17,7 @@ const disabledByDefault = new Set(
     hideNavChat(),
     hideNavCalls(),
     hideNavGrok(),
+    hideFloatingGrok(),
     hideNavHistory(),
     hideNavProfile(),
     hideNavMore(),

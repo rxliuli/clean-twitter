@@ -3,6 +3,7 @@ import { restoreLogo } from './restoreLogo'
 
 // Layout
 import { hideRightSidebar } from './hideRightSidebar'
+import { hideFloatingGrok } from './hideFloatingGrok'
 
 // Left Navigation
 import { hideNavHome } from './hideNavHome'
@@ -41,7 +42,7 @@ import { textMode } from './textMode'
 
 export const pluginGroups = {
   branding: [restoreLogo()],
-  layout: [hideRightSidebar()],
+  layout: [hideRightSidebar(), hideFloatingGrok()],
   leftNavigation: [
     // hideNavHome(),
     // hideNavExplore(),
