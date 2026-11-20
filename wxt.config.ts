@@ -28,9 +28,9 @@ export default defineConfig({
   manifestVersion: 3,
   manifest: (env) => {
     const manifest: UserManifest = {
-      name: 'Clean Twitter',
+      name: 'Clean Twitter: Distraction-Free X Timeline',
       description:
-        'Clean up some annoying elements on Twitter and make your Twitter experience cleaner',
+        'Hide promoted posts, Grok, right sidebar, trending topics, and clutter on X (Twitter). Restore the classic bird logo for free.',
       permissions: ['storage'],
       author: {
         email: 'rxliuli@gmail.com',
@@ -50,6 +50,8 @@ export default defineConfig({
     }
     if (env.browser === 'safari') {
       manifest.name = 'Clean for Twitter'
+      manifest.description =
+        'Hide promoted posts, Grok, right sidebar, trending topics & clutter on X (Twitter). Restore the bird logo.'
     }
     return manifest
   },
