@@ -176,8 +176,8 @@ importers:
   .:
     dependencies:
       '@extport/sdk':
-        specifier: ^0.0.10
-        version: 0.0.10(react@19.3.1)
+        specifier: ^0.0.11
+        version: 0.0.11(react@19.3.1)
       '@liuli-util/async':
         specifier: ^3.7.0
         version: 3.7.0
@@ -216,8 +216,8 @@ importers:
         version: 1.4.0
     devDependencies:
       '@extport/wxt':
-        specifier: ^0.0.13
-        version: 0.0.13(@extport/sdk@0.0.10(react@19.3.1))(wxt@0.21.5(rolldown@1.2.19)(typescript@7.0.2)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)))
+        specifier: ^0.0.15
+        version: 0.0.15(@extport/sdk@0.0.11(react@19.3.1))(wxt@0.21.5(rolldown@1.2.19)(typescript@7.0.2)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)))
       '@types/react':
         specifier: ^19.3.0
         version: 19.3.0
@@ -297,16 +297,16 @@ packages:
   '@emnapi/wasi-threads@2.2.0':
     resolution: {integrity: sha512-JP7OYH38Q7+pyTAe14raZHLQIK7BDKbdwji+Xi3pcd/6QkJYQH3SX4wu6EplGrGJWRepoNzedfm0G3B9Z4e9Rw==}
 
-  '@extport/sdk@0.0.10':
-    resolution: {integrity: sha512-h4zbgniw3EdNdQMeHZG4Sh1Wk0SbDayjFGwxBTmdMXjGM+AYDEYic/n4cm84C3jcW4aiSZxCddFzqeeSK8ionA==}
+  '@extport/sdk@0.0.11':
+    resolution: {integrity: sha512-lxr3Go8NMxFEd9vZrj++SDW3QM4E+bzaCieQ+Qz7ybcYwS02SBggdWoR040RJx5gSQeSlMZ84c5xF0BdUHrhMA==}
     peerDependencies:
       react: '>=18'
     peerDependenciesMeta:
       react:
         optional: true
 
-  '@extport/wxt@0.0.13':
-    resolution: {integrity: sha512-riCoJAwTX6rkvdPOsaHdUZRGpSvDc3Cg080WEwHv9RhOGsW1fkRyc9lFc5a+T6RtSdQGMhhW/h2p9xKj5Mj0Dw==}
+  '@extport/wxt@0.0.15':
+    resolution: {integrity: sha512-0A9fQhGjwbxU1BnRI4v6+zrKGe+J+cZEoDMSmktWz/zDNKOYFDnJeTPsO/UdefdgzFhlPGMjaG++gmx+XCREDA==}
     engines: {node: '>=18'}
     peerDependencies:
       '@extport/sdk': '>=0.0.5'
@@ -2423,17 +2423,17 @@ snapshots:
       tslib: 2.9.1
     optional: true
 
-  '@extport/sdk@0.0.10(react@19.3.1)':
+  '@extport/sdk@0.0.11(react@19.3.1)':
     dependencies:
       idb-keyval: 6.3.0
     optionalDependencies:
       react: 19.3.1
 
-  '@extport/wxt@0.0.13(@extport/sdk@0.0.10(react@19.3.1))(wxt@0.21.5(rolldown@1.2.19)(typescript@7.0.2)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)))':
+  '@extport/wxt@0.0.15(@extport/sdk@0.0.11(react@19.3.1))(wxt@0.21.5(rolldown@1.2.19)(typescript@7.0.2)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)))':
     dependencies:
       wxt: 0.21.5(rolldown@1.2.19)(typescript@7.0.2)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0))
     optionalDependencies:
-      '@extport/sdk': 0.0.10(react@19.3.1)
+      '@extport/sdk': 0.0.11(react@19.3.1)
 
   '@floating-ui/core@1.8.0':
     dependencies:
