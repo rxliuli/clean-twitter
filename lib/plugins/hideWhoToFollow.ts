@@ -1,4 +1,4 @@
-import { hideElement } from '../css'
+import { hideElement, hideVirtualListItem } from '../css'
 import type { BasePlugin } from './plugin'
 
 export function hideWhoToFollow(): BasePlugin {
@@ -18,6 +18,11 @@ export function hideWhoToFollow(): BasePlugin {
         '[data-testid="cellInnerDiv"]:has([href^="/i/connect_people"])',
         '[data-testid="cellInnerDiv"]:has([href^="/i/connect_people"])' +
           nextSelector,
+        // New X Relay frontend: Who to follow card in right sidebar
+        'aside section:has(a[href^="/i/connect_people"])',
+      ])
+      hideVirtualListItem([
+        'li[data-index]:has(a[href^="/i/connect_people"]):not(:has(article))',
       ])
     },
   }

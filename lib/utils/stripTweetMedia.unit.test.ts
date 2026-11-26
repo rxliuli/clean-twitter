@@ -109,4 +109,144 @@ describe('stripHomeTimelineMedia', () => {
     expect(stripHomeTimelineMedia({} as any)).toEqual({})
     expect(stripHomeTimelineMedia({ data: {} } as any)).toEqual({ data: {} })
   })
+
+  it('strips New X Relay media_entities2, card_results, article_results, and quoted_tweet_results', () => {
+    const newXPayload: any = {
+      data: {
+        home_timeline: {
+          home_timeline_urt: {
+            instructions: [
+              {
+                __typename: 'TimelineAddEntries',
+                entries: [
+                  {
+                    content: {
+                      __typename: 'TimelineTimelineItem',
+                      content: {
+                        __typename: 'TimelineTweet',
+                        tweet_results: {
+                          result: {
+                            __typename: 'Tweet',
+                            details: { full_text: 'New X post with media' },
+                            legacy: { entities: { media: [{ expanded_url: 'https://x.com/a/status/1/video/1' }] } },
+                            media_entities2: [{ media_key: '3_123' }],
+                            card_results: { result: { legacy: { name: 'summary_large_image' } } },
+                            article_results: { result: { id: 'a1' } },
+                            quoted_tweet_results: {
+                              result: {
+                                __typename: 'Tweet',
+                                media_entities2: [{ media_key: '3_456' }],
+                                card_results: { result: { legacy: { name: 'poll2choice_text_only' } } },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      },
+    }
+
+    stripHomeTimelineMedia(newXPayload)
+    const tweet =
+      newXPayload.data.home_timeline.home_timeline_urt.instructions[0].entries[0].content.content.tweet_results.result
+    expect(tweet.media_entities2).toEqual([])
+    expect(tweet.legacy.entities.media).toBeUndefined()
+    expect(tweet.card_results).toBeNull()
+    expect(tweet.article_results).toBeNull()
+    expect(tweet.details.full_text).toBe('New X post with media')
+    expect(tweet.quoted_tweet_results.result.media_entities2).toEqual([])
+    expect(tweet.quoted_tweet_results.result.card_results.result.legacy.name).toBe('poll2choice_text_only')
+  })
+
+  it('strips New X Relay reposts (legacy.retweeted_status_results), nested quotes, and TweetResultByRestId', () => {
+    const followingPayload: any = {
+      data: {
+        home: {
+          home_timeline_urt: {
+            instructions: [
+              {
+                __typename: 'TimelineAddEntries',
+                entries: [
+                  {
+                    content: {
+                      __typename: 'TimelineTimelineItem',
+                      content: {
+                        __typename: 'TimelineTweet',
+                        tweet_results: {
+                          result: {
+                            __typename: 'Tweet',
+                            media_entities2: [{ media_key: '13_1' }],
+                            legacy: {
+                              retweeted_status_results: {
+                                result: {
+                                  __typename: 'Tweet',
+                                  media_entities2: [{ media_key: '13_1' }],
+                                  card: { legacy: { name: 'video_website' } },
+                                  quoted_tweet_results: {
+                                    result: {
+                                      __typename: 'Tweet',
+                                      media_entities2: [{ media_key: '3_2' }],
+                                      nested_quoted_tweet_results: {
+                                        result: {
+                                          __typename: 'Tweet',
+                                          media_entities2: [{ media_key: '3_3' }],
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      },
+    }
+
+    stripHomeTimelineMedia(followingPayload)
+    const outer =
+      followingPayload.data.home.home_timeline_urt.instructions[0].entries[0].content.content.tweet_results.result
+    const repost = outer.legacy.retweeted_status_results.result
+    expect(outer.media_entities2).toEqual([])
+    expect(repost.media_entities2).toEqual([])
+    expect(repost.card).toBeNull()
+    expect(repost.quoted_tweet_results.result.media_entities2).toEqual([])
+    expect(repost.quoted_tweet_results.result.nested_quoted_tweet_results.result.media_entities2).toEqual([])
+
+    const singleTweetPayload: any = {
+      data: {
+        tweet_result_by_rest_id: {
+          result: {
+            __typename: 'Tweet',
+            media_entities2: [{ media_key: '3_99' }],
+            quoted_tweet_results: {
+              result: {
+                __typename: 'Tweet',
+                media_entities2: [{ media_key: '3_100' }],
+              },
+            },
+          },
+        },
+      },
+    }
+
+    stripHomeTimelineMedia(singleTweetPayload)
+    expect(singleTweetPayload.data.tweet_result_by_rest_id.result.media_entities2).toEqual([])
+    expect(
+      singleTweetPayload.data.tweet_result_by_rest_id.result.quoted_tweet_results.result.media_entities2,
+    ).toEqual([])
+  })
 })

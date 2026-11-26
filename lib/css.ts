@@ -2,6 +2,20 @@ export function hideElement(selector: string[], tag?: string) {
   insertCSS(`${selector.join(',')}{ display: none !important; }`, tag)
 }
 
+/**
+ * Hide virtualized TanStack Virtual `li[data-index]` rows on New X without leaving blank gaps.
+ * Setting `display: none` breaks ResizeObserver measurement; keeping `height: 1px` while hiding
+ * children triggers an immediate reflow.
+ */
+export function hideVirtualListItem(selectors: string[], tag?: string) {
+  const joined = selectors.join(',')
+  const children = selectors.map((s) => `${s} > *`).join(',')
+  insertCSS(
+    `${joined} { height: 1px !important; min-height: 0 !important; overflow: hidden !important; padding: 0 !important; margin: 0 !important; border: 0 !important; opacity: 0 !important; pointer-events: none !important; } ${children} { display: none !important; }`,
+    tag,
+  )
+}
+
 export function wrapCSSOnMobile(selector: string) {
   return `@media (max-width: 768px) { ${selector} }`
 }

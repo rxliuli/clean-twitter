@@ -16,6 +16,8 @@ export function hideTodayNews(): BasePlugin {
         selector + nextSelector.repeat(3),
         selector + nextSelector.repeat(4),
         selector + nextSelector.repeat(5),
+        // New X Relay frontend: Today's News card in right sidebar
+        'aside section:has(a[href^="/i/trending/"])',
       ])
     },
   }

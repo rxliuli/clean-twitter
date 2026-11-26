@@ -7,6 +7,19 @@ export default defineContentScript({
   world: 'ISOLATED',
 
   main() {
-    eventMessager.onMessage('getConfig', getConfig)
+    let cachedConfig: Record<string, boolean> | null = null
+    const loadConfig = async () => {
+      cachedConfig = await getConfig()
+      return cachedConfig
+    }
+    void loadConfig()
+
+    browser.storage.sync.onChanged.addListener((changes) => {
+      if (changes.config) {
+        void loadConfig()
+      }
+    })
+
+    eventMessager.onMessage('getConfig', () => cachedConfig ?? loadConfig())
   },
 })

@@ -9,6 +9,7 @@ export function hideNavMore(): BasePlugin {
       hideElement([
         // sidebar - More menu button
         '[data-testid="AppTabBar_More_Menu"]',
+        'nav > button:has(svg[data-icon="icon-more-dots-hor-circle"])',
       ])
     },
   }

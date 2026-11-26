@@ -1,4 +1,4 @@
-import { hideElement } from '../css'
+import { hideElement, hideVirtualListItem } from '../css'
 import type { BasePlugin } from './plugin'
 
 export function hideAdvertisement(): BasePlugin {
@@ -9,6 +9,8 @@ export function hideAdvertisement(): BasePlugin {
       hideElement([
         '[data-testid="cellInnerDiv"]:has(> div > div > [data-testid="placementTracking"])',
       ])
+      // New X Relay frontend: promoted tweets are tagged `data-clean-twitter-ad="1"` via React fiber in MAIN world
+      hideVirtualListItem(['li[data-index]:has([data-clean-twitter-ad="1"])'])
     },
   }
 }

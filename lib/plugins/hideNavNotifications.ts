@@ -9,6 +9,7 @@ export function hideNavNotifications(): BasePlugin {
       hideElement([
         // sidebar
         '[role="navigation"] > a[href="/notifications"]',
+        'nav > a[href="/notifications"]',
         // mobile
         'div:has( > a[href="/notifications"])',
       ])

@@ -9,6 +9,7 @@ export function hideNavExplore(): BasePlugin {
       hideElement([
         // sidebar
         '[role="navigation"] > a[href="/explore"]',
+        'nav > a[href="/explore"]',
         // mobile
         'div:has( > a[href="/explore"])',
       ])

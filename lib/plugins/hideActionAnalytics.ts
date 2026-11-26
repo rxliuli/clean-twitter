@@ -13,12 +13,18 @@ export function hideActionAnalytics(): BasePlugin {
         '[data-testid="Dropdown"] > [data-testid="analytics"]',
         // desktop profile analytics link
         '[data-testid="analytics-preview"]',
+        // New X Relay frontend
+        'article div.min-w-0.flex-1:has(> a[href*="/status/"][href$="/analytics"])',
+        'article a[href*="/status/"][href$="/analytics"]',
       ])
       hideElementOnMobile([
         // tweet actions
         '[data-testid="cellInnerDiv"] [role="group"] > div:has(> [href*="/status/"][href$="/analytics"])',
         // mobile action dropdown menu
         '[data-testid="sheetDialog"] > [data-testid="analytics"]',
+        // New X Relay frontend
+        'article div.min-w-0.flex-1:has(> a[href*="/status/"][href$="/analytics"])',
+        'article a[href*="/status/"][href$="/analytics"]',
       ])
     },
   }

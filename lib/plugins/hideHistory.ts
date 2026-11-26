@@ -9,10 +9,12 @@ export function hideNavHistory(): BasePlugin {
       hideElement([
         // sidebar
         '[role="navigation"] > a[href="/i/history"]',
+        'nav > a[href="/i/history"]',
         // sidebar mobile
         'div:has( > a[href="/i/history"])',
         // X used to expose bookmarks as a standalone nav item
         '[role="navigation"] > a[href="/i/bookmarks"]',
+        'nav > a[href="/i/bookmarks"]',
         'div:has( > a[href="/i/bookmarks"])',
       ])
     },

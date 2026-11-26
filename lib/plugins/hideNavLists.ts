@@ -9,6 +9,7 @@ export function hideNavLists(): BasePlugin {
       hideElement([
         // desktop navigation
         '[role="navigation"] > a[href$="/lists"]',
+        'nav > a[href$="/lists"]',
         // desktop dropdown menu
         '[data-testid="Dropdown"] > [href="/i/lists/add_member"]',
         '[data-testid="Dropdown"] > [href$="/lists"]',

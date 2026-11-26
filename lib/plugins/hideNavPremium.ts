@@ -12,6 +12,9 @@ export function hideNavPremium(): BasePlugin {
         '[href="/i/premium_sign_up"]',
         '[href="/i/verified-orgs-signup"]',
         '[href="/i/premium_tier_switch"]',
+        'aside:has(>[href^="/i/premium_sign_up"])',
+        'aside [role="complementary"]:has(a[href^="/i/premium_sign_up"])',
+        'aside section:has(a[href^="/i/premium_sign_up"])',
       ])
     },
   }

@@ -9,6 +9,7 @@ export function hideNavGrok(): BasePlugin {
       hideElement([
         // sidebar
         '[role="navigation"] > a[href="/i/grok"]',
+        'nav > a[href="/i/grok"]',
       ])
     },
   }

@@ -9,6 +9,7 @@ export function hideNavHome(): BasePlugin {
       hideElement([
         // sidebar
         '[role="navigation"] > a[href="/home"]',
+        'nav > a[href="/home"]',
         // mobile
         'div:has( > a[href="/home"])',
       ])
